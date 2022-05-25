@@ -1,12 +1,72 @@
 import React from "react";
+import { Disclosure } from "@headlessui/react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { Icon } from "@iconify/react";
+
+const faqItems = [
+  {
+    title: "Apa itu Merchain",
+    body: "Merchain adalah sebuah online store builder, dengan merchain pelaku usaha di Indonesia bisa membuat online storenya sendiri dengan mudah dan cepat.",
+  },
+  {
+    title: "Apakah merchain berbayar?",
+    body: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet velit ducimus, eum repellat impedit labore quod blanditiis quae repudiandae praesentium. Perspiciatis dicta at sapiente?",
+  },
+  {
+    title: "Apakah merchain perlu tenaga teknis",
+    body: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet velit ducimus, eum repellat impedit labore quod blanditiis quae repudiandae praesentium. Perspiciatis dicta at sapiente?",
+  },
+  {
+    title: "Bagaimana saya mengatur produk dan orderan?",
+    body: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet velit ducimus, eum repellat impedit labore quod blanditiis quae repudiandae praesentium. Perspiciatis dicta at sapiente?",
+  },
+  {
+    title: "Apakah saya bisa mengkostumisasi toko saya",
+    body: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet velit ducimus, eum repellat impedit labore quod blanditiis quae repudiandae praesentium. Perspiciatis dicta at sapiente?",
+  },
+  {
+    title: "Bagaimana cara saya menerima pembayaran",
+    body: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet velit ducimus, eum repellat impedit labore quod blanditiis quae repudiandae praesentium. Perspiciatis dicta at sapiente?",
+  },
+];
 
 function Faq() {
   return (
     <div>
       <Navbar />
-      Faq
+      <div className="flex flex-col items-center mt-12 mb-16">
+        <h1 className="font-semibold text-left text-4xl">Frequently Asked Questions</h1>
+        <div className="flex flex-col items-start gap-3 mt-8  w-2/3">
+          {faqItems.map((faqItem, i) => (
+            <Disclosure
+              key={i}
+              as="div"
+              className="p-6 border-[1px] border-gray-300 rounded-md  w-full"
+            >
+              {({ open }) => (
+                <>
+                  <Disclosure.Button
+                    className={`text-lg font-semibold w-full text-left flex items-center justify-between ${
+                      open && "text-purple-600"
+                    }`}
+                  >
+                    {faqItem.title}
+                    {open ? (
+                      <Icon icon="akar-icons:minus" width="24" />
+                    ) : (
+                      <Icon icon="bi:plus" width="32" />
+                    )}
+                  </Disclosure.Button>
+                  <Disclosure.Panel className="text-gray-500 pt-3 w-11/12">
+                    {faqItem.body}
+                  </Disclosure.Panel>
+                </>
+              )}
+            </Disclosure>
+          ))}
+        </div>
+      </div>
       <Footer />
     </div>
   );

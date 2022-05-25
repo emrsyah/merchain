@@ -21,7 +21,7 @@ function Home() {
           </p>
           <div className="flex items-center border-2 border-purple-600 rounded-full pr-3 pl-5 py-2 mt-14">
             <p className="lg:text-xl font-medium">merchain.com/</p>
-            <form className="flex" action="/login">
+            <form className="flex" action="/signup">
               <input
                 type="text"
                 className="lg:text-xl outline-none lg:w-36 w-24"

@@ -1,9 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import logo from "../assets/merchainLogo.svg";
 import GoogleLogin from "../components/GoogleLogin";
 
 function Signup() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [storeName, setStoreName] = useState(searchParams.get('name') ? searchParams.get('name') : "");
+
   return (
     <>
       <nav className="py-4 px-4 lg:px-16 flex items-center justify-between ">
@@ -11,7 +14,9 @@ function Signup() {
           <img src={logo} alt="merchain icon" />
         </Link>
         <div>
-          <span className="opacity-80 hidden md:inline">Sudah punya akun? </span>
+          <span className="opacity-80 hidden md:inline">
+            Sudah punya akun?{" "}
+          </span>
           <Link
             to="/login"
             className="font-semibold text-purple-600 underline hover:font-bold"
@@ -32,6 +37,8 @@ function Signup() {
               type="text"
               required
               placeholder="tokokamu"
+              value={storeName}
+              onChange={(ev) => setStoreName(ev.target.value)}
               className="required outline-none font-medium w-4/5"
             />
           </div>

@@ -10,9 +10,14 @@ body{
 
 @layer components{
   .btnPrimary{
-    @apply font-semibold rounded-md py-3 px-6 border-purple-600 border-2  bg-purple-600 text-white hover:bg-purple-700;
+    @apply font-semibold rounded-md py-3 px-6 border-purple-600 border-2   bg-purple-600 text-white hover:bg-purple-700 hover:border-purple-700;
   }
   .btnSecondary{
     @apply font-semibold rounded-md py-3 px-6 border-purple-200 border-2 text-purple-600 hover:border-purple-600 transition-all duration-300 ease-in-out
   }
 }
+
+.colorPrimary{
+  color: #7C3AED;
+}
+

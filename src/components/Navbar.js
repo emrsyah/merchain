@@ -1,15 +1,16 @@
+import { Icon } from "@iconify/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/merchainLogo.svg";
 
 function Navbar() {
   return (
-    <nav className="flex items-center justify-between py-5 px-16 border-b-[1px] border-b-gray-200">
+    <nav className="flex items-center justify-between py-5 px-6 lg:px-16 border-b-[1px] border-b-gray-200">
       <Link to="/">
         <img src={logo} alt="merchain logo" />
       </Link>
       <div className="items-center justify-between gap-10 hidden md:flex">
-        <Link to="/faq" className="font-medium ml-7 hover:text-purple-600">
+        <Link to="/faq" className="font-semibold ml-7 hover:text-purple-600">
           FAQ
         </Link>
         <div className="flex items-center justify-between gap-4">
@@ -28,7 +29,7 @@ function Navbar() {
         </div>
       </div>
       <div className="md:hidden flex">
-        Hamburger Button
+      <Icon icon="charm:menu-hamburger"  width="32" className="opacity-80" />
       </div>
     </nav>
   );

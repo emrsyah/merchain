@@ -1,5 +1,5 @@
 import React from "react";
-import { Disclosure } from "@headlessui/react";
+import { Disclosure, Transition } from "@headlessui/react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { Icon } from "@iconify/react";
@@ -33,10 +33,12 @@ const faqItems = [
 
 function Faq() {
   return (
-    <div>
+    <>
       <Navbar />
       <div className="flex flex-col items-center mt-8 mb-16">
-        <h1 className="font-semibold text-left text-2xl lg:text-4xl">Frequently Asked Questions</h1>
+        <h1 className="font-semibold text-left text-2xl lg:text-4xl">
+          Frequently Asked Questions
+        </h1>
         <div className="flex flex-col items-start gap-3 mt-8 w-11/12 lg:w-2/3">
           {faqItems.map((faqItem, i) => (
             <Disclosure
@@ -58,9 +60,18 @@ function Faq() {
                       <Icon icon="bi:plus" width="32" />
                     )}
                   </Disclosure.Button>
-                  <Disclosure.Panel className="text-gray-500 px-6 pb-4 w-11/12">
-                    {faqItem.body}
-                  </Disclosure.Panel>
+                  <Transition
+                    enter="transition duration-200 ease-out"
+                    enterFrom="transform scale-95 opacity-0"
+                    enterTo="transform scale-100 opacity-100"
+                    leave="transition duration-75 ease-out"
+                    leaveFrom="transform scale-100 opacity-100"
+                    leaveTo="transform scale-95 opacity-0"
+                  >
+                    <Disclosure.Panel className="text-gray-500 px-6 pb-4 w-11/12 ">
+                      {faqItem.body}
+                    </Disclosure.Panel>
+                  </Transition>
                 </>
               )}
             </Disclosure>
@@ -68,7 +79,7 @@ function Faq() {
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

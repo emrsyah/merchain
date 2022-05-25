@@ -8,13 +8,12 @@ function Home() {
     <div className="flex flex-col">
       <Navbar />
       <div className="flex-grow flex items-center mt-20 flex-col mb-20">
-
         <div className="flex items-center flex-col">
           <h1 className="lg:text-6xl text-3xl font-bold text-center max-w-4xl leading-[1.15]">
             <span className="text-purple-600">
               Buat online store kamu sendiri{" "}
             </span>
-            <br/>
+            <br />
             mudah dan cepat.
           </h1>
           <p className="mt-3 lg:text-lg text-center">
@@ -22,12 +21,13 @@ function Home() {
           </p>
           <div className="flex items-center border-2 border-purple-600 rounded-full pr-3 pl-5 py-2 mt-14">
             <p className="lg:text-xl font-medium">merchain.com/</p>
-            <form className="flex">
+            <form className="flex" action="/login">
               <input
                 type="text"
                 className="lg:text-xl outline-none lg:w-36 w-24"
                 placeholder="tokokamu"
                 required
+                name="name"
               />
               <button
                 type="submit"
@@ -37,8 +37,11 @@ function Home() {
               </button>
             </form>
           </div>
-          <p className="mt-4 opacity-80">
-            Tunggu apalagi, Mulai sekarang - Gratis!
+          <p className="mt-4 ">
+            <span className="opacity-80">
+              Tunggu apalagi, Mulai sekarang - Gratis
+            </span>
+            🤩🤩🤩!
           </p>
         </div>
 
@@ -55,7 +58,7 @@ function Home() {
                 <Icon icon="ic:outline-query-stats" width="24" />
                 Analisa Toko Kamu
               </div>
-              <p className="opacity-80 leading-tight text-left mt-2">
+              <p className="opacity-80 leading-snug text-left mt-2">
                 Ketahui pejualan kamu dengan mudah, udah itu kamu juga bisa tau
                 seberapa sering toko mu sering dikunjungi.
               </p>
@@ -66,7 +69,7 @@ function Home() {
                 <Icon icon="icon-park:ad-product" width="24" />
                 Atur Produk dan Orderan
               </div>
-              <p className="opacity-80 leading-tight text-left mt-2">
+              <p className="opacity-80 leading-snug text-left mt-2">
                 Atur produk jualan kamu dengan mudah, selain itu kamu juga bisa
                 mengawasi orderan masuk dengan simpel.
               </p>
@@ -77,14 +80,13 @@ function Home() {
                 <Icon icon="fluent:paint-brush-16-regular" width="24" />
                 Kostumisasi Toko Kamu
               </div>
-              <p className="opacity-80 leading-tight text-left mt-2">
+              <p className="opacity-80 leading-snug text-left mt-2">
                 Merchain nyediain berbagai fitur kostumisasi buat toko kamu,
                 jadi kamu bisa lebih enak dan bebas ngatur semaunya.
               </p>
             </div>
           </div>
         </div>
-
       </div>
       <Footer />
     </div>

@@ -7,11 +7,11 @@ function Footer() {
   return (
     <footer className="flex flex-col lg:flex-row justify-between items-start gap-4 lg:items-center py-8 px-16 border-t-[1px] border-t-gray-300">
       <div className="flex items-center gap-6 font-semibold">
-        <img src={logo} alt="" />
-        <Link to="faq" className="hover:text-purple-600">
+        <img src={logo} alt="merchain logo" />
+        <Link to="/faq" className="hover:text-purple-600">
           FAQ
         </Link>
-        <Link to="login" className="hover:text-purple-600">
+        <Link to="/login" className="hover:text-purple-600">
           Login
         </Link>
       </div>

@@ -6,12 +6,12 @@ import GoogleLogin from "../components/GoogleLogin";
 function Signup() {
   return (
     <>
-      <nav className="py-6 px-16 flex items-center justify-between ">
+      <nav className="py-4 px-4 lg:px-16 flex items-center justify-between ">
         <Link to="/">
           <img src={logo} alt="merchain icon" />
         </Link>
         <div>
-          <span className="opacity-80">Sudah punya akun? </span>
+          <span className="opacity-80 hidden md:inline">Sudah punya akun? </span>
           <Link
             to="/login"
             className="font-semibold text-purple-600 underline hover:font-bold"
@@ -20,11 +20,11 @@ function Signup() {
           </Link>
         </div>
       </nav>
-      <div className="flex justify-center mt-6 flex-col max-w-sm mx-auto">
+      <div className="flex px-4 justify-center mt-6 flex-col max-w-sm mx-auto">
         <h1 className="text-3xl font-semibold text-center">Daftar Sekarang</h1>
 
         {/* Form Login Biasa */}
-        <form className="flex flex-col mt-8 gap-3">
+        <form className="flex flex-col mt-6 gap-3">
           {/* Input nama toko */}
           <div className="font-medium p-4 flex py-3 border-2 border-gray-300 rounded-lg outline-purple-500 hover:border-purple-600 duration-500 ease-out transition-all">
             <p>merchain.com/</p>
@@ -32,7 +32,7 @@ function Signup() {
               type="text"
               required
               placeholder="tokokamu"
-              className="required outline-none"
+              className="required outline-none font-medium w-4/5"
             />
           </div>
           <input
@@ -54,7 +54,7 @@ function Signup() {
             Daftar
           </button>
         </form>
-        <p class="text-center overflow-hidden before:h-[1.5px] font-medium opacity-60 after:h-[1.5px] after:bg-slate-400 after:inline-block after:relative after:align-middle after:w-1/4 before:bg-slate-400 before:inline-block before:relative before:align-middle before:w-1/4 before:right-2 after:left-2  p-8">
+        <p className="opacity-80 text-center my-5 font-medium  overflow-hidden before:h-[1.5px] after:h-[1.5px] after:bg-gray-300 after:inline-block after:relative after:align-middle after:w-1/4 before:bg-gray-300 before:inline-block before:relative before:align-middle before:w-1/4 before:right-2 after:left-2">
           atau masuk dengan
         </p>
 

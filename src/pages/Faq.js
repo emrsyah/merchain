@@ -35,19 +35,19 @@ function Faq() {
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col items-center mt-12 mb-16">
-        <h1 className="font-semibold text-left text-4xl">Frequently Asked Questions</h1>
-        <div className="flex flex-col items-start gap-3 mt-8  w-2/3">
+      <div className="flex flex-col items-center mt-8 mb-16">
+        <h1 className="font-semibold text-left text-2xl lg:text-4xl">Frequently Asked Questions</h1>
+        <div className="flex flex-col items-start gap-3 mt-8 w-11/12 lg:w-2/3">
           {faqItems.map((faqItem, i) => (
             <Disclosure
               key={i}
               as="div"
-              className="p-6 border-[1px] border-gray-300 rounded-md  w-full"
+              className="border-[1px] border-gray-300 rounded-lg  w-full"
             >
               {({ open }) => (
                 <>
                   <Disclosure.Button
-                    className={`text-lg font-semibold w-full text-left flex items-center justify-between ${
+                    className={`text-lg px-6 py-4 font-semibold w-full text-left flex items-center justify-between ${
                       open && "text-purple-600"
                     }`}
                   >
@@ -58,7 +58,7 @@ function Faq() {
                       <Icon icon="bi:plus" width="32" />
                     )}
                   </Disclosure.Button>
-                  <Disclosure.Panel className="text-gray-500 pt-3 w-11/12">
+                  <Disclosure.Panel className="text-gray-500 px-6 pb-4 w-11/12">
                     {faqItem.body}
                   </Disclosure.Panel>
                 </>

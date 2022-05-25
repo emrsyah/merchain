@@ -7,7 +7,7 @@ function Home() {
   return (
     <div className="flex flex-col">
       <Navbar />
-      <div className="flex-grow flex items-center mt-20 flex-col">
+      <div className="flex-grow flex items-center mt-20 flex-col mb-20">
         <div className="flex items-center flex-col">
           <h1 className="text-6xl font-bold text-center max-w-4xl leading-[1.15]">
             <span className="text-purple-600">

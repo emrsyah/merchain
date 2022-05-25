@@ -4,7 +4,7 @@ import logo from "../assets/merchainLogo.svg";
 
 function Navbar() {
   return (
-    <div className="flex items-center justify-between py-5 px-16 border-b-[1px] border-b-gray-200">
+    <nav className="flex items-center justify-between py-5 px-16 border-b-[1px] border-b-gray-200">
       <Link to="/">
         <img src={logo} alt="" />
       </Link>
@@ -27,7 +27,7 @@ function Navbar() {
           </Link>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 

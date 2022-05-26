@@ -16,6 +16,7 @@ import {
   where,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
+import checkStoreNameAvailability from "../helpers/checkStoreNameAvailability";
 
 function Onboarding() {
   const [isOnboarding, setIsOboarding] = useRecoilState(onboardingState);
@@ -38,7 +39,7 @@ function Onboarding() {
   const submitHandler = async (ev) => {
     ev.preventDefault();
     try {
-      const isAvailable = await checkStoreNameAvailability()
+      const isAvailable = await checkStoreNameAvailability(storeName)
       console.log(isAvailable)
       if (isAvailable > 0) {
         toast.error("Nama sudah dipakai, silahkan ganti");
@@ -70,15 +71,6 @@ function Onboarding() {
     }
   };
 
-  //   Cek nama toko udh ada atau belum
-  async function checkStoreNameAvailability() {
-    const q = query(
-      collection(firestoreDb, "stores"),
-      where("storeName", "==", storeName)
-    );
-    const docSnap = await getDocs(q);
-    return docSnap.docs.length;
-  }
 
   return (
     <div className="flex m-auto my-8 max-w-sm flex-col items-center justify-center">

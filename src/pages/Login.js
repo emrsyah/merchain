@@ -1,10 +1,44 @@
-import React from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import logo from "../assets/merchainLogo.svg";
 import GoogleLogin from "../components/GoogleLogin";
+import { auth } from "../firebase";
 
 function Login() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const emailRef = useRef();
+  const passRef = useRef();
+
+  const loginHandler = async (ev) => {
+    ev.preventDefault();
+    const id = toast.loading("Tolong tunggu...")
+    setLoading(true);
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passRef.current.value
+      );
+      navigate("/app/home");
+    } catch (error) {
+      if (error.code.includes("not-found")) {
+        toast.error("Sorry, account is not found");
+        return;
+      } else if (error.code.includes("wrong-password")) {
+        toast.error("Invalid username or password");
+        return;
+      }
+      toast.error(error.code);
+    } finally {
+      setLoading(false);
+      toast.update(id, { render: "Sukses, Selamat Datang!", type: "success", isLoading: false, autoClose: 2000 });
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -32,14 +66,18 @@ function Login() {
         </h1>
 
         {/* Form Login Biasa */}
-        <form className="flex flex-col mt-6 gap-3">
+        <form className="flex flex-col mt-6 gap-3" onSubmit={loginHandler}>
           <input
+            disabled={loading}
+            ref={emailRef}
             type="email"
             placeholder="Email"
             required
             className="inputStyle"
           />
           <input
+            ref={passRef}
+            disabled={loading}
             type="password"
             placeholder="Password"
             required
@@ -48,7 +86,8 @@ function Login() {
           />
           <button
             type="submit"
-            className="p-3 mt-2 tracking-widest font-semibold hover:bg-purple-700 transition-all duration-200 ease-out bg-purple-600 text-white rounded-lg"
+            disabled={loading}
+            className={`p-3 mt-2 tracking-widest font-semibold hover:bg-purple-700 transition-all duration-200 ease-out bg-purple-600 text-white rounded-lg ${loading && "opacity-75"}`}
           >
             Masuk Sekarang
           </button>

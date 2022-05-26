@@ -21,6 +21,7 @@ function Signup() {
 
   const signupHandler = async (ev) => {
     ev.preventDefault();
+    const id = toast.loading("Tolong tunggu...")
     setLoading(true)
     try {
       const isAvailable = await checkStoreNameAvailability(storeName);
@@ -64,6 +65,7 @@ function Signup() {
       console.log(error);
       toast.error(error.code);
     } finally{
+      toast.update(id, { render: "Sukses, Selamat Datang!", type: "success", isLoading: false, autoClose: 2000 });
       setLoading(false)
     }
   };
@@ -129,7 +131,7 @@ function Signup() {
           <button
             type="submit"
             disabled={loading}
-            className="p-3 mt-2 tracking-widest font-semibold hover:bg-purple-700 transition-all duration-200 ease-out bg-purple-600 text-white rounded-lg"
+            className={`p-3 mt-2 tracking-widest font-semibold hover:bg-purple-700 transition-all duration-200 ease-out bg-purple-600 text-white rounded-lg ${loading && "opacity-75"} `}
           >
             Daftar
           </button>

@@ -9,14 +9,12 @@ import {
   addDoc,
   collection,
   doc,
-  getDocs,
-  query,
   serverTimestamp,
   setDoc,
-  where,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 import checkStoreNameAvailability from "../helpers/checkStoreNameAvailability";
+import { Helmet } from "react-helmet-async";
 
 function Onboarding() {
   const [isOnboarding, setIsOboarding] = useRecoilState(onboardingState);
@@ -73,6 +71,11 @@ function Onboarding() {
 
   return (
     <div className="flex m-auto my-8 max-w-sm flex-col items-center justify-center">
+      <Helmet>
+        <title>
+          Onboarding | Merchain
+        </title>
+      </Helmet>
       <Link to="/">
         <img src={logo} alt="merchain logo" />
       </Link>

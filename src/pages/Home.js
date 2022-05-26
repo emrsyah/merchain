@@ -2,6 +2,7 @@ import React from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -86,6 +87,9 @@ function Home() {
               </p>
             </div>
           </div>
+          <Link to='/signup' className="mt-12 p-5 inline-block bg-purple-600 text-white rounded-md hover:bg-purple-700 font-medium text-lg lg:text-xl">
+            Coba Sekarang - Gratis!
+          </Link>
         </div>
       </div>
       <Footer />

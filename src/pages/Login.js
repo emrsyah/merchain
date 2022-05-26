@@ -30,7 +30,7 @@ function Login() {
         {/* Form Login Biasa */}
         <form className="flex flex-col mt-6 gap-3">
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             required
             className="required font-medium p-4 py-3 border-2 border-gray-300 rounded-lg outline-purple-500 hover:border-purple-600 duration-500 ease-out transition-all"
@@ -39,6 +39,7 @@ function Login() {
             type="password"
             placeholder="Password"
             required
+            minLength={8}
             className="required font-medium p-4 py-3 border-2 border-gray-300 rounded-lg outline-purple-500 hover:border-purple-600 duration-500 ease-out transition-all"
           />
           <button
@@ -49,7 +50,7 @@ function Login() {
           </button>
         </form>
         <p className="opacity-80 text-center my-5 font-medium  overflow-hidden before:h-[1.5px] after:h-[1.5px] after:bg-gray-300 after:inline-block after:relative after:align-middle after:w-1/4 before:bg-gray-300 before:inline-block before:relative before:align-middle before:w-1/4 before:right-2 after:left-2">
-          atau masuk dengan
+          atau lanjut dengan
         </p>
 
         {/* Google Login */}

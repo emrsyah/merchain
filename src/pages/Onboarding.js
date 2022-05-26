@@ -21,6 +21,7 @@ function Onboarding() {
   const navigate = useNavigate();
   const [storeName, setStoreName] = useState("");
   const [userNow, setUserNow] = useState();
+  const [loading, setLoading] = useState(false);
   const bioRef = useRef();
   const openRef = useRef();
   const closeRef = useRef();
@@ -35,7 +36,9 @@ function Onboarding() {
   }, []);
 
   const submitHandler = async (ev) => {
-    ev.preventDefault();
+    ev.preventDefault()
+    setLoading(true)
+    const id = toast.loading("Tolong tunggu...")
     try {
       const isAvailable = await checkStoreNameAvailability(storeName)
       if (isAvailable > 0) {
@@ -65,6 +68,9 @@ function Onboarding() {
       navigate('/app/home')
     } catch (err) {
       console.log(err);
+    } finally{
+      setLoading(false)
+      toast.update(id, { render: "Sukses, Selamat Datang!", type: "success", isLoading: false, autoClose: 2000 });
     }
   };
 
@@ -94,8 +100,10 @@ function Onboarding() {
             <input
               type="text"
               required
+              disabled={loading}
               placeholder="tokokamu"
               value={storeName}
+              pattern="^[0-9a-zA-Z]+$"
               onChange={(ev) => setStoreName(ev.target.value)}
               className="required outline-none font-medium w-4/5"
             />
@@ -106,6 +114,7 @@ function Onboarding() {
           <textarea
             required
             rows="3"
+            disabled={loading}
             ref={bioRef}
             className="inputStyle w-full"
             placeholder="Ceritain sedikit tentang toko kamu"
@@ -120,18 +129,20 @@ function Onboarding() {
             <input
               type="time"
               required
+              disabled={loading}
               ref={openRef}
               className="inputStyle w-full"
             />
             <input
               type="time"
               required
+              disabled={loading}
               ref={closeRef}
               className="inputStyle w-full"
             />
           </div>
         </div>
-        <button type="submit" className="btnPrimary">
+        <button type="submit" className={`btnPrimary ${loading && "opacity-75"}`}>
           Buat Sekarang
         </button>
       </form>

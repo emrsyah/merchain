@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/merchainLogo.svg";
 
 function Navbar() {
@@ -10,9 +10,11 @@ function Navbar() {
         <img src={logo} alt="merchain logo" />
       </Link>
       <div className="items-center justify-between gap-10 hidden md:flex">
-        <Link to="/faq" className="font-semibold ml-7 hover:text-purple-600">
+        <NavLink to="/faq"  className={({ isActive }) =>
+              isActive ? "font-semibold text-purple-600" : "font-semibold hover:text-purple-600"
+            }>
           FAQ
-        </Link>
+        </NavLink>
         <div className="flex items-center justify-between gap-4">
           <Link
             to="/login"

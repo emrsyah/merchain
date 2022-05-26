@@ -10,9 +10,11 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { RecoilRoot } from "recoil";
 import Onboarding from "./pages/Onboarding";
+import { HelmetProvider } from "react-helmet-async";
 
 function App() {
   return (
+    <HelmetProvider>
     <RecoilRoot>
     <ToastContainer />    
     <BrowserRouter>
@@ -30,6 +32,7 @@ function App() {
       </Routes>
     </BrowserRouter>
     </RecoilRoot>
+    </HelmetProvider>
   );
 }
 

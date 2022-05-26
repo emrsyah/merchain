@@ -1,8 +1,14 @@
 import React from 'react'
+import { Helmet } from 'react-helmet-async'
 
 function Manage() {
   return (
-    <div>Manage</div>
+    <div>
+      <Helmet>
+        <title>Home | Merchain</title>
+      </Helmet>
+      Manage
+    </div>
   )
 }
 

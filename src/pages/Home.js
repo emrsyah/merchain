@@ -3,10 +3,14 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 function Home() {
   return (
     <div className="flex flex-col">
+      <Helmet>
+        <title>Merchain - Buat Online Store kamu cepat dan mudah</title>
+      </Helmet>
       <Navbar />
       <div className="flex-grow flex items-center mt-20 flex-col mb-20">
         <div className="flex items-center flex-col">
@@ -87,7 +91,10 @@ function Home() {
               </p>
             </div>
           </div>
-          <Link to='/signup' className="mt-12 p-5 inline-block bg-purple-600 text-white rounded-md hover:bg-purple-700 font-medium text-lg lg:text-xl">
+          <Link
+            to="/signup"
+            className="mt-12 p-5 inline-block bg-purple-600 text-white rounded-md hover:bg-purple-700 font-medium text-lg lg:text-xl"
+          >
             Coba Sekarang - Gratis!
           </Link>
         </div>

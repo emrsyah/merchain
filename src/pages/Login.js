@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import logo from "../assets/merchainLogo.svg";
 import GoogleLogin from "../components/GoogleLogin";
@@ -6,6 +7,9 @@ import GoogleLogin from "../components/GoogleLogin";
 function Login() {
   return (
     <>
+      <Helmet>
+        <title>Login | Merchain</title>
+      </Helmet>
       <nav className="py-4 px-4 lg:px-16 flex items-center justify-between ">
         <Link to="/">
           <img src={logo} alt="merchain icon" />

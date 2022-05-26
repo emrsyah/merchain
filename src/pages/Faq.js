@@ -3,6 +3,7 @@ import { Disclosure, Transition } from "@headlessui/react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { Icon } from "@iconify/react";
+import { Helmet } from "react-helmet-async";
 
 const faqItems = [
   {
@@ -34,6 +35,9 @@ const faqItems = [
 function Faq() {
   return (
     <>
+      <Helmet>
+        <title>FAQ | Merchain</title>
+      </Helmet>
       <Navbar />
       <div className="flex flex-col items-center mt-8 mb-16">
         <h1 className="font-semibold text-left text-2xl lg:text-4xl">

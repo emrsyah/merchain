@@ -14,7 +14,6 @@ function GoogleLogin() {
   const loginHandler = async () =>{
     try{
       const result = await signInWithPopup(auth, googleProvider)
-      // const userCred = GoogleAuthProvider.credentialFromResult(result)
       const user = result.user
       const docSnap = await getDoc(doc(firestoreDb, "users", user.uid))
 
@@ -22,14 +21,6 @@ function GoogleLogin() {
       if(docSnap.exists()){
         navigate("/app/home")
       }else{
-        // await setDoc(doc(firestoreDb, "users", user.uid),{
-        //   userId: user.uid,
-        //   email: user.email,
-        //   username: user.displayName,
-        //   userImg: user.photoURL,
-        //   emailVerified: user.emailVerified,
-        //   accountCreated: serverTimestamp()
-        // })
         setOnboarding(true)
         navigate("/onboarding")
       }

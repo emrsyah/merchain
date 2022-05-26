@@ -40,7 +40,6 @@ function Onboarding() {
     ev.preventDefault();
     try {
       const isAvailable = await checkStoreNameAvailability(storeName)
-      console.log(isAvailable)
       if (isAvailable > 0) {
         toast.error("Nama sudah dipakai, silahkan ganti");
         return;

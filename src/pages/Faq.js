@@ -37,7 +37,7 @@ function Faq() {
       <Navbar />
       <div className="flex flex-col items-center mt-8 mb-16">
         <h1 className="font-semibold text-left text-2xl lg:text-4xl">
-          Frequently Asked Questions
+          Frequently Asked Questions🤔
         </h1>
         <div className="flex flex-col items-start gap-3 mt-8 w-11/12 lg:w-2/3">
           {faqItems.map((faqItem, i) => (

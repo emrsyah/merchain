@@ -7,7 +7,9 @@ import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
 import Manage from "./pages/app/Manage";
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { RecoilRoot } from "recoil";
+import Onboarding from "./pages/Onboarding";
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
         <Route path="faq" element={<Faq />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="onboarding" element={<Onboarding />} />
         <Route path="app" element={<Layout />}>
           <Route index element={<Manage />} />
           <Route path="home" element={<Manage />} />

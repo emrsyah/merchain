@@ -33,14 +33,14 @@ function Login() {
             type="email"
             placeholder="Email"
             required
-            className="required font-medium p-4 py-3 border-2 border-gray-300 rounded-lg outline-purple-500 hover:border-purple-600 duration-500 ease-out transition-all"
+            className="inputStyle"
           />
           <input
             type="password"
             placeholder="Password"
             required
             minLength={8}
-            className="required font-medium p-4 py-3 border-2 border-gray-300 rounded-lg outline-purple-500 hover:border-purple-600 duration-500 ease-out transition-all"
+            className="inputStyle"
           />
           <button
             type="submit"

@@ -4,30 +4,33 @@ import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSetRecoilState } from "recoil";
+import { onboardingState } from "../atoms/onboardingAtom";
 import { auth, firestoreDb, googleProvider } from "../firebase";
 
 function GoogleLogin() {
   const navigate = useNavigate()
+  const setOnboarding = useSetRecoilState(onboardingState)
   const loginHandler = async () =>{
     try{
       const result = await signInWithPopup(auth, googleProvider)
       // const userCred = GoogleAuthProvider.credentialFromResult(result)
       const user = result.user
-      console.log(user)
       const docSnap = await getDoc(doc(firestoreDb, "users", user.uid))
 
       //check if user already added in database or not, if not add user to database
       if(docSnap.exists()){
         navigate("/app/home")
       }else{
-        await setDoc(doc(firestoreDb, "users", user.uid),{
-          userId: user.uid,
-          email: user.email,
-          username: user.displayName,
-          userImg: user.photoURL,
-          emailVerified: user.emailVerified,
-          accountCreated: serverTimestamp()
-        })
+        // await setDoc(doc(firestoreDb, "users", user.uid),{
+        //   userId: user.uid,
+        //   email: user.email,
+        //   username: user.displayName,
+        //   userImg: user.photoURL,
+        //   emailVerified: user.emailVerified,
+        //   accountCreated: serverTimestamp()
+        // })
+        setOnboarding(true)
         navigate("/onboarding")
       }
     }

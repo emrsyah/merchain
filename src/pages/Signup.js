@@ -31,7 +31,7 @@ function Signup() {
         {/* Form Login Biasa */}
         <form className="flex flex-col mt-6 gap-3">
           {/* Input nama toko */}
-          <div className="font-medium p-4 flex py-3 border-2 border-gray-300 rounded-lg outline-purple-500 hover:border-purple-600 duration-500 ease-out transition-all">
+          <div className="inputStyle">
             <p>merchain.com/</p>
             <input
               type="text"
@@ -46,14 +46,14 @@ function Signup() {
             type="email"
             required
             placeholder="Email"
-            className="required font-medium p-4 py-3 border-2 border-gray-300 rounded-lg outline-purple-500 hover:border-purple-600 duration-500 ease-out transition-all"
+            className="inputStyle"
           />
           <input
             type="password"
             required
             minLength={8}
             placeholder="Password"
-            className="required font-medium p-4 py-3 border-2 border-gray-300 rounded-lg outline-purple-500 hover:border-purple-600 duration-500 ease-out transition-all"
+            className="inputStyle"
           />
           <button
             type="submit"

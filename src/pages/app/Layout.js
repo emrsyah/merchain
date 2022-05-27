@@ -12,7 +12,7 @@ function Layout() {
   const navigate = useNavigate();
   const setUser = useSetRecoilState(userState);
   const [store, setStore] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchAndSetStore = (uid) => {
     onSnapshot(
@@ -29,14 +29,21 @@ function Layout() {
       onAuthStateChanged(auth, (user) => {
         if (!user) {
           navigate("/login");
+          return;
         }
-        console.log(user)
+        // console.log(user);
         fetchAndSetStore(user.uid);
-        setUser({ uid: user.uid, displayName: user.displayName, profileImg: user.photoURL, verified: user.emailVerified, email: user.email });
+        setUser({
+          uid: user.uid,
+          displayName: user.displayName,
+          profileImg: user.photoURL,
+          verified: user.emailVerified,
+          email: user.email,
+        });
+        setLoading(false);
       });
     } catch (err) {
       console.log(err);
-    } finally {
       setLoading(false);
     }
   }, []);
@@ -44,17 +51,18 @@ function Layout() {
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  return (
-    <div className="flex flex-col  md:grid md:grid-cols-11 bg-[#F4F4F5]">
-      <nav className="md:col-span-2 md:col-start-1 md:col-end-3 bg-white">
-        <Sidebar store={store} />
-      </nav>
-      <main className="md:col-span-9 mt-24 md:mt-0 md:col-start-3">
-        <Outlet context={[store, setStore]} />
-      </main>
-    </div>
-  );
+  else {
+    return (
+      <div className="flex flex-col  md:grid md:grid-cols-11 bg-[#F4F4F5]">
+        <nav className="md:col-span-2 md:col-start-1 md:col-end-3 bg-white">
+          <Sidebar store={store} />
+        </nav>
+        <main className="md:col-span-9 mt-24 md:mt-0 md:col-start-3">
+          <Outlet context={[store, setStore]} />
+        </main>
+      </div>
+    );
+  }
 }
 
 export default Layout;

@@ -51,3 +51,18 @@ body{
   position: sticky;
   top: 0;
 }
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+  ::-webkit-scrollbar-track {
+  background: #fff; 
+}
+  ::-webkit-scrollbar-thumb {
+  background: rgb(175, 175, 175); 
+    border-radius:10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  
+  background: rgb(150, 150, 150); 
+}

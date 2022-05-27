@@ -10,7 +10,6 @@ import VerificationReminder from "../../components/VerificationReminder";
 function Manage() {
   const [store, setStore] = useOutletContext();
   const user = useRecoilValue(userState);
-  console.log(store.profileImg);
   return (
     <>
       <Helmet>
@@ -66,8 +65,18 @@ function Manage() {
         {/* Bio & Jam */}
         <div className="items-center bg-white p-4 rounded shadow">
           <h5 className="md:text-xl text-lg font-semibold">Tentang Toko 📢</h5>
-          <p className="text-sm leading-tight opacity-75 my-2">
-            {store.storeBio ? store.storeBio : "Belum Ada Data"}
+          <p className="mt-2  rounded w-fit text-sm font-medium">
+            Jam Buka:{" "}
+            {store.storeTime?.length === 2 ? (
+              <>
+                {store.storeTime[0]} - {store.storeTime[1]}
+              </>
+            ) : (
+              "Belum Ada Data"
+            )}
+          </p>
+          <p className="text-sm leading-tight opacity-75 my-1">
+            {store.storeBio ? store.storeBio : "Belum Ada Bio"}
           </p>
         </div>
       </div>

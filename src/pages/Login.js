@@ -27,10 +27,10 @@ function Login() {
       navigate("/app/home");
     } catch (error) {
       if (error.code.includes("not-found")) {
-        toast.error("Sorry, account is not found");
+        toast.update(id, { render: "Maaf, akun tak ditemukan", type: "error", isLoading: false, autoClose: 3000 });
         return;
       } else if (error.code.includes("wrong-password")) {
-        toast.error("Invalid username or password");
+        toast.update(id, { render: "Email atau password salah", type: "error", isLoading: false, autoClose: 3000 });
         return;
       }
       toast.error(error.code);

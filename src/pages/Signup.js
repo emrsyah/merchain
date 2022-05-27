@@ -61,10 +61,10 @@ function Signup() {
       });
       toast.update(id, { render: "Sukses, Selamat Datang!", type: "success", isLoading: false, autoClose: 2000 });
       navigate('/app/home')
-
+      
     } catch (error) {
       if (error.message.includes("already-in-use")) {
-        toast.error("This Email Already In Use");
+        toast.update(id, { render: "This Email Already In Use", type: "error", isLoading: false, autoClose: 3000 });
         return;
       }
       console.log(error);

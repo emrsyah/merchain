@@ -39,6 +39,7 @@ function Onboarding() {
     ev.preventDefault()
     setLoading(true)
     const id = toast.loading("Tolong tunggu...")
+    const storeLower = storeName.toLowerCase()
     try {
       const isAvailable = await checkStoreNameAvailability(storeName)
       if (isAvailable > 0) {
@@ -58,6 +59,7 @@ function Onboarding() {
         emailVerified: userNow.emailVerified,
         profileImg: "https://firebasestorage.googleapis.com/v0/b/merchain-77995.appspot.com/o/svgDefault.svg?alt=media&token=2f08d0c9-8555-4376-8d1d-a1f60e76b4af",
         storeName: storeName,
+        storeNameLowercase: storeLower,
         storeBio: bioRef.current.value,
         storeTime: [openRef.current.value, closeRef.current.value],
         visited: 0,

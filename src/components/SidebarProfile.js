@@ -17,13 +17,9 @@ function SidebarProfile({ img, name }) {
 
   return (
     <Menu className="w-full relative" as="div">
-      {/* <div className="flex items-center gap-2 cursor-pointer w-full rounded p-1 hover:bg-gray-100">
-          <img src={store.profileImg} className="w-10" alt="" />
-          <p className="font-medium text-[15px]">{store.storeName} Store</p>
-        </div> */}
       <Menu.Button className="flex items-center gap-2 cursor-pointer w-full rounded p-1 hover:bg-gray-100">
         <img src={img} className="w-10" alt="" />
-        <p className="font-medium text-[15px]">{name} Store</p>
+        <p className="font-medium text-left lg:text-[15px]">{name}<span className="hidden lg:inline"> Store</span></p>
       </Menu.Button>
       <Menu.Items className="absolute flex flex-col py-2 rounded bg-white gap-[2px] mt-1 w-full shadowProfile text-sm font-medium z-10">
         <Menu.Item>
@@ -46,7 +42,7 @@ function SidebarProfile({ img, name }) {
               onClick={logoutHandler}
             >
               <Icon icon="carbon:logout" width="18" />
-              <p>Keluar</p>
+              <p className="font-medium">Keluar</p>
             </button>
           )}
         </Menu.Item>

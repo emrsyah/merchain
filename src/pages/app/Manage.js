@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async'
 
 function Manage() {
   return (
-    <div>
+    <div className='h-[120vh]'>
       <Helmet>
         <title>Home | Merchain</title>
       </Helmet>

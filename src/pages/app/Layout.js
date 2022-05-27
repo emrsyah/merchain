@@ -29,7 +29,6 @@ function Layout() {
       onAuthStateChanged(auth, (user) => {
         if (!user) {
           navigate("/login");
-          // toast.info("Tolong login dahulu");
         }
         fetchAndSetStore(user.uid);
         setUser({ uid: user.uid });
@@ -46,11 +45,11 @@ function Layout() {
   }
 
   return (
-    <div className="grid grid-cols-11">
-      <nav className="col-span-2">
+    <div className="flex flex-col  md:grid md:grid-cols-11">
+      <nav className="md:col-span-2">
         <Sidebar store={store} />
       </nav>
-      <main className="col-span-9">
+      <main className="md:col-span-9 mt-24 md:mt-0">
         <Outlet />
       </main>
     </div>

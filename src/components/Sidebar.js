@@ -1,7 +1,9 @@
+import { Icon } from "@iconify/react";
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SidebarItem from "./SidebarItem";
 import SidebarProfile from "./SidebarProfile";
+import logo from "../assets/merchainLogo.svg";
 
 const sidebarItems = [
   {
@@ -35,30 +37,35 @@ function Sidebar({ store }) {
   const locationNow = useLocation();
 
   return (
-    <nav className="pl-6 pr-2 py-7 flex justify-center h-screen border-r-[1px] border-r-gray-300">
-      <div className="flex flex-col items-start w-full">
-        {/* Profile */}
-        {/* <div className="flex items-center gap-2 cursor-pointer w-full rounded p-1 hover:bg-gray-100">
-          <img src={store.profileImg} className="w-10" alt="" />
-          <p className="font-medium text-[15px]">{store.storeName} Store</p>
-        </div> */}
-        <SidebarProfile img={store.profileImg} name={store.storeName} />
+    <>
+      <nav className="pl-6 pr-2 py-7 justify-center h-screen border-r-[1px] border-r-gray-300 hidden md:flex">
+        <div className="flex flex-col items-start w-full">
+          {/* Profile */}
 
-        {/* Sidebar Items Container */}
-        <div className="w-full my-5 gap-2 flex flex-col">
-          {/* Sidebar Item */}
-          {sidebarItems.map((item, i) => (
-            <SidebarItem
-              key={i}
-              locationNow={locationNow}
-              itemPath={item.itemPath}
-              itemName={item.itemName}
-              icon={item.icon}
-            />
-          ))}
+          <SidebarProfile img={store.profileImg} name={store.storeName} />
+
+          {/* Sidebar Items Container */}
+          <div className="w-full my-5 gap-2 flex flex-col">
+            {/* Sidebar Item */}
+            {sidebarItems.map((item, i) => (
+              <SidebarItem
+                key={i}
+                locationNow={locationNow}
+                itemPath={item.itemPath}
+                itemName={item.itemName}
+                icon={item.icon}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+      <nav className="flex md:hidden bg-white p-5 border-b-[1px] border-gray-300 items-center justify-between shadow fixed top-0 w-screen overflow-hidden">
+        <Link to="/app/home">
+          <img src={logo} alt="" />
+        </Link>
+        <Icon icon="charm:menu-hamburger" width="32" className="opacity-80" />
+      </nav>
+    </>
   );
 }
 

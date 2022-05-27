@@ -32,7 +32,7 @@ function Layout() {
         }
         console.log(user)
         fetchAndSetStore(user.uid);
-        setUser({ uid: user.uid, displayName: user.displayName, profileImg: user.photoURL });
+        setUser({ uid: user.uid, displayName: user.displayName, profileImg: user.photoURL, verified: user.emailVerified, email: user.email });
       });
     } catch (err) {
       console.log(err);

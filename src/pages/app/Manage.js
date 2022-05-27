@@ -10,12 +10,19 @@ import VerificationReminder from "../../components/VerificationReminder";
 function Manage() {
   const [store, setStore] = useOutletContext();
   const user = useRecoilValue(userState);
+  console.log(store.profileImg);
   return (
     <>
       <nav className="hidden md:flex bg-white py-3 px-5 border-b-[1px] border-b-gray-300 items-center justify-between">
-        <h5 className="font-medium text-lg">Selamat Malam {user.displayName}</h5>
+        <h5 className="font-medium text-lg">
+          Selamat Malam {user.displayName}
+        </h5>
         <div className="flex items-center gap-4">
-          <Icon icon="clarity:notification-outline-badged" width="22" className="text-purple-600" />
+          <Icon
+            icon="clarity:notification-outline-badged"
+            width="22"
+            className="text-purple-600"
+          />
           {/* <img src={user.profileImg} className="w-10 rounded-full" alt="" /> */}
           <NavbarProfile img={user.profileImg} />
         </div>
@@ -26,7 +33,7 @@ function Manage() {
         </Helmet>
         <h1 className="font-semibold text-2xl">Home</h1>
 
-        <VerificationReminder />
+        {!user.verified && <VerificationReminder />}
 
         {/* Akses Cepat */}
         <div className="bg-white my-3 rounded-lg p-4 shadow">
@@ -36,9 +43,13 @@ function Manage() {
             <div className="flex items-center gap-3">
               <img src={store.profileImg} alt="" className="w-16" />
               <div>
-                <h5 className="font-semibold text-xl">Orbit Store</h5>
+                <h5 className="font-semibold text-xl">
+                  {store.storeName.charAt(0).toUpperCase() +
+                    store.storeName.slice(1)}{" "}
+                  Store
+                </h5>
                 <div className="flex gap-2 items-center">
-                  <p className="opacity-75">merchain.com/orbit</p>
+                  <p className="opacity-75">merchain.com/{store.storeName}</p>
                   <Icon
                     icon="fluent:copy-24-regular"
                     width="20"

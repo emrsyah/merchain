@@ -16,8 +16,8 @@ function NavbarProfile({img}) {
 
   return (
     <Menu className="relative" as="div">
-      <Menu.Button className="flex rounded-full items-center gap-2 cursor-pointer w-full">
-        <img src={img} className="w-10 rounded-full" alt="" />
+      <Menu.Button className="flex rounded-full hover:scale-105 transition-all ease-out duration-100 items-center gap-2 cursor-pointer w-full">
+        <img src={img} className="w-8 rounded-full" alt="" />
       </Menu.Button>
       <Menu.Items className="absolute right-0 flex flex-col py-2 rounded bg-white gap-[2px] mt-1 w-36 shadowProfile text-sm font-medium z-10">
         <Menu.Item>

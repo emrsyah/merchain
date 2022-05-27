@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { Link, useOutletContext } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/userAtom";
-import NavbarProfile from "../../components/NavbarProfile";
+import NavbarAdmin from "../../components/NavbarAdmin";
 import VerificationReminder from "../../components/VerificationReminder";
 
 function Manage() {
@@ -13,24 +13,13 @@ function Manage() {
   console.log(store.profileImg);
   return (
     <>
-      <nav className="hidden md:flex bg-white py-3 px-5 border-b-[1px] border-b-gray-300 items-center justify-between">
-        <h5 className="font-medium text-lg">
-          Selamat Malam {user.displayName}
-        </h5>
-        <div className="flex items-center gap-4">
-          <Icon
-            icon="clarity:notification-outline-badged"
-            width="22"
-            className="text-purple-600"
-          />
-          {/* <img src={user.profileImg} className="w-10 rounded-full" alt="" /> */}
-          <NavbarProfile img={user.profileImg} />
-        </div>
-      </nav>
-      <div className="h-[120vh] py-6 px-16">
-        <Helmet>
-          <title>Home | Merchain</title>
-        </Helmet>
+      <Helmet>
+        <title>Home | Merchain</title>
+      </Helmet>
+
+      <NavbarAdmin user={user} />
+
+      <div className="h-[120vh] py-2 md:py-6 px-6 md:px-16">
         <h1 className="font-semibold text-2xl">Home</h1>
 
         {!user.verified && <VerificationReminder />}
@@ -40,13 +29,11 @@ function Manage() {
           {/* div atas */}
           <div className="flex items-start justify-between">
             {/* Bagian Kiri Atas */}
-            <div className="flex items-center gap-3">
+            <div className="md:flex-row flex flex-col items-start md:items-center gap-3">
               <img src={store.profileImg} alt="" className="w-16" />
               <div>
                 <h5 className="font-semibold text-xl">
-                  {store.storeName.charAt(0).toUpperCase() +
-                    store.storeName.slice(1)}{" "}
-                  Store
+                  {store.storeName} Store
                 </h5>
                 <div className="flex gap-2 items-center">
                   <p className="opacity-75">merchain.com/{store.storeName}</p>
@@ -61,22 +48,27 @@ function Manage() {
 
             {/* Bagian Kanan Atas */}
             <div className="flex items-start gap-4">
-              <button className="text-sm font-medium hover:bg-gray-200 flex gap-2 py-2 px-4 bg-gray-100 rounded-md">
-                <Icon icon="clarity:eye-line" width="20" />
-                Lihat Toko Saya
+              <button className="font-medium items-center text-sm  hover:bg-gray-200 flex gap-2 py-2 px-4 bg-gray-100 rounded-md">
+                <Icon icon="clarity:eye-line" width="22" />
+                <p className="hidden sm:inline">Preview Toko</p>
               </button>
               {/* <button className="text-sm font-medium hover:bg-gray-200 py-2 px-4 bg-gray-100 rounded-md">Edit Profile</button> */}
               <Link
                 to="/app/settings"
                 className="p-2 bg-gray-100 hover:bg-gray-200 rounded-md"
               >
-                <Icon icon="carbon:settings" width="20" />
+                <Icon icon="carbon:settings" width="22" />
               </Link>
             </div>
           </div>
+        </div>
 
-          {/* div bawah */}
-          <div></div>
+        {/* Bio & Jam */}
+        <div className="items-center bg-white p-4 rounded shadow">
+          <h5 className="md:text-xl text-lg font-semibold">Tentang Toko 📢</h5>
+          <p className="text-sm leading-tight opacity-75 my-2">
+            {store.storeBio}
+          </p>
         </div>
       </div>
     </>

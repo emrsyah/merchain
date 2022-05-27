@@ -27,7 +27,7 @@ function Signup() {
     try {
       const isAvailable = await checkStoreNameAvailability(storeName);
       if (isAvailable > 0) {
-        toast.error("Nama sudah dipakai, silahkan ganti");
+        toast.update(id, { render: "Nama sudah dipakai, silahkan ganti", type: "error", isLoading: false, autoClose: 3000 });
         return;
       }
       const userCred = await createUserWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)

@@ -16,9 +16,9 @@ function Layout() {
 
   const fetchAndSetStore = (uid) => {
     onSnapshot(
-      query(collection(firestoreDb, "spaces"), where("userId", "==", uid)),
+      query(collection(firestoreDb, "stores"), where("userId", "==", uid)),
       (snapshot) => {
-        setStore(snapshot.docs);
+        setStore(snapshot.docs[0].data());
       }
     );
   };
@@ -33,7 +33,6 @@ function Layout() {
         }
         fetchAndSetStore(user.uid);
         setUser({ uid: user.uid });
-        console.log(user)
       });
     } catch (err) {
       console.log(err);
@@ -42,16 +41,14 @@ function Layout() {
     }
   }, []);
 
-  if(loading){
-    return(
-      <div>Loading...</div>
-    )
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
   return (
     <div className="grid grid-cols-11">
       <nav className="col-span-2">
-        <Sidebar />
+        <Sidebar store={store} />
       </nav>
       <main className="col-span-9">
         <Outlet />

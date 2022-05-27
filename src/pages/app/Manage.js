@@ -7,7 +7,7 @@ function Manage() {
       <Helmet>
         <title>Home | Merchain</title>
       </Helmet>
-      Manage
+      Home
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
 import Faq from "./pages/Faq";
 import Home from "./pages/Home";
 import Layout from "./pages/app/Layout";
@@ -7,10 +8,13 @@ import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
 import Manage from "./pages/app/Manage";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import { RecoilRoot } from "recoil";
 import Onboarding from "./pages/Onboarding";
 import { HelmetProvider } from "react-helmet-async";
+import Orders from "./pages/app/Orders";
+import Products from "./pages/app/Products";
+import Customers from "./pages/app/Customers";
+import Setting from "./pages/app/Setting";
 
 function App() {
   return (
@@ -27,6 +31,10 @@ function App() {
         <Route path="app" element={<Layout />}>
           <Route index element={<Manage />} />
           <Route path="home" element={<Manage />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="products" element={<Products />} />
+          <Route path="customers" element={<Customers />} />
+          <Route path="settings" element={<Setting />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -19,14 +19,24 @@ body{
     @apply font-medium p-4 flex py-3 border-2 border-gray-300 rounded-lg outline-purple-500 hover:border-purple-600 duration-500 ease-out transition-all
   }
   .sidebarItem{
-    @apply flex items-center gap-2 bg-green-300 p-2 rounded-sm
+    @apply flex items-center gap-3 p-2 rounded-sm hover:bg-gray-100 opacity-70
   }
   .sidebarActive{
-    @apply text-purple-600 font-semibold bg-purple-50
+    @apply text-purple-600 font-semibold bg-purple-100 opacity-100 hover:bg-purple-100
   }
 }
 
 .colorPrimary{
   color: #7C3AED;
 }
+/* 
+.hoverSide:hover p{
+  color: rgb(126, 34, 206);
+  opacity: 100% !important;
+}
 
+.hoverSide:hover svg{
+  color: rgb(126, 34, 206);
+  opacity: 100% !important;
+}
+ */

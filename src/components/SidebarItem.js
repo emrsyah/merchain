@@ -2,16 +2,16 @@ import { Icon } from "@iconify/react";
 import React from "react";
 import { Link } from "react-router-dom";
 
-function SidebarItem({locationNow, itemPath, itemName}) {
+function SidebarItem({locationNow, itemPath, itemName, icon}) {
   return (
     <Link
-      to="/app/home"
+      to={itemPath}
       className={`sidebarItem ${
         locationNow.pathname.includes(itemPath) && "sidebarActive"
       } `}
     >
-      <Icon icon="bxs:dashboard" width="22" />
-      <p className="font-medium">{itemName}</p>
+      <Icon icon={icon} width="22" />
+      <p className="font-medium text-[15px] transition-all duration-300 ease-out">{itemName}</p>
     </Link>
   );
 }

@@ -29,7 +29,7 @@ function Layout() {
       onAuthStateChanged(auth, (user) => {
         if (!user) {
           navigate("/login");
-          toast.info("Tolong login dahulu");
+          // toast.info("Tolong login dahulu");
         }
         fetchAndSetStore(user.uid);
         setUser({ uid: user.uid });

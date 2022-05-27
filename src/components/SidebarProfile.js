@@ -1,9 +1,20 @@
 import { Menu } from "@headlessui/react";
 import { Icon } from "@iconify/react";
+import { signOut } from "firebase/auth";
 import React from "react";
+import { Link } from "react-router-dom";
+import { auth } from "../firebase";
 
 function SidebarProfile({ img, name }) {
-  console.log(img, name);
+
+  const logoutHandler = async () => {
+    try {
+      signOut(auth);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Menu className="w-full relative" as="div">
       {/* <div className="flex items-center gap-2 cursor-pointer w-full rounded p-1 hover:bg-gray-100">
@@ -17,26 +28,26 @@ function SidebarProfile({ img, name }) {
       <Menu.Items className="absolute flex flex-col py-2 rounded bg-white gap-[2px] mt-1 w-full shadowProfile text-sm font-medium z-10">
         <Menu.Item>
           {({ active }) => (
-            <a
+            <Link
               className={` px-2 py-[6px] flex gap-2 ${active && "bg-gray-100"}`}
-              href="/account-settings"
+              to="/app/settings"
             >
-              <Icon icon="carbon:settings" width="18" /> 
+              <Icon icon="carbon:settings" width="18" />
               <p>Settings</p>
-            </a>
+            </Link>
           )}
         </Menu.Item>
         <Menu.Item>
           {({ active }) => (
-            <a
+            <button
               className={` p-2 py-[6px] flex gap-2  ${
                 active && "bg-gray-100 text-red-500"
               }`}
-              href="/account-settings"
+              onClick={logoutHandler}
             >
               <Icon icon="carbon:logout" width="18" />
               <p>Keluar</p>
-            </a>
+            </button>
           )}
         </Menu.Item>
       </Menu.Items>

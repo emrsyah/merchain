@@ -65,12 +65,12 @@ function Onboarding() {
         createdAt: serverTimestamp(),
       });
       setIsOboarding(false)
+      toast.update(id, { render: "Sukses, Selamat Datang!", type: "success", isLoading: false, autoClose: 2000 });
       navigate('/app/home')
     } catch (err) {
       console.log(err);
     } finally{
       setLoading(false)
-      toast.update(id, { render: "Sukses, Selamat Datang!", type: "success", isLoading: false, autoClose: 2000 });
     }
   };
 

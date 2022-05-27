@@ -67,7 +67,7 @@ function Manage() {
         <div className="items-center bg-white p-4 rounded shadow">
           <h5 className="md:text-xl text-lg font-semibold">Tentang Toko 📢</h5>
           <p className="text-sm leading-tight opacity-75 my-2">
-            {store.storeBio}
+            {store.storeBio ? store.storeBio : "Belum Ada Data"}
           </p>
         </div>
       </div>

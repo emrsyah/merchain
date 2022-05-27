@@ -59,6 +59,7 @@ function Signup() {
         ecommerceLinks: {},
         createdAt: serverTimestamp(),
       });
+      toast.update(id, { render: "Sukses, Selamat Datang!", type: "success", isLoading: false, autoClose: 2000 });
       navigate('/app/home')
 
     } catch (error) {
@@ -69,7 +70,6 @@ function Signup() {
       console.log(error);
       toast.error(error.code);
     } finally{
-      toast.update(id, { render: "Sukses, Selamat Datang!", type: "success", isLoading: false, autoClose: 2000 });
       setLoading(false)
     }
   };

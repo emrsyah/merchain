@@ -23,6 +23,7 @@ function Login() {
         emailRef.current.value,
         passRef.current.value
       );
+      toast.update(id, { render: "Sukses, Selamat Datang!", type: "success", isLoading: false, autoClose: 2000 });
       navigate("/app/home");
     } catch (error) {
       if (error.code.includes("not-found")) {
@@ -35,7 +36,6 @@ function Login() {
       toast.error(error.code);
     } finally {
       setLoading(false);
-      toast.update(id, { render: "Sukses, Selamat Datang!", type: "success", isLoading: false, autoClose: 2000 });
     }
   };
 

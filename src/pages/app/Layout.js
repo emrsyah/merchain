@@ -46,10 +46,10 @@ function Layout() {
 
   return (
     <div className="flex flex-col  md:grid md:grid-cols-11">
-      <nav className="md:col-span-2">
+      <nav className="md:col-span-2 md:col-start-1 md:col-end-3">
         <Sidebar store={store} />
       </nav>
-      <main className="md:col-span-9 mt-24 md:mt-0">
+      <main className="md:col-span-9 mt-24 md:mt-0 md:col-start-3">
         <Outlet />
       </main>
     </div>

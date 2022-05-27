@@ -38,7 +38,8 @@ function Sidebar({ store }) {
 
   return (
     <>
-      <nav className="pl-6 pr-2 py-7 justify-center h-screen border-r-[1px] border-r-gray-300 hidden md:flex">
+      {/* Sidebar For Dekstop */}
+      <nav className="pl-6 pr-2 py-7 justify-center h-screen border-r-[1px] w-full sidebarSticky border-r-gray-300 hidden md:flex">
         <div className="flex flex-col items-start w-full">
           {/* Profile */}
 
@@ -59,6 +60,8 @@ function Sidebar({ store }) {
           </div>
         </div>
       </nav>
+
+      {/* Navbar For Mobile */}
       <nav className="flex md:hidden bg-white p-5 border-b-[1px] border-gray-300 items-center justify-between shadow fixed top-0 w-screen overflow-hidden">
         <Link to="/app/home">
           <img src={logo} alt="" />

@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { Link, useOutletContext } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/userAtom";
+import NavbarProfile from "../../components/NavbarProfile";
 import VerificationReminder from "../../components/VerificationReminder";
 
 function Manage() {
@@ -15,7 +16,8 @@ function Manage() {
         <h5 className="font-medium text-lg">Selamat Malam {user.displayName}</h5>
         <div className="flex items-center gap-4">
           <Icon icon="clarity:notification-outline-badged" width="22" className="text-purple-600" />
-          <img src={user.profileImg} className="w-10 rounded-full" alt="" />
+          {/* <img src={user.profileImg} className="w-10 rounded-full" alt="" /> */}
+          <NavbarProfile img={user.profileImg} />
         </div>
       </nav>
       <div className="h-[120vh] py-6 px-16">
@@ -35,7 +37,7 @@ function Manage() {
               <img src={store.profileImg} alt="" className="w-16" />
               <div>
                 <h5 className="font-semibold text-xl">Orbit Store</h5>
-                <div className="flex gap-1 items-center">
+                <div className="flex gap-2 items-center">
                   <p className="opacity-75">merchain.com/orbit</p>
                   <Icon
                     icon="fluent:copy-24-regular"

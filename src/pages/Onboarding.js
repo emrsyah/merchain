@@ -92,7 +92,7 @@ function Onboarding() {
         className="w-full m-auto flex flex-col gap-3"
         onSubmit={submitHandler}
       >
-        <div className="p-2 rounded-md bg-red-100 font-medium">
+        <div className="p-2 rounded border-2 border-red-400 bg-red-100 font-medium">
           💡 Kamu bisa mengganti hal-hal dibawah nanti
         </div>
         <div>

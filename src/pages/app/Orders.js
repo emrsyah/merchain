@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/userAtom";
 import NavbarAdmin from "../../components/NavbarAdmin";
+import VerificationReminder from "../../components/VerificationReminder";
 
 function Orders() {
   const user = useRecoilValue(userState);
@@ -13,7 +14,11 @@ function Orders() {
         <title>Orders | Merchain</title>
       </Helmet>
       <NavbarAdmin user={user} />
-      <div>Orders</div>
+      <div className="layoutContainer">
+        <h1 className="pageName">Orders</h1>
+        {!user.verified && <VerificationReminder />}
+        
+      </div>
     </>
   );
 }

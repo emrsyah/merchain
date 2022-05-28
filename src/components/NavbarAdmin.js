@@ -31,7 +31,7 @@ function NavbarAdmin({ user }) {
   }, []);
 
   return (
-    <nav className="hidden md:flex bg-white py-3 px-5 border-b-[1px] border-b-gray-300 items-center justify-between">
+    <nav className="hidden md:flex bg-white py-3 px-5 border-b-[1px] border-b-gray-300 items-center sticky top-0 z-30 justify-between">
       <h5 className="font-medium text-lg">
         <span className="text-3xl">{greeting.emoji}</span>{greeting.greet} {user.displayName}
       </h5>

@@ -1,11 +1,13 @@
 import { Icon } from "@iconify/react";
 import React from "react";
 import { Helmet } from "react-helmet-async";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Link, useOutletContext } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/userAtom";
 import NavbarAdmin from "../../components/NavbarAdmin";
 import VerificationReminder from "../../components/VerificationReminder";
+import { toast } from "react-toastify";
 
 function Manage() {
   const [store, setStore] = useOutletContext();
@@ -18,8 +20,8 @@ function Manage() {
 
       <NavbarAdmin user={user} />
 
-      <div className="h-[120vh] py-2 md:py-6 px-6 md:px-16">
-        <h1 className="font-semibold text-2xl">Home</h1>
+      <div className="h-[120vh] layoutContainer">
+        <h1 className="pageName">Home</h1>
 
         {!user.verified && <VerificationReminder />}
 
@@ -34,14 +36,22 @@ function Manage() {
                 <h5 className="font-semibold text-xl">
                   {store.storeName} Store
                 </h5>
-                <div className="flex gap-2 items-center">
-                  <p className="opacity-75">merchain.com/{store.storeName}</p>
-                  <Icon
-                    icon="fluent:copy-24-regular"
-                    width="20"
-                    className="text-purple-600 hover:scale-110 transition-all duration-75 ease-out cursor-pointer"
-                  />
-                </div>
+                <CopyToClipboard
+                  text={`https://merchain.com/${store.storeName}}`}
+                  className="cursor-pointer"
+                  onCopy={() => toast.success("Copied!")}
+                >
+                  <span  >
+                    <p className="opacity-75 flex gap-2 items-center">
+                      merchain.com/{store.storeName}
+                      <Icon
+                        icon="fluent:copy-24-regular"
+                        width="20"
+                        className="text-purple-600 hover:scale-110 transition-all duration-75 ease-out cursor-pointer"
+                      />
+                    </p>
+                  </span>
+                </CopyToClipboard>
               </div>
             </div>
 

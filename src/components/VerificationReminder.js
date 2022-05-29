@@ -1,9 +1,15 @@
 import React from "react";
+import { toast } from "react-toastify";
 import sendVerification from "../helpers/sendVerification";
 
 function VerificationReminder() {
   const resendVerification = () =>{
+    try{
       sendVerification()
+      toast.success("Email verifikasi terkirim")
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   return (

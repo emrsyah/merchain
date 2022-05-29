@@ -1,8 +1,8 @@
 import { Icon } from "@iconify/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link, useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/userAtom";
 import NavbarAdmin from "../../components/NavbarAdmin";
@@ -10,6 +10,14 @@ import VerificationReminder from "../../components/VerificationReminder";
 import { toast } from "react-toastify";
 
 function Manage() {
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    // if check kalo dia di path "/app" doang bukan di  "app/home"
+    if(!location.pathname.includes("/home")) navigate('/app/home')
+  },[])
+
   const [store, setStore] = useOutletContext();
   const user = useRecoilValue(userState);
   return (

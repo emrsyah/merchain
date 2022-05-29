@@ -33,6 +33,7 @@ function Layout() {
         }
         // console.log(user);
         fetchAndSetStore(user.uid);
+
         setUser({
           uid: user.uid,
           displayName: user.displayName,

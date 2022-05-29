@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
 import React, { useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -61,6 +61,7 @@ function Signup() {
         ecommerceLinks: {},
         createdAt: serverTimestamp(),
       });
+      sendVerification(user)
       toast.update(id, { render: "Sukses, Selamat Datang!", type: "success", isLoading: false, autoClose: 2000 });
       navigate('/app/home')
       
@@ -76,6 +77,14 @@ function Signup() {
       setLoading(false)
     }
   };
+
+  const sendVerification = async (user) =>{
+    try{
+      await sendEmailVerification(user)
+    } catch (err){
+      console.log(err)
+    }
+  }
 
   return (
     <>

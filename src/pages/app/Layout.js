@@ -54,10 +54,10 @@ function Layout() {
   else {
     return (
       <div className="flex flex-col  md:grid md:grid-cols-11 bg-[#F4F4F5]">
-        <nav className="md:col-span-2 md:col-start-1 md:col-end-3 bg-white">
+        <nav className="md:col-span-2 bg-white">
           <Sidebar store={store} />
         </nav>
-        <main className="md:col-span-9 mt-24 md:mt-0 md:col-start-3">
+        <main className="md:col-span-9 mt-24 md:mt-0">
           <Outlet context={[store, setStore]} />
         </main>
       </div>

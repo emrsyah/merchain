@@ -25,7 +25,7 @@ body{
     @apply text-purple-600 font-semibold bg-purple-100 opacity-100 hover:bg-purple-100
   }
   .layoutContainer{
-    @apply  py-2 md:py-6 px-4 md:px-9
+    @apply  py-2 md:py-4 px-4 md:px-9
   }
   .pageName{
     @apply font-semibold text-2xl

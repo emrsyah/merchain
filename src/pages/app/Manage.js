@@ -27,7 +27,6 @@ function Manage() {
 
         {/* Akses Cepat */}
         <div className="bg-white my-3 rounded-lg p-4 shadow">
-          {/* div atas */}
           <div className="flex items-start justify-between">
             {/* Bagian Kiri Atas */}
             <div className="md:flex-row flex flex-col items-start md:items-center gap-3">

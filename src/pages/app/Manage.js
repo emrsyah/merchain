@@ -13,7 +13,7 @@ function Manage() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  useEffect(()=>{
+useEffect(()=>{
     // if check kalo dia di path "/app" doang bukan di  "app/home"
     if(!location.pathname.includes("/home")) navigate('/app/home')
   },[])
@@ -34,7 +34,7 @@ function Manage() {
         {!user.verified && <VerificationReminder />}
 
         {/* Akses Cepat */}
-        <div className="bg-white my-3 rounded-lg p-4 shadow">
+        <div className="bg-white my-3 rounded-md p-4 shadow">
           <div className="flex items-start justify-between">
             {/* Bagian Kiri Atas */}
             <div className="md:flex-row flex flex-col items-start md:items-center gap-3">
@@ -66,7 +66,7 @@ function Manage() {
             <div className="flex items-start gap-4">
               <button className="font-medium items-center text-sm  hover:bg-gray-200 flex gap-2 py-2 px-4 bg-gray-100 rounded-md">
                 <Icon icon="clarity:eye-line" width="22" />
-                <p className="hidden sm:inline">Preview Toko</p>
+                <p className="hidden sm:inline">Kunjungi Toko</p>
               </button>
               {/* <button className="text-sm font-medium hover:bg-gray-200 py-2 px-4 bg-gray-100 rounded-md">Edit Profile</button> */}
               <Link
@@ -80,7 +80,7 @@ function Manage() {
         </div>
 
         {/* Bio & Jam */}
-        <div className="items-center bg-white p-4 rounded shadow">
+        <div className="items-center bg-white p-4 rounded-md shadow">
           <h5 className="md:text-xl text-lg font-semibold">Tentang Toko 📢</h5>
           <p className="mt-2  rounded w-fit text-sm font-medium">
             Jam Buka:{" "}

@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body{
-  font-family: 'Inter';
+  font-family: 'Inter', Helvetica;
 }
 
 @layer components{
@@ -25,10 +25,13 @@ body{
     @apply text-purple-600 font-semibold bg-purple-100 opacity-100 hover:bg-purple-100
   }
   .layoutContainer{
-    @apply  py-2 md:py-4 px-4 md:px-9
+    @apply  py-2 md:py-4 px-4 md:px-10
   }
   .pageName{
     @apply font-semibold text-2xl
+  }
+  .addButton{
+    @apply bg-purple-600 py-2 px-3 hover:bg-purple-700 rounded text-white font-medium  flex items-center gap-2 text-sm
   }
 }
 
@@ -71,4 +74,8 @@ body{
 ::-webkit-scrollbar-thumb:hover {
   
   background: rgb(150, 150, 150); 
+}
+
+.helveticaFonts{
+  font-family: Helvetica;
 }

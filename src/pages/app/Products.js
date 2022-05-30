@@ -1,12 +1,65 @@
-import React from "react";
+import { Icon } from "@iconify/react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/userAtom";
 import NavbarAdmin from "../../components/NavbarAdmin";
+import Table from "../../components/Table";
 import VerificationReminder from "../../components/VerificationReminder";
 
 function Products() {
   const user = useRecoilValue(userState);
+  const [data, setData] = useState([]);
+  const [filterInput, setFilterInput] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await fetch(
+          "https://api.tvmaze.com/search/shows?q=snow"
+        );
+        const resJson = await result.json();
+        setData(resJson);
+        console.log("fetch")
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, []);
+
+  const dataMemo = useMemo(() => data, [data])
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: "No",
+        accessor: "show.id",
+      },
+      {
+        Header: "Tanggal Pesan",
+        accessor: "show.ended",
+      },
+      {
+        Header: "Pembeli",
+        accessor: "show.language",
+      },
+      {
+        Header: "Status",
+        accessor: "show.status",
+      },
+      {
+        Header: "Total",
+        accessor: "show.runtime",
+      },
+    ],
+    []
+  );
+
+  const handleFilterChange = e => {
+    const value = e.target.value || undefined;
+    setFilterInput(value);
+  };
+  
 
   return (
     <>
@@ -15,9 +68,33 @@ function Products() {
       </Helmet>
       <NavbarAdmin user={user} />
       <div className="layoutContainer">
-        <h1 className="pageName">Products</h1>
         {!user.verified && <VerificationReminder />}
-        Products
+        <div className="flex justify-between items-center">
+          <h1 className="pageName">Products</h1>
+          <button className="addButton">
+            <Icon icon="akar-icons:plus" width="18" />
+            Produk Baru
+          </button>
+        </div>
+        <div className="bg-white p-4 my-4 rounded shadow">
+          <h5 className="font-semibold">Total Produk: 12</h5>
+          {/* Search Bar & Filter Nanti */}
+          <div className="flex w-full my-2">
+            <input
+              type="text"
+              placeholder="Cari Produk"
+              onChange={handleFilterChange}
+              value={filterInput}
+              className="w-full focus:border-purple-600 text-sm outline-none border-[1px] border-gray-300 transition-all duration-300 ease-out  rounded p-2"
+            />
+            {/* <button>
+              Cari
+            </button> */}
+          </div>
+
+          {/* Table */}
+          <div>{data && <Table columns={columns} data={dataMemo} filterInput={filterInput} />}</div>
+        </div>
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 // Table.js
 import { Icon } from "@iconify/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useTable, useFilters, useSortBy } from "react-table";
 
 export default function Table({ columns, data, filterInput }) {
@@ -13,6 +13,12 @@ export default function Table({ columns, data, filterInput }) {
     prepareRow,
     setFilter,
   } = useTable({ columns, data }, useFilters, useSortBy);
+
+  useEffect(()=>{
+    console.log("Halo")
+    const value = filterInput || ""
+    setFilter('show.id', value)
+  }, [filterInput])
 
   return (
     <table

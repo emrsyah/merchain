@@ -1,11 +1,12 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { userState } from "../../atoms/userAtom";
-import NavbarAdmin from "../../components/NavbarAdmin";
-import Table from "../../components/Table";
-import VerificationReminder from "../../components/VerificationReminder";
+import { userState } from "../../../atoms/userAtom";
+import NavbarAdmin from "../../../components/NavbarAdmin";
+import Table from "../../../components/Table";
+import VerificationReminder from "../../../components/VerificationReminder";
 
 function Products() {
   const user = useRecoilValue(userState);
@@ -20,7 +21,6 @@ function Products() {
         );
         const resJson = await result.json();
         setData(resJson);
-        console.log("fetch")
       } catch (err) {
         console.log(err);
       }
@@ -46,7 +46,7 @@ function Products() {
       {
         Header: "Status",
         accessor: "show.status",
-        Cell: ({cell: {value} }) => <p className={`${value} rounded text-[13px] py-1 px-3 w-fit font-semibold interFonts`}>{value}</p>
+        Cell: ({cell: {value} }) => <p className={`${value} rounded text-[13px] py-1 px-2 w-fit font-semibold interFonts`}>{value}</p>
       },
       {
         Header: "Total",
@@ -57,10 +57,10 @@ function Products() {
   );
 
   const handleFilterChange = e => {
-    const value = e.target.value || undefined;
+    const value = e.target.value || "";
     setFilterInput(value);
   };
-  
+
 
   return (
     <>
@@ -72,10 +72,10 @@ function Products() {
         {!user.verified && <VerificationReminder />}
         <div className="flex justify-between items-center">
           <h1 className="pageName">Products</h1>
-          <button className="addButton">
+          <Link to="/app/products/new" className="addButton">
             <Icon icon="akar-icons:plus" width="18" />
             Produk Baru
-          </button>
+          </Link>
         </div>
         <div className="bg-white p-4 my-4 rounded shadow">
           <h5 className="font-semibold">Total Produk: 12</h5>

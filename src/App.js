@@ -12,9 +12,10 @@ import { RecoilRoot } from "recoil";
 import Onboarding from "./pages/Onboarding";
 import { HelmetProvider } from "react-helmet-async";
 import Orders from "./pages/app/Orders";
-import Products from "./pages/app/Products";
+import Products from "./pages/app/products/Products";
 import Customers from "./pages/app/Customers";
 import Setting from "./pages/app/Setting";
+import NewProduct from "./pages/app/products/NewProduct";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="home" element={<Manage />} />
           <Route path="orders" element={<Orders />} />
           <Route path="products" element={<Products />} />
+          <Route path="products/new" element={<NewProduct />} />
           <Route path="customers" element={<Customers />} />
           <Route path="settings" element={<Setting />} />
         </Route>

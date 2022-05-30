@@ -29,9 +29,9 @@ useEffect(()=>{
       <NavbarAdmin user={user} />
 
       <div className="h-[120vh] layoutContainer">
-        <h1 className="pageName">Home</h1>
-
         {!user.verified && <VerificationReminder />}
+
+        <h1 className="pageName">Home</h1>
 
         {/* Akses Cepat */}
         <div className="bg-white my-3 rounded-md p-4 shadow">

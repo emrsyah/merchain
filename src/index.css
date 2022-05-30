@@ -39,12 +39,12 @@ body{
 }
 
 .Ended{
-  background-color: rgb(255, 120, 120);
+  background-color: rgb(255, 150, 150);
   /* color: rgb(218, 0, 0); */
 }
 
 .Determined{
-  background-color: rgb(255, 255, 120);
+  background-color: rgb(255, 255, 150);
   /* color: rgb(224, 176, 0); */
 }
 

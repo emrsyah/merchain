@@ -30,6 +30,12 @@ body{
   .pageName{
     @apply font-semibold text-2xl
   }
+  .contentContainer{
+    @apply bg-white p-4 my-4 rounded shadow
+  }
+  .addInput{
+    @apply flex text-sm py-2 w-full outline-none focus:border-purple-600 px-3 border-gray-300 border-[1px] my-[6px] rounded
+  }
   .addButton{
     @apply bg-purple-600 py-2 px-3 hover:bg-purple-700 rounded text-white font-medium  flex items-center gap-2 text-sm
   }
@@ -87,6 +93,12 @@ body{
 ::-webkit-scrollbar-thumb:hover {
   
   background: rgb(150, 150, 150); 
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
 
 .helveticaFonts{

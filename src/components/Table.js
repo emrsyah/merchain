@@ -51,7 +51,7 @@ export default function Table({ columns, data, filterInput }) {
             <tr
               {...row.getRowProps()}
               className="border-y-[1px] text-gray-800 border-gray-300 cursor-pointer hover:bg-purple-100  helveticaFonts"
-              onClick={()=>console.log(row.original.show.id)}
+              // onClick={()=>console.log(row.original.show.id)}
             >
               {row.cells.map((cell) => {
                 return (

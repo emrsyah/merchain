@@ -15,8 +15,8 @@ function Orders() {
       </Helmet>
       <NavbarAdmin user={user} />
       <div className="layoutContainer">
-        <h1 className="pageName">Orders</h1>
         {!user.verified && <VerificationReminder />}
+        <h1 className="pageName">Orders</h1>
         
       </div>
     </>

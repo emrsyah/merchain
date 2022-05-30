@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import SidebarItem from "./SidebarItem";
-import SidebarProfile from "./SidebarProfile";
+// import SidebarProfile from "./SidebarProfile";
 import logo from "../assets/merchainLogo.svg";
 
 const sidebarItems = [

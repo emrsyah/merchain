@@ -15,7 +15,6 @@ export default function Table({ columns, data, filterInput }) {
   } = useTable({ columns, data }, useFilters, useSortBy);
 
   useEffect(()=>{
-    console.log("Halo")
     const value = filterInput || ""
     setFilter('show.id', value)
   }, [filterInput])
@@ -52,6 +51,7 @@ export default function Table({ columns, data, filterInput }) {
             <tr
               {...row.getRowProps()}
               className="border-y-[1px] text-gray-800 border-gray-300 cursor-pointer hover:bg-purple-100  helveticaFonts"
+              onClick={()=>console.log(row.original.show.id)}
             >
               {row.cells.map((cell) => {
                 return (

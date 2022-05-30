@@ -15,8 +15,8 @@ function Setting() {
       </Helmet>
       <NavbarAdmin user={user} />
       <div className="layoutContainer">
-        <h1 className="pageName">Settings</h1>
         {!user.verified && <VerificationReminder />}
+        <h1 className="pageName">Settings</h1>
       </div>
     </>
   );

@@ -15,8 +15,8 @@ function Customers() {
       </Helmet>
       <NavbarAdmin user={user} />
       <div className="layoutContainer">
-        <h1 className="pageName">Customers</h1>
         {!user.verified && <VerificationReminder />}
+        <h1 className="pageName">Customers</h1>
       </div>
     </>
   );

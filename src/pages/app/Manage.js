@@ -44,7 +44,7 @@ useEffect(()=>{
                   {store.storeName} Store
                 </h5>
                 <CopyToClipboard
-                  text={`https://merchain.com/${store.storeName}}`}
+                  text={`https://merchain.com/${store.storeName}`}
                   className="cursor-pointer"
                   onCopy={() => toast.success("Copied!")}
                 >

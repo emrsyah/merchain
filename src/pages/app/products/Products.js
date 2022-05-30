@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../atoms/userAtom";
 import NavbarAdmin from "../../../components/NavbarAdmin";

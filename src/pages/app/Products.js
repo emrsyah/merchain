@@ -46,6 +46,7 @@ function Products() {
       {
         Header: "Status",
         accessor: "show.status",
+        Cell: ({cell: {value} }) => <p className={`${value} rounded text-[13px] py-1 px-3 w-fit font-semibold interFonts`}>{value}</p>
       },
       {
         Header: "Total",

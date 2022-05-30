@@ -33,6 +33,19 @@ body{
   .addButton{
     @apply bg-purple-600 py-2 px-3 hover:bg-purple-700 rounded text-white font-medium  flex items-center gap-2 text-sm
   }
+  .Ended{
+    @apply bg-red-500
+  }
+}
+
+.Ended{
+  background-color: rgb(255, 120, 120);
+  /* color: rgb(218, 0, 0); */
+}
+
+.Determined{
+  background-color: rgb(255, 255, 120);
+  /* color: rgb(224, 176, 0); */
 }
 
 .colorPrimary{
@@ -78,4 +91,8 @@ body{
 
 .helveticaFonts{
   font-family: Helvetica;
+}
+
+.interFonts{
+  font-family: 'Inter';
 }

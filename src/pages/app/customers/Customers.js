@@ -20,7 +20,8 @@ function Customers() {
           "https://api.tvmaze.com/search/shows?q=snow"
         );
         const resJson = await result.json();
-        const double = resJson.concat(resJson)
+        const sliced = resJson.slice(0, 6)
+        const double = resJson.concat(sliced)
         // console.log(double)
         setData(double);
       } catch (err) {
@@ -79,7 +80,7 @@ function Customers() {
           </Link>
         </div>
         <div className="contentContainer">
-          <h5 className="font-semibold">Total Kustomer: 12</h5>
+          <h5 className="font-semibold">Total Kustomer: {data?.length}</h5>
           {/* Search Bar & Filter Nanti */}
           <div className="flex w-full my-2">
             <input

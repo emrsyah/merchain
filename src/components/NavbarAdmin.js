@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
 import NavbarProfile from "./NavbarProfile";
+import Notification from "./Notification";
 
 function NavbarAdmin({ user }) {
   const [greeting, setGreeting] = useState("");
@@ -36,11 +37,12 @@ function NavbarAdmin({ user }) {
         <span className="text-3xl">{greeting.emoji}</span>{greeting.greet} {user.displayName}
       </h5>
       <div className="flex items-center gap-6">
-        <Icon
+        {/* <Icon
           icon="clarity:notification-outline-badged"
           width="22"
           className="text-purple-600 hover:scale-105 transition-all duration-100 ease-out cursor-pointer"
-        />
+        /> */}
+        <Notification />
         {/* <img src={user.profileImg} className="w-10 rounded-full" alt="" /> */}
         <NavbarProfile img={user.profileImg} />
       </div>

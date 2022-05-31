@@ -6,11 +6,13 @@ import { useRecoilValue } from "recoil";
 import { userState } from "../../../atoms/userAtom";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import imgPlaceholder from "../../../assets/imgPlaceholder.svg";
+import ProductSwitch from "../../../components/ProductSwitch";
 
 function NewProduct() {
   const user = useRecoilValue(userState);
   const imgRef = useRef("");
   const [selectedImage, setSelectedImage] = useState();
+  const [enabled, setEnabled] = useState(true)
 
   const imageChange = (e) => {
     console.log("halo");
@@ -43,6 +45,10 @@ function NewProduct() {
         <div className="contentContainer">
           <h1 className="pageName mb-6">Produk Baru</h1>
           <form className="flex flex-col gap-4" onSubmit={submitHandler}>
+            <div className="flex flex-col">
+            <label htmlFor="switch" className="font-medium">Produk Aktif</label>
+            <ProductSwitch enabled={enabled} setEnabled={setEnabled} />
+            </div>
             <div>
               <label htmlFor="nama" className="font-medium">
                 Nama Produk<span className="text-red-600">*</span>

@@ -88,8 +88,8 @@ export default function Table({ columns, data, filterInput }) {
             width="28"
             className={`${
               !canPreviousPage
-                ? "opacity-50 cursor-auto"
-                : "hover:text-purple-600"
+                ? "opacity-40 cursor-auto"
+                : "hover:text-purple-600 opacity-90"
             } cursor-pointer`}
           />
         </button>
@@ -102,7 +102,7 @@ export default function Table({ columns, data, filterInput }) {
             icon="cil:chevron-circle-right-alt"
             width="28"
             className={`${
-              !canNextPage ? "opacity-50 cursor-auto" : "hover:text-purple-600"
+              !canNextPage ? "opacity-40 cursor-auto" : "hover:text-purple-600 opacity-90"
             } cursor-pointer`}
           />
         </button>

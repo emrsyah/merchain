@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../atoms/userAtom";
+import EmptyTable from "../../../components/EmptyTable";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import Table from "../../../components/Table";
 import VerificationReminder from "../../../components/VerificationReminder";
@@ -27,7 +28,7 @@ function Products() {
     })();
   }, []);
 
-  const dataMemo = useMemo(() => data, [data])
+  const dataMemo = useMemo(() => data, [data]);
 
   const columns = useMemo(
     () => [
@@ -46,7 +47,13 @@ function Products() {
       {
         Header: "Status",
         accessor: "show.status",
-        Cell: ({cell: {value} }) => <p className={`${value} rounded text-[13px] py-1 px-2 w-fit font-semibold interFonts`}>{value}</p>
+        Cell: ({ cell: { value } }) => (
+          <p
+            className={`${value} rounded text-[13px] py-1 px-2 w-fit font-semibold interFonts`}
+          >
+            {value}
+          </p>
+        ),
       },
       {
         Header: "Total",
@@ -56,11 +63,10 @@ function Products() {
     []
   );
 
-  const handleFilterChange = e => {
+  const handleFilterChange = (e) => {
     const value = e.target.value || "";
     setFilterInput(value);
   };
-
 
   return (
     <>
@@ -94,7 +100,15 @@ function Products() {
           </div>
 
           {/* Table */}
-          <div>{data && <Table columns={columns} data={dataMemo} filterInput={filterInput} />}</div>
+          {data ? (
+            <Table
+              columns={columns}
+              data={dataMemo}
+              filterInput={filterInput}
+            />
+          ) : (
+            <EmptyTable columns={columns} />
+          )}
         </div>
       </div>
     </>

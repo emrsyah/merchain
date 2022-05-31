@@ -99,7 +99,7 @@ function Orders() {
 
           {/* Table */}
 
-          {!data ? (
+          {data ? (
             <Table
               columns={columns}
               data={dataMemo}

@@ -18,7 +18,7 @@ function Layout() {
     onSnapshot(
       query(collection(firestoreDb, "stores"), where("userId", "==", uid)),
       (snapshot) => {
-        setStore(snapshot.docs[0].data());
+        setStore({...snapshot.docs[0].data(), id: snapshot.docs[0].id});
       }
     );
   };

@@ -1,16 +1,46 @@
 import { Icon } from "@iconify/react";
-import React from "react";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import React, {  useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../atoms/userAtom";
 import NavbarAdmin from "../../../components/NavbarAdmin";
+import { firestoreDb } from "../../../firebase";
 
 function NewCustomer() {
+  const navigate = useNavigate()
+  const [store, setStore] = useOutletContext();
+  const [loading, setLoading] = useState(false)
   const user = useRecoilValue(userState);
+  const namaRef = useRef("");
+  const emailRef = useRef("");
+  const nomorRef = useRef("");
+  const domisiliRef = useRef("");
+  const jumlahRef = useRef("");
 
-  const submitHandler = (ev) => {
+
+  const submitHandler = async (ev) => {
     ev.preventDefault();
+    setLoading(true)
+    try{
+      await addDoc(collection(firestoreDb, "customers"), {
+        storeId: store.id,
+        nama: namaRef.current.value,
+        email: emailRef.current.value,
+        nomor: nomorRef.current.value,
+        domisili: domisiliRef.current.value,
+        jumlahOrder: jumlahRef.current.value,
+        createdAt: serverTimestamp(),
+      });
+      toast.success("Data Berhasil Ditambahkan")
+      navigate('/app/customers')
+    } catch (err) {
+      console.log(err)
+    } finally{
+      setLoading(false)
+    }
   };
 
   return (
@@ -40,8 +70,9 @@ function NewCustomer() {
                 type="text"
                 id="nama"
                 className="addInput"
-                placeholder="Nama"
+                placeholder="John Doe"
                 required
+                ref={namaRef}
               />
             </div>
             <div>
@@ -52,7 +83,8 @@ function NewCustomer() {
                 type="text"
                 id="email"
                 className="addInput"
-                placeholder="customer@gmail.com"
+                placeholder="johndoe@gmail.com"
+                ref={emailRef}
                 // required
               />
             </div>
@@ -79,6 +111,7 @@ function NewCustomer() {
                 id="telepon"
                 className="addInput"
                 placeholder="+62"
+                ref={nomorRef}
                 // required
               />
             </div>
@@ -91,18 +124,33 @@ function NewCustomer() {
                 id="domisili"
                 className="addInput"
                 placeholder="Kota Bandung, Jawa Barat"
+                ref={domisiliRef}
+              />
+            </div>
+            <div>
+              <label htmlFor="jumlah" className="font-medium">
+                Jumlah Order
+              </label>
+              <input
+                type="number"
+                id="jumlah"
+                className="addInput"
+                placeholder="3"
+                ref={jumlahRef}
               />
             </div>
             <div className="my-1 justify-end flex gap-3 md:">
-              <Link
-                to="/app/customers"
-                className="rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600"
+              <button
+                className={`rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600 ${loading && 'opacity-75'}`}
+                onClick={()=>navigate('/app/customers')}
+                disabled={loading}
               >
                 Batalkan
-              </Link>
+              </button>
               <button
                 type="submit"
-                className="bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm"
+                disabled={loading}
+                className={`bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm ${loading && "opacity-75 hover:bg-purple-600"}`}
               >
                 Simpan Kustomer
               </button>

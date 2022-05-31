@@ -82,7 +82,7 @@ function Orders() {
           <div className="flex w-full my-2">
             <input
               type="text"
-              placeholder="Cari Produk"
+              placeholder="Cari Orderan"
               onChange={handleFilterChange}
               value={filterInput}
               className="w-full focus:border-purple-600 text-sm outline-none border-[1px] border-gray-300 transition-all duration-300 ease-out  rounded p-2"

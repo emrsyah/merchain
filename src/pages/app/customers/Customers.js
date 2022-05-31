@@ -20,7 +20,9 @@ function Customers() {
           "https://api.tvmaze.com/search/shows?q=snow"
         );
         const resJson = await result.json();
-        setData(resJson);
+        const double = resJson.concat(resJson)
+        // console.log(double)
+        setData(double);
       } catch (err) {
         console.log(err);
       }
@@ -77,12 +79,12 @@ function Customers() {
           </Link>
         </div>
         <div className="contentContainer">
-          <h5 className="font-semibold">Total Orderan: 12</h5>
+          <h5 className="font-semibold">Total Kustomer: 12</h5>
           {/* Search Bar & Filter Nanti */}
           <div className="flex w-full my-2">
             <input
               type="text"
-              placeholder="Cari Produk"
+              placeholder="Cari Kustomer"
               onChange={handleFilterChange}
               value={filterInput}
               className="w-full focus:border-purple-600 text-sm outline-none border-[1px] border-gray-300 transition-all duration-300 ease-out  rounded p-2"

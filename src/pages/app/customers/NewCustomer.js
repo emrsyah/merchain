@@ -40,7 +40,7 @@ function NewCustomer() {
                 type="text"
                 id="nama"
                 className="addInput"
-                placeholder="Sunflower Bouquet"
+                placeholder="Nama"
                 required
               />
             </div>

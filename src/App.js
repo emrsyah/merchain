@@ -11,11 +11,13 @@ import { ToastContainer } from "react-toastify";
 import { RecoilRoot } from "recoil";
 import Onboarding from "./pages/Onboarding";
 import { HelmetProvider } from "react-helmet-async";
-import Orders from "./pages/app/Orders";
+import Orders from "./pages/app/orders/Orders";
 import Products from "./pages/app/products/Products";
-import Customers from "./pages/app/Customers";
+import Customers from "./pages/app/customers/Customers";
 import Setting from "./pages/app/Setting";
 import NewProduct from "./pages/app/products/NewProduct";
+import NewOrder from "./pages/app/orders/NewOrder";
+import NewCustomer from "./pages/app/customers/NewCustomer";
 
 function App() {
   return (
@@ -33,9 +35,11 @@ function App() {
           <Route index element={<Manage />} />
           <Route path="home" element={<Manage />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="orders/new" element={<NewOrder />} />
           <Route path="products" element={<Products />} />
           <Route path="products/new" element={<NewProduct />} />
           <Route path="customers" element={<Customers />} />
+          <Route path="customers/new" element={<NewCustomer />} />
           <Route path="settings" element={<Setting />} />
         </Route>
         <Route path="*" element={<NotFound />} />

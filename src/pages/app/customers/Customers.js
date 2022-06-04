@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import dayjs from "dayjs";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import React, { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -10,6 +11,7 @@ import NavbarAdmin from "../../../components/NavbarAdmin";
 import Table from "../../../components/Table";
 import VerificationReminder from "../../../components/VerificationReminder";
 import { firestoreDb } from "../../../firebase";
+import mappingToArray from "../../../helpers/mappingToArray";
 
 function Customers() {
   const [store, setStore] = useOutletContext();
@@ -17,7 +19,7 @@ function Customers() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [filterInput, setFilterInput] = useState("");
-  const [customers, setCustomers] = useState("")
+  const [customers, setCustomers] = useState("");
 
   const getCustomers = (id) => {
     // console.log('fetching store')
@@ -25,58 +27,51 @@ function Customers() {
     const unsubscribe = onSnapshot(
       query(collection(firestoreDb, "customers"), where("storeId", "==", id)),
       (snapshot) => {
-        setCustomers(snapshot.docs)
-        // console.log({...snapshot.docs})
-        const mapped = snapshot.docs.map(doc => {
-          return ({...doc.data(), id: doc.id})
-        })
-        console.log(mapped)
+        setCustomers(mappingToArray(snapshot.docs));
+        console.log(mappingToArray(snapshot.docs))
       }
     );
     return unsubscribe;
   };
 
   useEffect(() => {
-
-    setLoading(true)
-    try{
-      getCustomers(store.id)
-    } catch(err){
-      console.log(err)
+    setLoading(true);
+    try {
+      getCustomers(store.id);
+    } catch (err) {
+      console.log(err);
     }
-    setLoading(false)
-  }, []);
+    setLoading(false);
+  }, []); 
 
-  const dataMemo = useMemo(() => data, [data]);
+  const dataMemo = useMemo(() => customers, [customers]);
 
   const columns = useMemo(
     () => [
       {
-        Header: "No",
-        accessor: "show.id",
-      },
-      {
-        Header: "Tanggal Pesan",
-        accessor: "show.ended",
-      },
-      {
-        Header: "Pembeli",
-        accessor: "show.language",
-      },
-      {
-        Header: "Status",
-        accessor: "show.status",
-        Cell: ({ cell: { value } }) => (
-          <p
-            className={`${value} rounded text-[13px] py-1 px-2 w-fit font-semibold interFonts`}
-          >
-            {value}
+        Header: "Tanggal",
+        accessor: "createdAt",
+        Cell: ({cell: {value}}) => (
+          <p>
+            {dayjs(value.toDate()).format("MMM DD")}
           </p>
-        ),
+        )
       },
       {
-        Header: "Total",
-        accessor: "show.runtime",
+        Header: "Nama",
+        accessor: "nama",
+      },
+      {
+        Header: "Email",
+        accessor: "email",
+      },
+      {
+        Header: "No Telp",
+        accessor: "nomor",
+      },
+      {
+        Header: "Orders",
+        accessor: "jumlahOrder",
       },
     ],
     []
@@ -124,11 +119,12 @@ function Customers() {
           {/* Table */}
           {!loading && (
             <>
-              {data ? (
+              {dataMemo ? (
                 <Table
                   columns={columns}
                   data={dataMemo}
                   filterInput={filterInput}
+                  filterColumn="nama"
                 />
               ) : (
                 <EmptyTable columns={columns} />

@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import React, { useEffect } from "react";
 import { useTable, useFilters, useSortBy, usePagination } from "react-table";
 
-export default function Table({ columns, data, filterInput }) {
+export default function Table({ columns, data, filterInput, filterColumn }) {
   // Table component logic and UI come here
   const {
     getTableProps,
@@ -22,7 +22,7 @@ export default function Table({ columns, data, filterInput }) {
 
   useEffect(() => {
     const value = filterInput || "";
-    setFilter("show.id", value);
+    setFilter(filterColumn, value);
   }, [filterInput]);
 
   return (

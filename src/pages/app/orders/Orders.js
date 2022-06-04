@@ -112,6 +112,7 @@ function Orders() {
                   columns={columns}
                   data={dataMemo}
                   filterInput={filterInput}
+                  filterColumn="show.id"
                 />
               ) : (
                 <EmptyTable columns={columns} />

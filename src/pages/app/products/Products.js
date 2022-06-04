@@ -113,13 +113,14 @@ function Products() {
                   columns={columns}
                   data={dataMemo}
                   filterInput={filterInput}
+                  filterColumn="show.id"
                 />
               ) : (
                 <EmptyTable columns={columns} />
               )}
             </>
           )}
-          
+
         </div>
       </div>
     </>

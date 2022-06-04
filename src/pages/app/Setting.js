@@ -21,17 +21,12 @@ function Setting() {
   const [storeTimeBuka, setStoreTimeBuka] = useState(store?.storeTime[0]);
   const [storeTimeTutup, setStoreTimeTutup] = useState(store?.storeTime[1]);
 
-  useEffect(() => {
-    console.log(store);
-  }, []);
-
   const changeHandler = () => {
     if (isChange === true) return;
     setIsChange(true);
   };
 
   const changeImgHandler = (e) => {
-    console.log("first");
     if (e.target.files && e.target.files.length > 0) {
       setChangedImg(e.target.files[0]);
     }
@@ -40,7 +35,6 @@ function Setting() {
 
   const submitHandler = async (ev) => {
     ev.preventDefault();
-    console.log("submitted");
     setLoading(true);
   };
 
@@ -68,13 +62,13 @@ function Setting() {
                   {!changedImg ? (
                     <img
                       src={storeImg}
-                      className="w-20 h-20 p-1 my-2 border-purple-800 border-2 rounded-full"
+                      className="w-20 h-20 p-1 my-2 border-purple-700 border-2 rounded-full"
                       alt="foto profile"
                     />
                   ) : (
                     <img
                       src={URL.createObjectURL(changedImg)}
-                      className="object-cover w-20 h-20 p-1 my-2 border-purple-800 border-2 rounded-full"
+                      className="object-cover w-20 h-20 p-1 my-2 border-purple-700 border-2 rounded-full"
                       alt="foto profile"
                     />
                   )}
@@ -90,7 +84,7 @@ function Setting() {
                     type="file"
                     accept="image/*"
                     ref={imgRef}
-                    className="opacity-0"
+                    className="hidden"
                     alt=""
                     onChange={changeImgHandler}
                   />
@@ -130,7 +124,7 @@ function Setting() {
                   // required
                 />
               </div>
-              <div className="flex items-center gap-6">
+              <div className="flex sm:flex-row flex-col items-center gap-6">
                 <div className="w-full">
                   <label htmlFor="telepon" className="font-medium">
                     Waktu Buka
@@ -163,7 +157,7 @@ function Setting() {
 
               {/* Link2 Container */}
               <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-6 gap-y-2">
-                <h5 className="col-span-2 font-semibold mb-2">Hubungkan dengan</h5>
+                <h5 className="md:col-span-2 font-semibold mb-2 text-lg">Hubungkan dengan</h5>
 
                 <div>
                   <label

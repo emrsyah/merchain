@@ -25,9 +25,7 @@ function Orders() {
       } catch (err) {
         console.log(err);
       }
-      setTimeout(() => {
-        setLoading(false);
-      }, 3000);
+      setLoading(false);
     })();
   }, []);
 
@@ -104,7 +102,7 @@ function Orders() {
 
           {/* Kalo Loading */}
           {loading && <div>Loading...</div>}
-          
+
           {/* Table */}
           {!loading && (
             <>

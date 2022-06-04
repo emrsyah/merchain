@@ -11,8 +11,9 @@ import { auth, firestoreDb } from "../../firebase";
 function Layout() {
   const navigate = useNavigate();
   const setUser = useSetRecoilState(userState);
-  const [store, setStore] = useState("");
+  const [store, setStore] = useState([]);
   const [loading, setLoading] = useState(true);
+
 
   const fetchAndSetStore = (uid) => {
     // console.log('fetching store')

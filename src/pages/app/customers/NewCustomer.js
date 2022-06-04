@@ -107,7 +107,7 @@ function NewCustomer() {
                 {/* <span className="text-red-600">*</span> */}
               </label>
               <input
-                type="number"
+                type="tel"
                 id="telepon"
                 className="addInput"
                 placeholder="+62"

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -12,20 +12,35 @@ function Setting() {
   const [store, setStore] = useOutletContext();
   const [loading, setLoading] = useState(false);
   const [isChange, setIsChange] = useState(false);
+  const imgRef = useRef("");
   const [storeName, setStoreName] = useState(store?.storeName);
+  const [storeImg, setStoreImg] = useState(store?.profileImg);
+  const [changedImg, setChangedImg] = useState();
   const [storeBio, setStoreBio] = useState(store?.storeBio);
   const [storeTimeBuka, setStoreTimeBuka] = useState(store?.storeTime[0]);
   const [storeTimeTutup, setStoreTimeTutup] = useState(store?.storeTime[1]);
 
+  useEffect(() => {
+    console.log(store);
+  }, []);
+
   const changeHandler = () => {
     if (isChange === true) return;
-    console.log("changee");
     setIsChange(true);
+  };
+
+  const changeImgHandler = (e) => {
+    console.log("first");
+    if (e.target.files && e.target.files.length > 0) {
+      setChangedImg(e.target.files[0]);
+    }
+    return false;
   };
 
   const submitHandler = async (ev) => {
     ev.preventDefault();
-    setLoading(true)
+    console.log("submitted");
+    setLoading(true);
   };
 
   return (
@@ -44,6 +59,42 @@ function Setting() {
               onSubmit={submitHandler}
               onChange={changeHandler}
             >
+              <div className="mt-3">
+                <label htmlFor="nama" className="font-semibold">
+                  Foto
+                </label>
+                <div className="flex items-center gap-4">
+                  {!changedImg ? (
+                    <img
+                      src={storeImg}
+                      className="w-20 h-20 p-1 my-2 border-purple-800 border-2 rounded-full"
+                      alt="foto profile"
+                    />
+                  ) : (
+                    <img
+                      src={URL.createObjectURL(changedImg)}
+                      className="object-cover w-20 h-20 p-1 my-2 border-purple-800 border-2 rounded-full"
+                      alt="foto profile"
+                    />
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => imgRef.current.click()}
+                    className="text-sm p-2 hover:bg-purple-300 bg-purple-200 rounded font-medium"
+                  >
+                    Unggah Foto
+                  </button>
+                  {/* Ref Img */}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    ref={imgRef}
+                    className="opacity-0"
+                    alt=""
+                    onChange={changeImgHandler}
+                  />
+                </div>
+              </div>
               <div>
                 <label htmlFor="nama" className="font-medium">
                   Nama Toko
@@ -73,7 +124,7 @@ function Setting() {
                   className="addInput"
                   placeholder="johndoe@gmail.com"
                   value={storeBio}
-                  onChange={setStoreBio}
+                  onChange={(ev) => setStoreBio(ev.target.value)}
                   // ref={emailRef}
                   // required
                 />
@@ -121,16 +172,7 @@ function Setting() {
                   />
                 </div>
               </div>
-              <div className="my-1 justify-end flex gap-3 md:">
-                <button
-                  className={`rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600 ${
-                    loading && "opacity-75"
-                  }`}
-                  onClick={() => navigate("/app/customers")}
-                  disabled={loading}
-                >
-                  Batalkan
-                </button>
+              <div className="my-1 justify-end flex">
                 <button
                   type="submit"
                   disabled={loading || !isChange}

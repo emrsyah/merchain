@@ -22,7 +22,6 @@ function Orders() {
         );
         const resJson = await result.json();
         setData(resJson);
-        console.log(resJson)
       } catch (err) {
         console.log(err);
       }

@@ -28,7 +28,6 @@ function Customers() {
       query(collection(firestoreDb, "customers"), where("storeId", "==", id)),
       (snapshot) => {
         setCustomers(mappingToArray(snapshot.docs));
-        console.log(mappingToArray(snapshot.docs))
       }
     );
     return unsubscribe;
@@ -53,7 +52,7 @@ function Customers() {
         accessor: "createdAt",
         Cell: ({cell: {value}}) => (
           <p>
-            {dayjs(value.toDate()).format("MMM DD")}
+            {dayjs(value?.toDate()).format("MMM DD")}
           </p>
         )
       },
@@ -66,11 +65,11 @@ function Customers() {
         accessor: "email",
       },
       {
-        Header: "No Telp",
+        Header: "No. Telp",
         accessor: "nomor",
       },
       {
-        Header: "Orders",
+        Header: "Order",
         accessor: "jumlahOrder",
       },
     ],

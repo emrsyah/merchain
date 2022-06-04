@@ -15,7 +15,6 @@ function NewProduct() {
   const [enabled, setEnabled] = useState(true)
 
   const imageChange = (e) => {
-    console.log("halo");
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
       // console.log(e.target.files[0]);
@@ -84,6 +83,7 @@ function NewProduct() {
                 className="addInput"
                 placeholder="Harga"
                 required
+                min={0}
               />
               <p className="text-xs font-medium text-purple-500">
                 perhatian jangan menggunakan titik (.)
@@ -121,7 +121,7 @@ function NewProduct() {
                 className="opacity-0"
                 ref={imgRef}
                 onChange={imageChange}
-                required
+                // required
               />
               <div className="my-1 justify-end flex gap-3 md:">
                 <Link to="/app/products" className="rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600">

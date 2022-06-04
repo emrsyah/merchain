@@ -12,14 +12,14 @@ import { toast } from "react-toastify";
 function Manage() {
   const location = useLocation()
   const navigate = useNavigate()
+  const [store, setStore] = useOutletContext();
+  const user = useRecoilValue(userState);
 
 useEffect(()=>{
     // if check kalo dia di path "/app" doang bukan di  "app/home"
     if(!location.pathname.includes("/home")) navigate('/app/home')
   },[])
 
-  const [store, setStore] = useOutletContext();
-  const user = useRecoilValue(userState);
   return (
     <>
       <Helmet>

@@ -10,10 +10,12 @@ import VerificationReminder from "../../../components/VerificationReminder";
 function Orders() {
   const user = useRecoilValue(userState);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [filterInput, setFilterInput] = useState("");
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
       try {
         const result = await fetch(
           "https://api.tvmaze.com/search/shows?q=snow"
@@ -23,6 +25,9 @@ function Orders() {
       } catch (err) {
         console.log(err);
       }
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
     })();
   }, []);
 
@@ -97,16 +102,22 @@ function Orders() {
             </button> */}
           </div>
 
+          {/* Kalo Loading */}
+          {loading && <div>Loading...</div>}
+          
           {/* Table */}
-
-          {data ? (
-            <Table
-              columns={columns}
-              data={dataMemo}
-              filterInput={filterInput}
-            />
-          ) : (
-            <EmptyTable columns={columns} />
+          {!loading && (
+            <>
+              {data ? (
+                <Table
+                  columns={columns}
+                  data={dataMemo}
+                  filterInput={filterInput}
+                />
+              ) : (
+                <EmptyTable columns={columns} />
+              )}
+            </>
           )}
         </div>
       </div>

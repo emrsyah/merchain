@@ -15,12 +15,15 @@ function Layout() {
   const [loading, setLoading] = useState(true);
 
   const fetchAndSetStore = (uid) => {
-    onSnapshot(
+    // console.log('fetching store')
+    // ?? Unsubscribe itu buat clear memory mislanya componentnya udah unmount
+    const unsubscribe = onSnapshot(
       query(collection(firestoreDb, "stores"), where("userId", "==", uid)),
       (snapshot) => {
         setStore({...snapshot.docs[0].data(), id: snapshot.docs[0].id});
       }
     );
+    return unsubscribe;
   };
 
   useEffect(() => {

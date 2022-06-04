@@ -1,37 +1,50 @@
 import { Icon } from "@iconify/react";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import React, { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../atoms/userAtom";
 import EmptyTable from "../../../components/EmptyTable";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import Table from "../../../components/Table";
 import VerificationReminder from "../../../components/VerificationReminder";
+import { firestoreDb } from "../../../firebase";
 
 function Customers() {
+  const [store, setStore] = useOutletContext();
   const user = useRecoilValue(userState);
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [filterInput, setFilterInput] = useState("");
+  const [customers, setCustomers] = useState("")
+
+  const getCustomers = (id) => {
+    // console.log('fetching store')
+    // ?? Unsubscribe itu buat clear memory mislanya componentnya udah unmount
+    const unsubscribe = onSnapshot(
+      query(collection(firestoreDb, "customers"), where("storeId", "==", id)),
+      (snapshot) => {
+        setCustomers(snapshot.docs)
+        // console.log({...snapshot.docs})
+        const mapped = snapshot.docs.map(doc => {
+          return ({...doc.data(), id: doc.id})
+        })
+        console.log(mapped)
+      }
+    );
+    return unsubscribe;
+  };
 
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      try {
-        const result = await fetch(
-          "https://api.tvmaze.com/search/shows?q=snow"
-        );
-        const resJson = await result.json();
-        const sliced = resJson.slice(0, 6);
-        const double = resJson.concat(sliced);
-        // console.log(double)
-        setData(double);
-      } catch (err) {
-        console.log(err);
-      }
-      setLoading(false);
-    })();
+
+    setLoading(true)
+    try{
+      getCustomers(store.id)
+    } catch(err){
+      console.log(err)
+    }
+    setLoading(false)
   }, []);
 
   const dataMemo = useMemo(() => data, [data]);

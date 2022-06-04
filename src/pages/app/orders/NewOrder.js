@@ -13,7 +13,6 @@ function NewOrder() {
   const [selectedImage, setSelectedImage] = useState();
 
   const imageChange = (e) => {
-    console.log("halo");
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
       // console.log(e.target.files[0]);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -9,26 +9,24 @@ import VerificationReminder from "../../components/VerificationReminder";
 function Setting() {
   const navigate = useNavigate();
   const user = useRecoilValue(userState);
-  const [loading, setLoading] = useState(false);
   const [store, setStore] = useOutletContext();
+  const [loading, setLoading] = useState(false);
+  const [isChange, setIsChange] = useState(false);
   const [storeName, setStoreName] = useState(store?.storeName);
   const [storeBio, setStoreBio] = useState(store?.storeBio);
-  const [storeTime, setStoreTime] = useState("");
-  const [storeTimeBuka, setStoreTimeBuka] = useState('');
-  const [storeTimeTutup, setStoreTimeTutup] = useState('');
+  const [storeTimeBuka, setStoreTimeBuka] = useState(store?.storeTime[0]);
+  const [storeTimeTutup, setStoreTimeTutup] = useState(store?.storeTime[1]);
+
+  const changeHandler = () => {
+    if (isChange === true) return;
+    console.log("changee");
+    setIsChange(true);
+  };
 
   const submitHandler = async (ev) => {
     ev.preventDefault();
+    setLoading(true)
   };
-
-  useEffect(() => {
-    console.log(store);
-    // setStoreName(store?.storeName || "Getting Data")
-    // setStoreBio(store?.storeBio || "Getting Data")
-    // setStoreTime(store.storeTime || ["00:00", "00:00"])
-    // setStoreTimeBuka(store?.storeTime[0] || "")
-    // setStoreTimeTutup(store?.storeTime[1] || "")
-  }, []);
 
   return (
     <>
@@ -41,12 +39,16 @@ function Setting() {
           {!user.verified && <VerificationReminder />}
           <h1 className="pageName">Settings</h1>
           <div className="contentContainer">
-            <form className="flex flex-col gap-4" onSubmit={submitHandler}>
+            <form
+              className="flex flex-col gap-4"
+              onSubmit={submitHandler}
+              onChange={changeHandler}
+            >
               <div>
                 <label htmlFor="nama" className="font-medium">
                   Nama Toko
                 </label>
-                <div className="addInput">
+                <div className="addInput p-0 pl-3 items-center">
                   <p>merchain.com/</p>
                   <input
                     type="text"
@@ -54,8 +56,9 @@ function Setting() {
                     // className="addInput"
                     placeholder="John Doe"
                     required
+                    className="py-2 outline-none"
                     value={storeName}
-                    onChange={setStoreName}
+                    onChange={(ev) => setStoreName(ev.target.value)}
                     // ref={namaRef}
                   />
                 </div>
@@ -99,8 +102,8 @@ function Setting() {
                     id="telepon"
                     className="addInput"
                     placeholder="+62"
-                    value={storeTime[0] || "00:00"}
-                    onChange={setStoreTimeBuka}
+                    value={storeTimeBuka}
+                    onChange={(ev) => setStoreTimeBuka(ev.target.value)}
                   />
                 </div>
                 <div className="w-full">
@@ -113,8 +116,8 @@ function Setting() {
                     id="telepon"
                     className="addInput"
                     placeholder="+62"
-                    value={storeTime[1] || "00:00"}
-                    onChange={setStoreTimeTutup}
+                    value={storeTimeTutup}
+                    onChange={(ev) => setStoreTimeTutup(ev.target.value)}
                   />
                 </div>
               </div>
@@ -130,12 +133,12 @@ function Setting() {
                 </button>
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading || !isChange}
                   className={`bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm ${
-                    loading && "opacity-75 hover:bg-purple-600"
+                    (loading || !isChange) && "opacity-75 hover:bg-purple-600"
                   }`}
                 >
-                  Simpan Perubahan
+                  {!loading ? <>Simpan Perubahan</> : <>Tunggu Sebentar</>}
                 </button>
               </div>
             </form>

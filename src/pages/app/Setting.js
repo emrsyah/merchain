@@ -11,9 +11,9 @@ function Setting() {
   const user = useRecoilValue(userState);
   const [loading, setLoading] = useState(false);
   const [store, setStore] = useOutletContext();
-  const [storeName, setStoreName] = useState("");
-  const [storeBio, setStoreBio] = useState("");
-  const [storeTime, setStoreTime] = useState('');
+  const [storeName, setStoreName] = useState(store?.storeName);
+  const [storeBio, setStoreBio] = useState(store?.storeBio);
+  const [storeTime, setStoreTime] = useState("");
   const [storeTimeBuka, setStoreTimeBuka] = useState('');
   const [storeTimeTutup, setStoreTimeTutup] = useState('');
 
@@ -22,13 +22,13 @@ function Setting() {
   };
 
   useEffect(() => {
-    // console.count(store);
-    setStoreName(store?.storeName || "Getting Data")
-    setStoreBio(store?.storeBio || "Getting Data")
-    setStoreTime(store.storeTime || ["00:00", "00:00"])
+    console.log(store);
+    // setStoreName(store?.storeName || "Getting Data")
+    // setStoreBio(store?.storeBio || "Getting Data")
+    // setStoreTime(store.storeTime || ["00:00", "00:00"])
     // setStoreTimeBuka(store?.storeTime[0] || "")
     // setStoreTimeTutup(store?.storeTime[1] || "")
-  }, [store]);
+  }, []);
 
   return (
     <>

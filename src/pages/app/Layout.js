@@ -11,7 +11,7 @@ import { auth, firestoreDb } from "../../firebase";
 function Layout() {
   const navigate = useNavigate();
   const setUser = useSetRecoilState(userState);
-  const [store, setStore] = useState([]);
+  const [store, setStore] = useState(null);
   const [loading, setLoading] = useState(true);
 
 
@@ -35,7 +35,7 @@ function Layout() {
           navigate("/login");
           return;
         }
-        // console.log(user);
+
         fetchAndSetStore(user.uid);
 
         setUser({
@@ -53,7 +53,7 @@ function Layout() {
     }
   }, []);
 
-  if (loading) {
+  if (loading || !store) {
     return <div>Loading...</div>;
   }
   else {

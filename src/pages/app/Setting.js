@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react";
 import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate, useOutletContext } from "react-router-dom";
@@ -107,7 +108,7 @@ function Setting() {
                     // className="addInput"
                     placeholder="John Doe"
                     required
-                    className="py-2 outline-none"
+                    className="py-2 outline-none w-full"
                     value={storeName}
                     onChange={(ev) => setStoreName(ev.target.value)}
                     // ref={namaRef}
@@ -129,19 +130,6 @@ function Setting() {
                   // required
                 />
               </div>
-              {/* <div>
-              <label htmlFor="desc" className="font-medium">
-                Deskripsi<span className="text-red-600">*</span>
-              </label>
-              <textarea
-                // type="text"
-                id="desc"
-                className="addInput"
-                placeholder="Deskripsi"
-                required
-                cols="30"
-              />
-            </div> */}
               <div className="flex items-center gap-6">
                 <div className="w-full">
                   <label htmlFor="telepon" className="font-medium">
@@ -172,6 +160,80 @@ function Setting() {
                   />
                 </div>
               </div>
+
+              {/* Link2 Container */}
+              <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-6 gap-y-2">
+                <h5 className="col-span-2 font-semibold mb-2">Hubungkan dengan</h5>
+
+                <div>
+                  <label
+                    htmlFor="telepon"
+                    className="font-medium text-sm flex items-center gap-2"
+                  >
+                    <Icon icon="logos:whatsapp" width="21" />
+                    Whatsapp
+                    {/* <span className="text-red-600">*</span> */}
+                  </label>
+                  <input
+                    type="tel"
+                    id="telepon"
+                    className="addInput"
+                    placeholder="+62"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="telepon"
+                    className="font-medium text-sm flex items-center gap-2"
+                  >
+                    <Icon icon="logos:telegram" width="21" />
+                    Telegram
+                    {/* <span className="text-red-600">*</span> */}
+                  </label>
+                  <input
+                    type="tel"
+                    id="telepon"
+                    className="addInput"
+                    placeholder="+62"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="telepon"
+                    className="font-medium text-sm flex items-center gap-2"
+                  >
+                    <Icon icon="arcticons:tokopedia" width="21" className="text-green-600" />
+                    Tokopedia
+                    {/* <span className="text-red-600">*</span> */}
+                  </label>
+                  <input
+                    type="text"
+                    id="telepon"
+                    className="addInput"
+                    placeholder="https://"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="telepon"
+                    className="font-medium text-sm flex items-center gap-2"
+                  >
+                    <Icon icon="arcticons:shopee" width="21" className="text-orange-600" />
+                    Shopee
+                    {/* <span className="text-red-600">*</span> */}
+                  </label>
+                  <input
+                    type="text"
+                    id="telepon"
+                    className="addInput"
+                    placeholder="https://"
+                  />
+                </div>
+              </div>
+
               <div className="my-1 justify-end flex">
                 <button
                   type="submit"

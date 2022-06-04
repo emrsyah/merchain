@@ -48,7 +48,7 @@ function Customers() {
   const columns = useMemo(
     () => [
       {
-        Header: "Tanggal",
+        Header: "Dari",
         accessor: "createdAt",
         Cell: ({cell: {value}}) => (
           <p>
@@ -97,7 +97,7 @@ function Customers() {
           </Link>
         </div>
         <div className="contentContainer">
-          <h5 className="font-semibold">Total Kustomer: {data?.length}</h5>
+          <h5 className="font-semibold">Total Kustomer: {dataMemo?.length}</h5>
           {/* Search Bar & Filter Nanti */}
           <div className="flex w-full my-2">
             <input

@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Icon } from "@iconify/react";
+import { v4 as uuidv4 } from "uuid";
 import { Helmet } from "react-helmet-async";
 import { useOutletContext } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -7,16 +8,24 @@ import { userState } from "../../atoms/userAtom";
 import NavbarAdmin from "../../components/NavbarAdmin";
 import VerificationReminder from "../../components/VerificationReminder";
 import { useForm } from "react-hook-form";
+import checkStoreNameAvailability from "../../helpers/checkStoreNameAvailability";
+import { doc, updateDoc } from "firebase/firestore";
+import { firestoreDb } from "../../firebase";
+import setFirestoreStorage from "../../helpers/setFirestoreStorage";
 
 function Setting() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const user = useRecoilValue(userState);
   const [store, setStore] = useOutletContext();
   const [loading, setLoading] = useState(false);
   const [isChange, setIsChange] = useState(false);
   const imgRef = useRef("");
-  const [storeImg, setStoreImg] = useState(store?.profileImg);
-  const [changedImg, setChangedImg] = useState();
+  const [changedImg, setChangedImg] = useState(null);
+  const [nameUsed, setNameUsed] = useState(false);
 
   const changeHandler = () => {
     if (isChange === true) return;
@@ -24,6 +33,7 @@ function Setting() {
   };
 
   const changeImgHandler = (e) => {
+    // console.log(changedImg)
     if (e.target.files && e.target.files.length > 0) {
       setChangedImg(e.target.files[0]);
     }
@@ -31,9 +41,49 @@ function Setting() {
   };
 
   const submitHandler = async (data) => {
-    // ev.preventDefault();
-    console.log(data)
     setLoading(true);
+    try {
+      // If Check misalnya dia ganti nama
+      if (data.storeName.toLowerCase() !== store.storeNameLowercase) {
+        const isAvailable = await checkStoreNameAvailability(data.storeName);
+        if (isAvailable) {
+          setNameUsed(true);
+          return;
+        }
+        setNameUsed(false);
+      }
+
+      // Update img field if change
+      if (changedImg) {
+        const imgUrl = await setFirestoreStorage(changedImg, uuidv4());
+        // console.log("new img = " + imgUrl)
+        await updateDoc(doc(firestoreDb, "stores", store.id), {
+          profileImg: imgUrl,
+        });
+      }
+
+      // Update Doc
+      await updateDoc(doc(firestoreDb, "stores", store.id), {
+        storeName: data.storeName,
+        storeBio: data.storeBio,
+        storeTime: [data.storeTimeBuka, data.storeTimeTutup],
+        links: {
+          whatsapp: data.whatsapp,
+          telegram: data.telegram,
+          tokopedia: data.tokopedia,
+          shopee: data.shopee,
+          facebook: data.facebook,
+          instagram: data.instagram,
+        },
+      });
+
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+      setIsChange(false)
+      setChangedImg(null)
+    }
   };
 
   return (
@@ -60,8 +110,8 @@ function Setting() {
                 <div className="flex items-center gap-4">
                   {!changedImg ? (
                     <img
-                      src={storeImg}
-                      className="w-20 h-20 p-1 my-2 border-purple-700 border-2 rounded-full"
+                      src={store?.profileImg}
+                      className="w-20 h-20 object-cover p-1 my-2 border-purple-700 border-2 rounded-full"
                       alt="foto profile"
                     />
                   ) : (
@@ -95,20 +145,27 @@ function Setting() {
                 <label htmlFor="nama" className="font-medium">
                   Nama Toko
                 </label>
-                <div className="addInput p-0 pl-3 items-center">
+                <div className="addInput mb-0 p-0 pl-3 items-center">
                   <p>merchain.com/</p>
                   <input
                     type="text"
                     id="nama"
-                    // className="addInput"
                     placeholder="John Doe"
-                    required
                     className="py-2 outline-none w-full"
-                    // value={storeName}
                     defaultValue={store?.storeName}
                     {...register("storeName", { required: true })}
                   />
                 </div>
+                {errors.storeName && (
+                  <span className="text-[13px] ml-1 text-red-500">
+                    nama harus diisi
+                  </span>
+                )}
+                {nameUsed && (
+                  <span className="text-[13px] ml-1 text-red-500">
+                    nama sudah terpakai, silahkan ganti
+                  </span>
+                )}
               </div>
 
               {/* Desc Input */}
@@ -124,7 +181,7 @@ function Setting() {
                   {...register("storeBio")}
                 />
               </div>
-              
+
               {/* Jam Input */}
               <div className="flex sm:flex-row flex-col items-center gap-6">
                 <div className="w-full">
@@ -158,7 +215,9 @@ function Setting() {
 
               {/* Link2 Container */}
               <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-6 gap-y-2">
-                <h5 className="md:col-span-2 font-semibold mb-2 text-lg">Hubungkan dengan</h5>
+                <h5 className="md:col-span-2 font-semibold mb-2 text-lg">
+                  Hubungkan dengan
+                </h5>
 
                 {/* Wa */}
                 <div>
@@ -173,7 +232,7 @@ function Setting() {
                   <input
                     type="tel"
                     id="whatsapp"
-                    defaultValue={store?.link?.whatsapp || ""}
+                    defaultValue={store?.links?.whatsapp || ""}
                     {...register("whatsapp")}
                     className="addInput"
                     placeholder="+62"
@@ -195,7 +254,7 @@ function Setting() {
                     id="telegram"
                     className="addInput"
                     placeholder="+62"
-                    defaultValue={store?.link?.telegram || ""}
+                    defaultValue={store?.links?.telegram || ""}
                     {...register("telegram")}
                   />
                 </div>
@@ -206,7 +265,11 @@ function Setting() {
                     htmlFor="tokopedia"
                     className="font-medium text-sm flex items-center gap-2"
                   >
-                    <Icon icon="arcticons:tokopedia" width="21" className="text-green-600" />
+                    <Icon
+                      icon="arcticons:tokopedia"
+                      width="21"
+                      className="text-green-600"
+                    />
                     Tokopedia
                     {/* <span className="text-red-600">*</span> */}
                   </label>
@@ -215,7 +278,7 @@ function Setting() {
                     id="tokopedia"
                     className="addInput"
                     placeholder="https://"
-                    defaultValue={store?.link?.tokopedia || ""}
+                    defaultValue={store?.links?.tokopedia || ""}
                     {...register("tokopedia")}
                   />
                 </div>
@@ -226,7 +289,11 @@ function Setting() {
                     htmlFor="shopee"
                     className="font-medium text-sm flex items-center gap-2"
                   >
-                    <Icon icon="arcticons:shopee" width="21" className="text-orange-600" />
+                    <Icon
+                      icon="arcticons:shopee"
+                      width="21"
+                      className="text-orange-600"
+                    />
                     Shopee
                     {/* <span className="text-red-600">*</span> */}
                   </label>
@@ -235,7 +302,7 @@ function Setting() {
                     id="shopee"
                     className="addInput"
                     placeholder="https://"
-                    defaultValue={store?.link?.shopee || ""}
+                    defaultValue={store?.links?.shopee || ""}
                     {...register("shopee")}
                   />
                 </div>
@@ -246,7 +313,11 @@ function Setting() {
                     htmlFor="facebook"
                     className="font-medium text-sm flex items-center gap-2"
                   >
-                    <Icon icon="akar-icons:facebook-fill" width="21" className="text-blue-600" />
+                    <Icon
+                      icon="akar-icons:facebook-fill"
+                      width="21"
+                      className="text-blue-600"
+                    />
                     Facebook
                     {/* <span className="text-red-600">*</span> */}
                   </label>
@@ -255,18 +326,22 @@ function Setting() {
                     id="facebook"
                     className="addInput"
                     placeholder="https://"
-                    defaultValue={store?.link?.facebook || ""}
+                    defaultValue={store?.links?.facebook || ""}
                     {...register("facebook")}
                   />
                 </div>
-                
+
                 {/* ig */}
                 <div>
                   <label
                     htmlFor="instagram"
                     className="font-medium text-sm flex items-center gap-2"
                   >
-                    <Icon icon="akar-icons:instagram-fill" width="21" className="text-pink-600" />
+                    <Icon
+                      icon="akar-icons:instagram-fill"
+                      width="21"
+                      className="text-pink-600"
+                    />
                     Instagram
                     {/* <span className="text-red-600">*</span> */}
                   </label>
@@ -275,11 +350,10 @@ function Setting() {
                     id="instagram"
                     className="addInput"
                     placeholder="https://"
-                    defaultValue={store?.link?.instagram || ""}
+                    defaultValue={store?.links?.instagram || ""}
                     {...register("instagram")}
                   />
                 </div>
-                
               </div>
 
               <div className="my-1 justify-end flex">

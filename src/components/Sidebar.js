@@ -46,7 +46,7 @@ function Sidebar({ store }) {
           {/* <SidebarProfile img={store.profileImg} name={store.storeName} /> */}
 
           <div className="flex items-center gap-2 w-full rounded">
-            <img src={store.profileImg} className="w-10" alt="" />
+            <img src={store.profileImg} className="w-12 h-12 rounded-full p-[2px] border-2 border-purple-600 object-cover" alt="" />
             <p className="font-medium text-left lg:text-[15px]">
               {store.storeName}
               <span className="hidden lg:inline"> Store</span>

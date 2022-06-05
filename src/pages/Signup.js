@@ -71,9 +71,8 @@ function Signup() {
         toast.update(id, { render: "This Email Already In Use", type: "error", isLoading: false, autoClose: 3000 });
         return;
       }
-      console.log(error);
       toast.update(id, { render: "Terjadi Error", type: "error", isLoading: false, autoClose: 3000 });
-      toast.error(error.code);
+      console.error(error);
     } finally{
       setLoading(false)
     }

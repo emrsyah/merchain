@@ -33,7 +33,8 @@ function Login() {
         toast.update(id, { render: "Email atau password salah", type: "error", isLoading: false, autoClose: 3000 });
         return;
       }
-      toast.error(error.code);
+      toast.update(id, { render: "Terjadi Error", type: "error", isLoading: false, autoClose: 3000 });
+      console.error(error)
     } finally {
       setLoading(false);
     }

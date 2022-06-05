@@ -70,7 +70,8 @@ function Onboarding() {
       toast.update(id, { render: "Sukses, Selamat Datang!", type: "success", isLoading: false, autoClose: 2000 });
       navigate('/app/home')
     } catch (err) {
-      console.log(err);
+      toast.update(id, { render: "Terjadi Error", type: "error", isLoading: false, autoClose: 3000 });
+      console.error(err);
     } finally{
       setLoading(false)
     }

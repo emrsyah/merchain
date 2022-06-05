@@ -12,6 +12,7 @@ import checkStoreNameAvailability from "../../helpers/checkStoreNameAvailability
 import { doc, updateDoc } from "firebase/firestore";
 import { firestoreDb } from "../../firebase";
 import setFirestoreStorage from "../../helpers/setFirestoreStorage";
+import { toast } from "react-toastify";
 
 function Setting() {
   const {
@@ -42,6 +43,7 @@ function Setting() {
 
   const submitHandler = async (data) => {
     setLoading(true);
+    const id = toast.loading("Tolong tunggu...")
     try {
       // If Check misalnya dia ganti nama
       if (data.storeName.toLowerCase() !== store.storeNameLowercase) {
@@ -76,9 +78,10 @@ function Setting() {
           instagram: data.instagram,
         },
       });
-
+      toast.update(id, { render: "Data Tersimpan!", type: "success", isLoading: false, autoClose: 2000 });
     } catch (err) {
       console.error(err);
+      toast.update(id, { render: "Terjadi Error", type: "error", isLoading: false, autoClose: 3000 });
     } finally {
       setLoading(false);
       setIsChange(false)

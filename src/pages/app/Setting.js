@@ -1,25 +1,22 @@
+import React, { useRef, useState } from "react";
 import { Icon } from "@iconify/react";
-import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/userAtom";
 import NavbarAdmin from "../../components/NavbarAdmin";
 import VerificationReminder from "../../components/VerificationReminder";
+import { useForm } from "react-hook-form";
 
 function Setting() {
-  const navigate = useNavigate();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const user = useRecoilValue(userState);
   const [store, setStore] = useOutletContext();
   const [loading, setLoading] = useState(false);
   const [isChange, setIsChange] = useState(false);
   const imgRef = useRef("");
-  const [storeName, setStoreName] = useState(store?.storeName);
   const [storeImg, setStoreImg] = useState(store?.profileImg);
   const [changedImg, setChangedImg] = useState();
-  const [storeBio, setStoreBio] = useState(store?.storeBio);
-  const [storeTimeBuka, setStoreTimeBuka] = useState(store?.storeTime[0]);
-  const [storeTimeTutup, setStoreTimeTutup] = useState(store?.storeTime[1]);
 
   const changeHandler = () => {
     if (isChange === true) return;
@@ -33,8 +30,9 @@ function Setting() {
     return false;
   };
 
-  const submitHandler = async (ev) => {
-    ev.preventDefault();
+  const submitHandler = async (data) => {
+    // ev.preventDefault();
+    console.log(data)
     setLoading(true);
   };
 
@@ -51,9 +49,10 @@ function Setting() {
           <div className="contentContainer">
             <form
               className="flex flex-col gap-4"
-              onSubmit={submitHandler}
+              onSubmit={handleSubmit(submitHandler)}
               onChange={changeHandler}
             >
+              {/* Image Input */}
               <div className="mt-3">
                 <label htmlFor="nama" className="font-semibold">
                   Foto
@@ -90,6 +89,8 @@ function Setting() {
                   />
                 </div>
               </div>
+
+              {/* Name Input */}
               <div>
                 <label htmlFor="nama" className="font-medium">
                   Nama Toko
@@ -103,40 +104,40 @@ function Setting() {
                     placeholder="John Doe"
                     required
                     className="py-2 outline-none w-full"
-                    value={storeName}
-                    onChange={(ev) => setStoreName(ev.target.value)}
-                    // ref={namaRef}
+                    // value={storeName}
+                    defaultValue={store?.storeName}
+                    {...register("storeName", { required: true })}
                   />
                 </div>
               </div>
+
+              {/* Desc Input */}
               <div>
                 <label htmlFor="email" className="font-medium">
                   Tentang Toko
                 </label>
                 <textarea
-                  // type="text"
                   id="email"
                   className="addInput"
-                  placeholder="johndoe@gmail.com"
-                  value={storeBio}
-                  onChange={(ev) => setStoreBio(ev.target.value)}
-                  // ref={emailRef}
-                  // required
+                  placeholder="Ceritakan toko kamu"
+                  defaultValue={store?.storeBio}
+                  {...register("storeBio")}
                 />
               </div>
+              
+              {/* Jam Input */}
               <div className="flex sm:flex-row flex-col items-center gap-6">
                 <div className="w-full">
                   <label htmlFor="telepon" className="font-medium">
                     Waktu Buka
-                    {/* <span className="text-red-600">*</span> */}
                   </label>
                   <input
                     type="time"
                     id="telepon"
                     className="addInput"
                     placeholder="+62"
-                    value={storeTimeBuka}
-                    onChange={(ev) => setStoreTimeBuka(ev.target.value)}
+                    defaultValue={store?.storeTime[0] || "00:00"}
+                    {...register("storeTimeBuka")}
                   />
                 </div>
                 <div className="w-full">
@@ -149,8 +150,8 @@ function Setting() {
                     id="telepon"
                     className="addInput"
                     placeholder="+62"
-                    value={storeTimeTutup}
-                    onChange={(ev) => setStoreTimeTutup(ev.target.value)}
+                    defaultValue={store?.storeTime[1] || "00:00"}
+                    {...register("storeTimeTutup")}
                   />
                 </div>
               </div>
@@ -159,9 +160,10 @@ function Setting() {
               <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-6 gap-y-2">
                 <h5 className="md:col-span-2 font-semibold mb-2 text-lg">Hubungkan dengan</h5>
 
+                {/* Wa */}
                 <div>
                   <label
-                    htmlFor="telepon"
+                    htmlFor="whatsapp"
                     className="font-medium text-sm flex items-center gap-2"
                   >
                     <Icon icon="logos:whatsapp" width="21" />
@@ -170,15 +172,18 @@ function Setting() {
                   </label>
                   <input
                     type="tel"
-                    id="telepon"
+                    id="whatsapp"
+                    defaultValue={store?.link?.whatsapp || ""}
+                    {...register("whatsapp")}
                     className="addInput"
                     placeholder="+62"
                   />
                 </div>
 
+                {/* Telegram */}
                 <div>
                   <label
-                    htmlFor="telepon"
+                    htmlFor="telegram"
                     className="font-medium text-sm flex items-center gap-2"
                   >
                     <Icon icon="logos:telegram" width="21" />
@@ -187,15 +192,18 @@ function Setting() {
                   </label>
                   <input
                     type="tel"
-                    id="telepon"
+                    id="telegram"
                     className="addInput"
                     placeholder="+62"
+                    defaultValue={store?.link?.telegram || ""}
+                    {...register("telegram")}
                   />
                 </div>
 
+                {/* tokped */}
                 <div>
                   <label
-                    htmlFor="telepon"
+                    htmlFor="tokopedia"
                     className="font-medium text-sm flex items-center gap-2"
                   >
                     <Icon icon="arcticons:tokopedia" width="21" className="text-green-600" />
@@ -204,15 +212,18 @@ function Setting() {
                   </label>
                   <input
                     type="text"
-                    id="telepon"
+                    id="tokopedia"
                     className="addInput"
                     placeholder="https://"
+                    defaultValue={store?.link?.tokopedia || ""}
+                    {...register("tokopedia")}
                   />
                 </div>
 
+                {/* shopee */}
                 <div>
                   <label
-                    htmlFor="telepon"
+                    htmlFor="shopee"
                     className="font-medium text-sm flex items-center gap-2"
                   >
                     <Icon icon="arcticons:shopee" width="21" className="text-orange-600" />
@@ -221,11 +232,54 @@ function Setting() {
                   </label>
                   <input
                     type="text"
-                    id="telepon"
+                    id="shopee"
                     className="addInput"
                     placeholder="https://"
+                    defaultValue={store?.link?.shopee || ""}
+                    {...register("shopee")}
                   />
                 </div>
+
+                {/* fb */}
+                <div>
+                  <label
+                    htmlFor="facebook"
+                    className="font-medium text-sm flex items-center gap-2"
+                  >
+                    <Icon icon="akar-icons:facebook-fill" width="21" className="text-blue-600" />
+                    Facebook
+                    {/* <span className="text-red-600">*</span> */}
+                  </label>
+                  <input
+                    type="text"
+                    id="facebook"
+                    className="addInput"
+                    placeholder="https://"
+                    defaultValue={store?.link?.facebook || ""}
+                    {...register("facebook")}
+                  />
+                </div>
+                
+                {/* ig */}
+                <div>
+                  <label
+                    htmlFor="instagram"
+                    className="font-medium text-sm flex items-center gap-2"
+                  >
+                    <Icon icon="akar-icons:instagram-fill" width="21" className="text-pink-600" />
+                    Instagram
+                    {/* <span className="text-red-600">*</span> */}
+                  </label>
+                  <input
+                    type="text"
+                    id="instagram"
+                    className="addInput"
+                    placeholder="https://"
+                    defaultValue={store?.link?.instagram || ""}
+                    {...register("instagram")}
+                  />
+                </div>
+                
               </div>
 
               <div className="my-1 justify-end flex">
@@ -236,7 +290,7 @@ function Setting() {
                     (loading || !isChange) && "opacity-75 hover:bg-purple-600"
                   }`}
                 >
-                  {!loading ? <>Simpan Perubahan</> : <>Tunggu Sebentar</>}
+                  {!loading ? <>Simpan Perubahan</> : <>Menyimpan...</>}
                 </button>
               </div>
             </form>

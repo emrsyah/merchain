@@ -18,6 +18,7 @@ import Setting from "./pages/app/Setting";
 import NewProduct from "./pages/app/products/NewProduct";
 import NewOrder from "./pages/app/orders/NewOrder";
 import NewCustomer from "./pages/app/customers/NewCustomer";
+import Form from "./pages/Form";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="onboarding" element={<Onboarding />} />
+        <Route path="form" element={<Form />} />
         <Route path="app" element={<Layout />}>
           <Route index element={<Manage />} />
           <Route path="home" element={<Manage />} />

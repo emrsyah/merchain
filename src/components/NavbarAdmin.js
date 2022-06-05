@@ -8,14 +8,14 @@ function NavbarAdmin({ user }) {
 
   useEffect(() => {
     const now = new Date().getHours();
-    if (4 <= now && now <= 10) {
+    if (4 <= now && now <= 11) {
       setGreeting({
         emoji: "🌄",
         greet: "Selamat Pagi, ",
       });
-    } else if (11 <= now && now <= 14) {
+    } else if (12 <= now && now <= 14) {
       setGreeting({
-        emoji: "☀️",
+        emoji: "🌞",
         greet: "Selamat Siang, ",
       });
     } else if (15 <= now && now <= 18) {

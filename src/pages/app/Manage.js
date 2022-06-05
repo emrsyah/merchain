@@ -38,7 +38,7 @@ useEffect(()=>{
           <div className="flex items-start justify-between">
             {/* Bagian Kiri Atas */}
             <div className="md:flex-row flex flex-col items-start md:items-center gap-3">
-              <img src={store.profileImg} alt="" className="w-16" />
+              <img src={store.profileImg} alt=""  className="w-16 h-16 rounded-full p-[2px] border-2 border-purple-600 object-cover" />
               <div>
                 <h5 className="font-semibold text-xl">
                   {store.storeName} Store

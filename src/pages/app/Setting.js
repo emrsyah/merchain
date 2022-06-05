@@ -27,6 +27,8 @@ function Setting() {
   const imgRef = useRef("");
   const [changedImg, setChangedImg] = useState(null);
   const [nameUsed, setNameUsed] = useState(false);
+  const [storeBuka, setStoreBuka] = useState(store.storeTime ? store.storeTime[0] : "00:00")
+  const [storeTutup, setStoreTutup] = useState(store.storeTime ? store.storeTime[1] : "00:00")
 
   const changeHandler = () => {
     if (isChange === true) return;
@@ -196,7 +198,7 @@ function Setting() {
                     id="telepon"
                     className="addInput"
                     placeholder="+62"
-                    defaultValue={store?.storeTime[0] || "00:00"}
+                    defaultValue={storeBuka}
                     {...register("storeTimeBuka")}
                   />
                 </div>
@@ -210,7 +212,7 @@ function Setting() {
                     id="telepon"
                     className="addInput"
                     placeholder="+62"
-                    defaultValue={store?.storeTime[1] || "00:00"}
+                    defaultValue={storeTutup}
                     {...register("storeTimeTutup")}
                   />
                 </div>

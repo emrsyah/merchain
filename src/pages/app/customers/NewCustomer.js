@@ -37,6 +37,7 @@ function NewCustomer() {
       navigate("/app/customers");
     } catch (err) {
       console.error(err);
+      toast.error("Terjadi Kesalahan")
     } finally {
       setLoading(false);
     }

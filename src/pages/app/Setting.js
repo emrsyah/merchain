@@ -59,7 +59,7 @@ function Setting() {
 
       // Update img field if change
       if (changedImg) {
-        const imgUrl = await setFirestoreStorage(changedImg, uuidv4());
+        const imgUrl = await setFirestoreStorage(changedImg, uuidv4(), "stores-pofile");
         // console.log("new img = " + imgUrl)
         await updateDoc(doc(firestoreDb, "stores", store.id), {
           profileImg: imgUrl,

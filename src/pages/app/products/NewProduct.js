@@ -1,13 +1,17 @@
 import { Icon } from "@iconify/react";
 import React, { useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../atoms/userAtom";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import imgPlaceholder from "../../../assets/imgPlaceholder.svg";
 import ProductSwitch from "../../../components/ProductSwitch";
 import { useForm } from "react-hook-form";
+import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { firestoreDb } from "../../../firebase";
+import { toast } from "react-toastify";
+import setFirestoreStorage from "../../../helpers/setFirestoreStorage";
 
 function NewProduct() {
   const {
@@ -15,10 +19,13 @@ function NewProduct() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [store, setStore] = useOutletContext();
+  const navigate = useNavigate()
   const user = useRecoilValue(userState);
   const imgRef = useRef("");
   const [selectedImage, setSelectedImage] = useState();
   const [enabled, setEnabled] = useState(true);
+  const [loading, setLoading] = useState(false)
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -26,8 +33,31 @@ function NewProduct() {
     }
   };
 
-  const submitHandler = (data) => {
-    console.log(data, enabled, selectedImage);
+  const submitHandler = async (data) => {
+    setLoading(true)
+    const id = toast.loading("Menambahkan Produk...")
+    try{
+      const docRef = await addDoc(collection(firestoreDb, "products"), {
+        storeId: store.id,
+        active: enabled,
+        name: data.nama,
+        desc: data.deskripsi,
+        price: data.harga,
+        createdAt: serverTimestamp(),
+      })
+      const imgUrl = await setFirestoreStorage(selectedImage, docRef.id, "product-images")
+      await updateDoc(doc(firestoreDb, "products", docRef.id), {
+        image: imgUrl
+      })
+      toast.update(id, { render: "Produk Berhasil Ditambahkan!", type: "success", isLoading: false, autoClose: 2000 });
+      navigate("/app/products");
+    } catch(err){
+      toast.update(id, { render: "Terjadi Kesalahan", type: "error", isLoading: false, autoClose: 3000 });
+      console.error(err)
+    }
+    finally{
+      setLoading(false)
+    }
   };
 
   return (
@@ -126,7 +156,7 @@ function NewProduct() {
                 {selectedImage ? (
                   <img
                     src={URL.createObjectURL(selectedImage)}
-                    className="w-64"
+                    className="w-56 h-56 object-cover"
                     alt="Thumb"
                   />
                 ) : (
@@ -147,18 +177,20 @@ function NewProduct() {
                 className="opacity-0"
                 ref={imgRef}
                 onChange={imageChange}
-                // required
+                required
               />
               <div className="my-1 justify-end flex gap-3 md:">
-                <Link
-                  to="/app/products"
-                  className="rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600"
+                <button
+                  disabled={loading}
+                  onClick={()=>navigate('/app/products')}
+                  className={`rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600 ${loading && "opacity-75 hover:bg-white"} `}
                 >
                   Batalkan
-                </Link>
+                </button>
                 <button
                   type="submit"
-                  className="bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm"
+                  disabled={loading}
+                  className={`bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm ${loading && "opacity-75 hover:bg-purple-600"}`}
                 >
                   Simpan Produk
                 </button>

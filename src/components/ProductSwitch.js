@@ -1,10 +1,7 @@
 import { Switch } from '@headlessui/react'
-import { useRecoilState } from 'recoil'
-import { activeProductState } from '../atoms/activeProduct'
+
 
 export default function ProductSwitch({enabled, setEnabled}) {
-//   const [enabled, setEnabled] = useState(false)
-//   const [enabled, setEnabled] = useRecoilState(activeProductState)
 
   return (
     <div className='my-2'>

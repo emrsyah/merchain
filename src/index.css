@@ -108,3 +108,9 @@ input[type=number]::-webkit-outer-spin-button {
 .interFonts{
   font-family: 'Inter';
 }
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+}

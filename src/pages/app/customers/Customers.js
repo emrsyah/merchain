@@ -17,7 +17,6 @@ function Customers() {
   const [store, setStore] = useOutletContext();
   const user = useRecoilValue(userState);
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState(null);
   const [filterInput, setFilterInput] = useState("");
   const [customers, setCustomers] = useState("");
 
@@ -28,6 +27,7 @@ function Customers() {
       query(collection(firestoreDb, "customers"), where("storeId", "==", id)),
       (snapshot) => {
         setCustomers(mappingToArray(snapshot.docs));
+        console.log(mappingToArray(snapshot.docs));
       }
     );
     return unsubscribe;
@@ -38,7 +38,7 @@ function Customers() {
     try {
       getCustomers(store.id);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     setLoading(false);
   }, []); 

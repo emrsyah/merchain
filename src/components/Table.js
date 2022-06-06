@@ -21,6 +21,7 @@ export default function Table({ columns, data, filterInput, filterColumn }) {
   } = useTable({ columns, data }, useFilters, useSortBy, usePagination);
 
   useEffect(() => {
+    // console.log(columns, data, filterInput, filterColumn)
     const value = filterInput || "";
     setFilter(filterColumn, value);
   }, [filterInput]);

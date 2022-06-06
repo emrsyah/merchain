@@ -1,67 +1,128 @@
 import { Icon } from "@iconify/react";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import React, { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../atoms/userAtom";
 import EmptyTable from "../../../components/EmptyTable";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import Table from "../../../components/Table";
 import VerificationReminder from "../../../components/VerificationReminder";
+import { firestoreDb } from "../../../firebase";
+import mappingToArray from "../../../helpers/mappingToArray";
 
 function Products() {
   const user = useRecoilValue(userState);
-  const [loading, setLoading] = useState(true)
+  const [store, setStore] = useOutletContext();
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [filterInput, setFilterInput] = useState("");
+  const [products, setProducts] = useState("");
+
+  const getProducts = (id) => {
+    // console.log('fetching store')
+    // ?? Unsubscribe itu buat clear memory mislanya componentnya udah unmount
+    const unsubscribe = onSnapshot(
+      query(collection(firestoreDb, "products"), where("storeId", "==", id)),
+      (snapshot) => {
+        const mapped = mappingToArray(snapshot.docs);
+        console.log(mapped);
+        setProducts(mapped);
+      }
+    );
+    return unsubscribe;
+  };
 
   useEffect(() => {
-    (async () => {
-      setLoading(true)
-      try {
-        const result = await fetch(
-          "https://api.tvmaze.com/search/shows?q=snow"
-        );
-        const resJson = await result.json();
-        setData(resJson);
-      } catch (err) {
-        console.log(err);
-      }
-      setLoading(false)
-    })();
+    setLoading(true);
+    try {
+      getProducts(store.id);
+    } catch (err) {
+      console.error(err);
+    }
+    setLoading(false);
   }, []);
 
-  const dataMemo = useMemo(() => data, [data]);
+  const dataMemo = useMemo(() => products, [products]);
 
   const columns = useMemo(
     () => [
       {
-        Header: "No",
-        accessor: "show.id",
+        Header: "Gambar",
+        accessor: "image",
+        Cell: ({ cell: { value } }) => (
+          <img
+            src={value}
+            alt="productImg"
+            className="h-16 w-16 object-cover"
+          />
+        ),
       },
       {
-        Header: "Tanggal Pesan",
-        accessor: "show.ended",
-      },
-      {
-        Header: "Pembeli",
-        accessor: "show.language",
-      },
-      {
-        Header: "Status",
-        accessor: "show.status",
+        Header: "Nama",
+        accessor: "name",
         Cell: ({ cell: { value } }) => (
           <p
-            className={`${value} rounded text-[13px] py-1 px-2 w-fit font-semibold interFonts`}
+            className={`max-w-[160px]`}
           >
             {value}
           </p>
         ),
       },
       {
-        Header: "Total",
-        accessor: "show.runtime",
+        Header: "Harga",
+        accessor: "price",
+        Cell: ({ cell: { value } }) => (
+          <p
+            className={`interFonts text-[13px]`}
+          >
+            {value}
+          </p>
+        ),
       },
+      {
+        Header: "Deskripsi",
+        accessor: "desc",
+        Cell: ({ cell: { value } }) => (
+          <p
+            className={`max-w-[300px] truncate`}
+          >
+            {value}
+          </p>
+        ),
+      },
+      {
+        Header: "Status",
+        accessor: "active",
+        Cell: ({ cell: { value } }) => (
+          <div
+            className={`${!value && 'font-base text-gray-500'} text-[13px] py-[2px] flex items-center gap-[6px] px-[10px] font-medium interFonts rounded bg-[#F1F1F2] w-fit`}
+          >
+            <div
+              className={`${
+                value ? "bg-green-600" : "bg-gray-500"
+              } w-2 h-2 rounded-full`}
+            ></div>
+            <p>{value ? "Aktif" : "Tidak Aktif"}</p>
+          </div>
+        ),
+      },
+      // {
+      //   Header: "Pembeli",
+      //   accessor: "show.language",
+      // },
+      // {
+      //   Header: "Status",
+      //   accessor: "show.status",
+      //   Cell: ({ cell: { value } }) => (
+      //     <p
+      //       className={`${value} rounded text-[13px] py-1 px-2 w-fit font-semibold interFonts`}
+      //     >
+      //       {value}
+      //     </p>
+      //   ),
+      // },
     ],
     []
   );
@@ -87,7 +148,7 @@ function Products() {
           </Link>
         </div>
         <div className="contentContainer">
-          <h5 className="font-semibold">Total Produk: {data?.length}</h5>
+          <h5 className="font-semibold">Total Produk: {dataMemo?.length}</h5>
           {/* Search Bar & Filter Nanti */}
           <div className="flex w-full my-2">
             <input
@@ -104,23 +165,22 @@ function Products() {
 
           {/* Kalo Loading */}
           {loading && <div>Loading...</div>}
-          
+
           {/* Table */}
           {!loading && (
             <>
-              {data ? (
+              {dataMemo ? (
                 <Table
                   columns={columns}
                   data={dataMemo}
                   filterInput={filterInput}
-                  filterColumn="show.id"
+                  filterColumn="name"
                 />
               ) : (
                 <EmptyTable columns={columns} />
               )}
             </>
           )}
-
         </div>
       </div>
     </>

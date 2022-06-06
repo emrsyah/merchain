@@ -1,12 +1,14 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
+import Lottie from "lottie-web";
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../../atoms/userAtom";
 import Sidebar from "../../components/Sidebar";
 import { auth, firestoreDb } from "../../firebase";
+import lottieJson from '../../assets/97110-purple-spinner.json'
+import logo from '../../assets/merchainIcon.svg'
 
 function Layout() {
   const navigate = useNavigate();
@@ -14,14 +16,13 @@ function Layout() {
   const [store, setStore] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
   const fetchAndSetStore = (uid) => {
     // console.log('fetching store')
     // ?? Unsubscribe itu buat clear memory mislanya componentnya udah unmount
     const unsubscribe = onSnapshot(
       query(collection(firestoreDb, "stores"), where("userId", "==", uid)),
       (snapshot) => {
-        setStore({...snapshot.docs[0].data(), id: snapshot.docs[0].id});
+        setStore({ ...snapshot.docs[0].data(), id: snapshot.docs[0].id });
       }
     );
     return unsubscribe;
@@ -45,18 +46,33 @@ function Layout() {
           verified: user.emailVerified,
           email: user.email,
         });
-        setLoading(false);
       });
     } catch (err) {
       console.log(err);
-      setLoading(false);
+    } finally{
+      setLoading(false)
     }
   }, []);
 
+  useEffect(() => {
+    // console.count("loaded")
+    const instance = Lottie.loadAnimation({
+      container: document.querySelector("#lottie-container"),
+      animationData: lottieJson,
+    });
+    return () => instance.destroy();
+  }, []);
+
   if (loading || !store) {
-    return <div>Loading...</div>;
-  }
-  else {
+    return (
+      <div className="flex justify-center items-center h-[100vh] flex-col">
+        {/* <img src={loading} alt="" /> */}
+        <img src={logo} alt="" className="h-14" />
+        <div id="lottie-container" className="w-28" />
+        {/* <div>loading</div> */}
+      </div>
+    );
+  } else {
     return (
       <div className="flex flex-col  md:grid md:grid-cols-11 bg-[#F4F4F5]">
         <nav className="md:col-span-2 bg-white">

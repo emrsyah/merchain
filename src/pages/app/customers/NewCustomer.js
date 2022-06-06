@@ -94,19 +94,6 @@ function NewCustomer() {
                 {...register("email", { required: false })}
               />
             </div>
-            {/* <div>
-              <label htmlFor="desc" className="font-medium">
-                Deskripsi<span className="text-red-600">*</span>
-              </label>
-              <textarea
-                // type="text"
-                id="desc"
-                className="addInput"
-                placeholder="Deskripsi"
-                required
-                cols="30"
-              />
-            </div> */}
             <div>
               <label htmlFor="telepon" className="font-medium">
                 Nomor Telepon

@@ -1,9 +1,12 @@
 // Table.js
 import { Icon } from "@iconify/react";
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTable, useFilters, useSortBy, usePagination } from "react-table";
 
 export default function Table({ columns, data, filterInput, filterColumn }) {
+  const navigate = useNavigate()
+
   // Table component logic and UI come here
   const {
     getTableProps,
@@ -25,6 +28,10 @@ export default function Table({ columns, data, filterInput, filterColumn }) {
     const value = filterInput || "";
     setFilter(filterColumn, value);
   }, [filterInput]);
+
+  const rowClickHandler = (id) =>{
+    navigate(id)
+  }
 
   return (
     <>
@@ -68,7 +75,7 @@ export default function Table({ columns, data, filterInput, filterColumn }) {
               <tr
                 {...row.getRowProps()}
                 className="border-y-[1px] text-gray-800 border-gray-300 cursor-pointer hover:bg-purple-100  helveticaFonts"
-                // onClick={()=>console.log(row.original.show.id)}
+                onClick={()=>rowClickHandler(row.original.id)}
               >
                 {row.cells.map((cell) => {
                   return (

@@ -27,7 +27,6 @@ function Customers() {
       query(collection(firestoreDb, "customers"), where("storeId", "==", id)),
       (snapshot) => {
         setCustomers(mappingToArray(snapshot.docs));
-        console.log(mappingToArray(snapshot.docs));
       }
     );
     return unsubscribe;

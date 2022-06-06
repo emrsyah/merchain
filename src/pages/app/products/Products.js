@@ -16,7 +16,6 @@ function Products() {
   const user = useRecoilValue(userState);
   const [store, setStore] = useOutletContext();
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
   const [filterInput, setFilterInput] = useState("");
   const [products, setProducts] = useState("");
 
@@ -26,9 +25,7 @@ function Products() {
     const unsubscribe = onSnapshot(
       query(collection(firestoreDb, "products"), where("storeId", "==", id)),
       (snapshot) => {
-        const mapped = mappingToArray(snapshot.docs);
-        console.log(mapped);
-        setProducts(mapped);
+        setProducts(mappingToArray(snapshot.docs));
       }
     );
     return unsubscribe;
@@ -77,7 +74,7 @@ function Products() {
           <p
             className={`interFonts text-[13px]`}
           >
-            {value}
+            Rp {value}
           </p>
         ),
       },
@@ -86,7 +83,7 @@ function Products() {
         accessor: "desc",
         Cell: ({ cell: { value } }) => (
           <p
-            className={`max-w-[300px] truncate`}
+            className={`lg:max-w-[300px] truncate md:max-w-[180px] max-w-[120px]`}
           >
             {value}
           </p>

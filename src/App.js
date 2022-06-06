@@ -18,6 +18,8 @@ import Setting from "./pages/app/Setting";
 import NewProduct from "./pages/app/products/NewProduct";
 import NewOrder from "./pages/app/orders/NewOrder";
 import NewCustomer from "./pages/app/customers/NewCustomer";
+import EditCustomer from "./pages/app/customers/EditCustomer";
+import EditProduct from "./pages/app/products/EditProduct";
 
 function App() {
   return (
@@ -38,8 +40,10 @@ function App() {
           <Route path="orders/new" element={<NewOrder />} />
           <Route path="products" element={<Products />} />
           <Route path="products/new" element={<NewProduct />} />
+          <Route path="products/:id" element={<EditProduct />} />
           <Route path="customers" element={<Customers />} />
           <Route path="customers/new" element={<NewCustomer />} />
+          <Route path="customers/:id" element={<EditCustomer />} />
           <Route path="settings" element={<Setting />} />
         </Route>
         <Route path="*" element={<NotFound />} />

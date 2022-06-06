@@ -1,7 +1,8 @@
 import { Icon } from "@iconify/react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import React, {  useRef, useState } from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
@@ -10,36 +11,34 @@ import NavbarAdmin from "../../../components/NavbarAdmin";
 import { firestoreDb } from "../../../firebase";
 
 function NewCustomer() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [store, setStore] = useOutletContext();
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const user = useRecoilValue(userState);
-  const namaRef = useRef("");
-  const emailRef = useRef("");
-  const nomorRef = useRef("");
-  const domisiliRef = useRef("");
-  const jumlahRef = useRef("");
 
-
-  const submitHandler = async (ev) => {
-    ev.preventDefault();
-    setLoading(true)
-    try{
+  const submitHandler = async (data) => {
+    setLoading(true);
+    try {
       await addDoc(collection(firestoreDb, "customers"), {
         storeId: store.id,
-        nama: namaRef.current.value,
-        email: emailRef.current.value,
-        nomor: nomorRef.current.value,
-        domisili: domisiliRef.current.value,
-        jumlahOrder: jumlahRef.current.value,
+        nama: data.nama,
+        email: data.email,
+        nomor: data.telepon,
+        domisili: data.domisili,
+        jumlahOrder: data.jumlah,
         createdAt: serverTimestamp(),
       });
-      toast.success("Data Berhasil Ditambahkan")
-      navigate('/app/customers')
+      toast.success("Data Berhasil Ditambahkan");
+      navigate("/app/customers");
     } catch (err) {
-      console.log(err)
-    } finally{
-      setLoading(false)
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -61,7 +60,10 @@ function NewCustomer() {
 
         <div className="contentContainer">
           <h1 className="pageName mb-6">Kustomer Baru</h1>
-          <form className="flex flex-col gap-4" onSubmit={submitHandler}>
+          <form
+            className="flex flex-col gap-4"
+            onSubmit={handleSubmit(submitHandler)}
+          >
             <div>
               <label htmlFor="nama" className="font-medium">
                 Nama<span className="text-red-600">*</span>
@@ -71,9 +73,13 @@ function NewCustomer() {
                 id="nama"
                 className="addInput"
                 placeholder="John Doe"
-                required
-                ref={namaRef}
+                {...register("nama", { required: true })}
               />
+              {errors.nama && (
+                <span className="text-[13px] ml-1 text-red-500">
+                  nama harus diisi
+                </span>
+              )}
             </div>
             <div>
               <label htmlFor="email" className="font-medium">
@@ -84,8 +90,7 @@ function NewCustomer() {
                 id="email"
                 className="addInput"
                 placeholder="johndoe@gmail.com"
-                ref={emailRef}
-                // required
+                {...register("email", { required: false })}
               />
             </div>
             {/* <div>
@@ -111,7 +116,7 @@ function NewCustomer() {
                 id="telepon"
                 className="addInput"
                 placeholder="+62"
-                ref={nomorRef}
+                {...register("telepon", { required: false })}
                 // required
               />
             </div>
@@ -124,7 +129,7 @@ function NewCustomer() {
                 id="domisili"
                 className="addInput"
                 placeholder="Kota Bandung, Jawa Barat"
-                ref={domisiliRef}
+                {...register("domisili", { required: false })}
               />
             </div>
             <div>
@@ -136,13 +141,16 @@ function NewCustomer() {
                 id="jumlah"
                 className="addInput"
                 placeholder="3"
-                ref={jumlahRef}
+                {...register("jumlah", { required: false })}
               />
             </div>
             <div className="my-1 justify-end flex gap-3 md:">
               <button
-                className={`rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600 ${loading && 'opacity-75'}`}
-                onClick={()=>navigate('/app/customers')}
+                type="button"
+                className={`rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600 ${
+                  loading && "opacity-75"
+                }`}
+                onClick={() => navigate("/app/customers")}
                 disabled={loading}
               >
                 Batalkan
@@ -150,7 +158,9 @@ function NewCustomer() {
               <button
                 type="submit"
                 disabled={loading}
-                className={`bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm ${loading && "opacity-75 hover:bg-purple-600"}`}
+                className={`bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm ${
+                  loading && "opacity-75 hover:bg-purple-600"
+                }`}
               >
                 Simpan Kustomer
               </button>

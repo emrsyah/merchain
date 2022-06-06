@@ -7,22 +7,27 @@ import { userState } from "../../../atoms/userAtom";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import imgPlaceholder from "../../../assets/imgPlaceholder.svg";
 import ProductSwitch from "../../../components/ProductSwitch";
+import { useForm } from "react-hook-form";
 
 function NewProduct() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const user = useRecoilValue(userState);
   const imgRef = useRef("");
   const [selectedImage, setSelectedImage] = useState();
-  const [enabled, setEnabled] = useState(true)
+  const [enabled, setEnabled] = useState(true);
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
-      // console.log(e.target.files[0]);
     }
   };
 
-  const submitHandler = (ev) => {
-    ev.preventDefault();
+  const submitHandler = (data) => {
+    console.log(data, enabled, selectedImage);
   };
 
   return (
@@ -43,22 +48,32 @@ function NewProduct() {
 
         <div className="contentContainer">
           <h1 className="pageName mb-6">Produk Baru</h1>
-          <form className="flex flex-col gap-4" onSubmit={submitHandler}>
+          <form
+            className="flex flex-col gap-4"
+            onSubmit={handleSubmit(submitHandler)}
+          >
             <div className="flex flex-col">
-            <label htmlFor="switch" className="font-medium">Produk Aktif</label>
-            <ProductSwitch enabled={enabled} setEnabled={setEnabled} />
+              <label htmlFor="switch" className="font-medium">
+                Produk Aktif
+              </label>
+              <ProductSwitch enabled={enabled} setEnabled={setEnabled} />
             </div>
             <div>
-              <label htmlFor="nama" className="font-medium">
+              <label htmlFor="produk" className="font-medium">
                 Nama Produk<span className="text-red-600">*</span>
               </label>
               <input
                 type="text"
-                id="nama"
+                id="produk"
                 className="addInput"
                 placeholder="Sunflower Bouquet"
-                required
+                {...register("nama", { required: true })}
               />
+              {errors.nama && (
+                <span className="text-[13px] ml-1 text-red-500">
+                  nama produk harus diisi
+                </span>
+              )}
             </div>
             <div>
               <label htmlFor="desc" className="font-medium">
@@ -69,9 +84,14 @@ function NewProduct() {
                 id="desc"
                 className="addInput"
                 placeholder="Deskripsi"
-                required
                 cols="30"
+                {...register("deskripsi", { required: true })}
               />
+              {errors.deskripsi && (
+                <span className="text-[13px] ml-1 text-red-500">
+                  deskripsi harus diisi
+                </span>
+              )}
             </div>
             <div>
               <label htmlFor="harga" className="font-medium">
@@ -82,12 +102,18 @@ function NewProduct() {
                 id="harga"
                 className="addInput"
                 placeholder="Harga"
-                required
                 min={0}
+                {...register("harga", { required: true })}
               />
-              <p className="text-xs font-medium text-purple-500">
-                perhatian jangan menggunakan titik (.)
-              </p>
+              {errors.harga ? (
+                <span className="text-[13px] ml-1 text-red-500">
+                  harga harus diisi
+                </span>
+              ) : (
+                <p className="text-xs font-medium text-purple-500">
+                  perhatian jangan menggunakan titik (.)
+                </p>
+              )}
             </div>
             <div>
               <label htmlFor="gambar" className="font-medium">
@@ -100,7 +126,7 @@ function NewProduct() {
                 {selectedImage ? (
                   <img
                     src={URL.createObjectURL(selectedImage)}
-                    className="w-80"
+                    className="w-64"
                     alt="Thumb"
                   />
                 ) : (
@@ -124,10 +150,16 @@ function NewProduct() {
                 // required
               />
               <div className="my-1 justify-end flex gap-3 md:">
-                <Link to="/app/products" className="rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600">
+                <Link
+                  to="/app/products"
+                  className="rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600"
+                >
                   Batalkan
                 </Link>
-                <button type="submit" className="bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm">
+                <button
+                  type="submit"
+                  className="bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm"
+                >
                   Simpan Produk
                 </button>
               </div>

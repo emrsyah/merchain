@@ -49,16 +49,17 @@ function EditCustomer() {
     const docRef = doc(firestoreDb, "customers", id);
     const docSnap = await getDoc(docRef);
 
-    // Handling error dan exception hehehe
+    // Handling error dan exception
     if (!docSnap.exists()) {
+      console.log("Customer doesnt exist")
       navigate("/app/customers");
       return;
     }
     if (docSnap.data().storeId !== store.id) {
+      console.log("Customer doesnt exist")
       navigate("/app/customers");
       return;
     }
-    console.log(docSnap.data());
     setCustomer(docSnap.data());
   };
 

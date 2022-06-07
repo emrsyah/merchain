@@ -2,7 +2,6 @@ import { Icon } from "@iconify/react";
 import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import {
-  Link,
   useNavigate,
   useOutletContext,
   useParams,
@@ -13,16 +12,14 @@ import NavbarAdmin from "../../../components/NavbarAdmin";
 import ProductSwitch from "../../../components/ProductSwitch";
 import { useForm } from "react-hook-form";
 import {
-  addDoc,
-  collection,
   doc,
   getDoc,
-  serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
-import { firestoreDb } from "../../../firebase";
+import { firestoreDb, storage } from "../../../firebase";
 import { toast } from "react-toastify";
 import setFirestoreStorage from "../../../helpers/setFirestoreStorage";
+import { deleteObject, ref } from "firebase/storage";
 
 function EditProduct() {
   let { id } = useParams();
@@ -41,6 +38,7 @@ function EditProduct() {
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState(null);
   const [firstLoading, setFirstLoading] = useState(true);
+  const [isChange, setIsChange] = useState(false)
 
   const getProduct = async () => {
     const docRef = doc(firestoreDb, "products", id);
@@ -57,7 +55,12 @@ function EditProduct() {
       navigate("/app/products");
       return;
     }
-    return (docSnap.data());
+    return ({...docSnap.data(), id:docSnap.id});
+  };
+
+  const changeHandler = () => {
+    if (isChange === true) return;
+    setIsChange(true);
   };
  
   useEffect(() => {
@@ -84,31 +87,30 @@ function EditProduct() {
 
   const submitHandler = async (data) => {
     setLoading(true);
-    const id = toast.loading("Menambahkan Produk...");
+    const id = toast.loading("Menyimpan Produk...");
     try {
-      const docRef = await addDoc(collection(firestoreDb, "products"), {
-        storeId: store.id,
+
+      // Update gambar kalo ada
+      if(selectedImage){
+        const imgRef = ref(storage, `product-images/${product.id}`)
+        await deleteObject(imgRef)
+        await setFirestoreStorage(selectedImage, product.id, "product-images")
+      }
+
+      await updateDoc(doc(firestoreDb, "products", product.id), {
         active: enabled,
         name: data.nama,
         desc: data.deskripsi,
         price: data.harga,
-        createdAt: serverTimestamp(),
       });
-      const imgUrl = await setFirestoreStorage(
-        selectedImage,
-        docRef.id,
-        "product-images"
-      );
-      await updateDoc(doc(firestoreDb, "products", docRef.id), {
-        image: imgUrl,
-      });
+
       toast.update(id, {
-        render: "Produk Berhasil Ditambahkan!",
+        render: "Produk Berhasil Disimpan!",
         type: "success",
         isLoading: false,
         autoClose: 2000,
       });
-      navigate("/app/products");
+      // navigate("/app/products");
     } catch (err) {
       toast.update(id, {
         render: "Terjadi Kesalahan",
@@ -118,6 +120,7 @@ function EditProduct() {
       });
       console.error(err);
     } finally {
+      setIsChange(false)
       setLoading(false);
     }
   };
@@ -130,13 +133,13 @@ function EditProduct() {
       <NavbarAdmin user={user} />
 
       <div className="layoutContainer">
-        <Link
-          to="/app/products"
+        <button
+          onClick={()=>navigate("/app/products")}
           className="py-1 px-3 text-sm my-3 bg-white border-[1px] border-gray-300 hover:bg-gray-50 rounded font-medium flex items-center w-fit gap-1"
         >
           <Icon icon="akar-icons:chevron-left" className="inline" />
           Kembali
-        </Link>
+        </button>
 
         <div className="contentContainer">
           {!firstLoading && product ? (
@@ -145,6 +148,7 @@ function EditProduct() {
               <form
                 className="flex flex-col gap-4"
                 onSubmit={handleSubmit(submitHandler)}
+                onChange={changeHandler}
               >
                 <div className="flex flex-col">
                   <label htmlFor="switch" className="font-medium">
@@ -243,23 +247,23 @@ function EditProduct() {
                     className="opacity-0"
                     ref={imgRef}
                     onChange={imageChange}
-                    required
                   />
                   <div className="my-1 justify-end flex gap-3 md:">
                     <button
-                      disabled={loading}
+                      type="button"
+                      disabled={loading || !isChange}
                       onClick={() => navigate("/app/products")}
                       className={`batalkanBtn ${
-                        loading && "opacity-75 hover:bg-white"
+                        (loading || !isChange) && "opacity-75 hover:bg-white"
                       } `}
                     >
                       Batalkan
                     </button>
                     <button
                       type="submit"
-                      disabled={loading}
+                      disabled={loading || !isChange}
                       className={`simpanBtn ${
-                        loading && "opacity-75 hover:bg-purple-600"
+                        (loading || !isChange) && "opacity-75 hover:bg-purple-600"
                       }`}
                     >
                       Simpan Produk

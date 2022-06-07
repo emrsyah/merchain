@@ -78,7 +78,6 @@ function EditCustomer() {
         nomor: data.telepon,
         domisili: data.domisili,
         jumlahOrder: data.jumlah,
-        createdAt: serverTimestamp(),
       });
       toast.success("Data Berhasil Disimpan");
       // navigate("/app/customers");

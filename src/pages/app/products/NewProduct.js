@@ -183,14 +183,14 @@ function NewProduct() {
                 <button
                   disabled={loading}
                   onClick={()=>navigate('/app/products')}
-                  className={`rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600 ${loading && "opacity-75 hover:bg-white"} `}
+                  className={`batalkanBtn ${loading && "opacity-75 hover:bg-white"} `}
                 >
                   Batalkan
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className={`bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm ${loading && "opacity-75 hover:bg-purple-600"}`}
+                  className={`simpanBtn ${loading && "opacity-75 hover:bg-purple-600"}`}
                 >
                   Simpan Produk
                 </button>

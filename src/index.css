@@ -42,6 +42,12 @@ body{
   .Ended{
     @apply bg-red-500
   }
+  .batalkanBtn{
+    @apply rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600
+  }
+  .simpanBtn{
+    @apply bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm
+  }
 }
 
 .Ended{

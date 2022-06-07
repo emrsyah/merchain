@@ -365,7 +365,7 @@ function Setting() {
                 <button
                   type="submit"
                   disabled={loading || !isChange}
-                  className={`bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm ${
+                  className={`simpanBtn ${
                     (loading || !isChange) && "opacity-75 hover:bg-purple-600"
                   }`}
                 >

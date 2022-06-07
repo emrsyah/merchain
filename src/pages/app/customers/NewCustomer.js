@@ -135,7 +135,7 @@ function NewCustomer() {
             <div className="my-1 justify-end flex gap-3 md:">
               <button
                 type="button"
-                className={`rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600 ${
+                className={`batalkanBtn ${
                   loading && "opacity-75"
                 }`}
                 onClick={() => navigate("/app/customers")}
@@ -146,7 +146,7 @@ function NewCustomer() {
               <button
                 type="submit"
                 disabled={loading}
-                className={`bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm ${
+                className={`simpanBtn ${
                   loading && "opacity-75 hover:bg-purple-600"
                 }`}
               >

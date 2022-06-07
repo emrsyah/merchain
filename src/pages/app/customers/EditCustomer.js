@@ -1,7 +1,5 @@
 import { Icon } from "@iconify/react";
 import {
-  addDoc,
-  collection,
   doc,
   getDoc,
   serverTimestamp,
@@ -111,7 +109,7 @@ function EditCustomer() {
         <div className="contentContainer">
           {!firstLoading && customer ? (
             <>
-              <h1 className="pageName mb-6">{customer?.nama}</h1>
+              <h1 className="pageName mb-6">Edit Customer</h1>
               <form
                 className="flex flex-col gap-4"
                 onSubmit={handleSubmit(submitHandler)}
@@ -191,10 +189,10 @@ function EditCustomer() {
                   <button
                     type="button"
                     className={`rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600 ${
-                      loading && "opacity-75"
+                      (loading || !isChange) && "opacity-75"
                     }`}
                     onClick={() => navigate("/app/customers")}
-                    disabled={loading}
+                    disabled={loading || !isChange}
                   >
                     Batalkan
                   </button>

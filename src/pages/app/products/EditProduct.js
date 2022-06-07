@@ -1,21 +1,13 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import {
-  useNavigate,
-  useOutletContext,
-  useParams,
-} from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../atoms/userAtom";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import ProductSwitch from "../../../components/ProductSwitch";
 import { useForm } from "react-hook-form";
-import {
-  doc,
-  getDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { firestoreDb, storage } from "../../../firebase";
 import { toast } from "react-toastify";
 import setFirestoreStorage from "../../../helpers/setFirestoreStorage";
@@ -38,7 +30,7 @@ function EditProduct() {
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState(null);
   const [firstLoading, setFirstLoading] = useState(true);
-  const [isChange, setIsChange] = useState(false)
+  const [isChange, setIsChange] = useState(false);
 
   const getProduct = async () => {
     const docRef = doc(firestoreDb, "products", id);
@@ -55,29 +47,28 @@ function EditProduct() {
       navigate("/app/products");
       return;
     }
-    return ({...docSnap.data(), id:docSnap.id});
+    return { ...docSnap.data(), id: docSnap.id };
   };
 
   const changeHandler = () => {
     if (isChange === true) return;
     setIsChange(true);
   };
- 
+
   useEffect(() => {
     setFirstLoading(true);
     try {
-      getProduct().then(data =>{
-        setProduct(data)
-        setEnabled(data.active)
+      getProduct().then((data) => {
+        setProduct(data);
+        setEnabled(data.active);
         setFirstLoading(false);
-      })
+      });
     } catch (err) {
       console.error(err);
-    } finally{
+    } finally {
       setFirstLoading(false);
     }
   }, []);
-
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -89,12 +80,11 @@ function EditProduct() {
     setLoading(true);
     const id = toast.loading("Menyimpan Produk...");
     try {
-
       // Update gambar kalo ada
-      if(selectedImage){
-        const imgRef = ref(storage, `product-images/${product.id}`)
-        await deleteObject(imgRef)
-        await setFirestoreStorage(selectedImage, product.id, "product-images")
+      if (selectedImage) {
+        const imgRef = ref(storage, `product-images/${product.id}`);
+        await deleteObject(imgRef);
+        await setFirestoreStorage(selectedImage, product.id, "product-images");
       }
 
       await updateDoc(doc(firestoreDb, "products", product.id), {
@@ -120,7 +110,7 @@ function EditProduct() {
       });
       console.error(err);
     } finally {
-      setIsChange(false)
+      setIsChange(false);
       setLoading(false);
     }
   };
@@ -134,7 +124,7 @@ function EditProduct() {
 
       <div className="layoutContainer">
         <button
-          onClick={()=>navigate("/app/products")}
+          onClick={() => navigate("/app/products")}
           className="py-1 px-3 text-sm my-3 bg-white border-[1px] border-gray-300 hover:bg-gray-50 rounded font-medium flex items-center w-fit gap-1"
         >
           <Icon icon="akar-icons:chevron-left" className="inline" />
@@ -154,7 +144,9 @@ function EditProduct() {
                   <label htmlFor="switch" className="font-medium">
                     Produk Aktif
                   </label>
-                  <ProductSwitch enabled={enabled} setEnabled={setEnabled} />
+                  <div onClick={()=>setIsChange(true)}>
+                    <ProductSwitch enabled={enabled} setEnabled={setEnabled} />
+                  </div>
                 </div>
                 <div>
                   <label htmlFor="produk" className="font-medium">
@@ -263,7 +255,8 @@ function EditProduct() {
                       type="submit"
                       disabled={loading || !isChange}
                       className={`simpanBtn ${
-                        (loading || !isChange) && "opacity-75 hover:bg-purple-600"
+                        (loading || !isChange) &&
+                        "opacity-75 hover:bg-purple-600"
                       }`}
                     >
                       Simpan Produk

@@ -13,6 +13,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { firestoreDb } from "../../firebase";
 import setFirestoreStorage from "../../helpers/setFirestoreStorage";
 import { toast } from "react-toastify";
+import { SketchPicker } from "react-color";
 
 function Setting() {
   const {
@@ -27,8 +28,15 @@ function Setting() {
   const imgRef = useRef("");
   const [changedImg, setChangedImg] = useState(null);
   const [nameUsed, setNameUsed] = useState(false);
-  const [storeBuka, setStoreBuka] = useState(store.storeTime ? store.storeTime[0] : "00:00")
-  const [storeTutup, setStoreTutup] = useState(store.storeTime ? store.storeTime[1] : "00:00")
+  const [storeBuka, setStoreBuka] = useState(
+    store.storeTime ? store.storeTime[0] : "00:00"
+  );
+  const [storeTutup, setStoreTutup] = useState(
+    store.storeTime ? store.storeTime[1] : "00:00"
+  );
+  const [color, setColor] = useState(
+    store.colorTheme ? store.colorTheme : "#9333ea"
+  );
 
   const changeHandler = () => {
     if (isChange === true) return;
@@ -45,7 +53,7 @@ function Setting() {
 
   const submitHandler = async (data) => {
     setLoading(true);
-    const id = toast.loading("Tolong tunggu...")
+    const id = toast.loading("Tolong tunggu...");
     try {
       // If Check misalnya dia ganti nama
       if (data.storeName.toLowerCase() !== store.storeNameLowercase) {
@@ -59,7 +67,11 @@ function Setting() {
 
       // Update img field if change
       if (changedImg) {
-        const imgUrl = await setFirestoreStorage(changedImg, uuidv4(), "stores-pofile");
+        const imgUrl = await setFirestoreStorage(
+          changedImg,
+          uuidv4(),
+          "stores-pofile"
+        );
         // console.log("new img = " + imgUrl)
         await updateDoc(doc(firestoreDb, "stores", store.id), {
           profileImg: imgUrl,
@@ -79,17 +91,29 @@ function Setting() {
           facebook: data.facebook,
           instagram: data.instagram,
         },
+        colorTheme: color.hex
       });
-      toast.update(id, { render: "Data Tersimpan!", type: "success", isLoading: false, autoClose: 2000 });
+      toast.update(id, {
+        render: "Data Tersimpan!",
+        type: "success",
+        isLoading: false,
+        autoClose: 2000,
+      });
     } catch (err) {
       console.error(err);
-      toast.update(id, { render: "Terjadi Error", type: "error", isLoading: false, autoClose: 3000 });
+      toast.update(id, {
+        render: "Terjadi Error",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     } finally {
       setLoading(false);
-      setIsChange(false)
-      setChangedImg(null)
+      setIsChange(false);
+      setChangedImg(null);
     }
   };
+
 
   return (
     <>
@@ -359,6 +383,16 @@ function Setting() {
                     {...register("instagram")}
                   />
                 </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label htmlFor="colorpick" className="font-medium">Warna Toko</label>
+                <SketchPicker
+                  color={color}
+                  id="colorpick"
+                  onChangeComplete={(colorPicked) => setColor(colorPicked)}
+                  onChange={()=>setIsChange(true)}
+                />
               </div>
 
               <div className="my-1 justify-end flex">

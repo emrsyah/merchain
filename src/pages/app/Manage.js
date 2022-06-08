@@ -135,16 +135,23 @@ function Manage() {
         {/* Statistik Angka */}
         <div className="grid grid-cols-3 my-4 gap-5">
           <StatistikAngka
-            emote={"👀"}
+            // emote={"👀"}
             title="Pengunjung Minggu Ini"
             value="120 Pengunjung"
+            emoji={"emojiMata"}
           />
           <StatistikAngka
-            emote={"🛒"}
+            // emote={"🛒"}
             title="Transaksi Berlangsung"
             value="8 Transaksi"
+            emoji={"emojiCart"}
           />
-          <StatistikAngka emote={"🛍️"} title="Total Produk" value="10 Produk" />
+          <StatistikAngka
+            // emote={"🛍️"}
+            title="Total Produk"
+            value="10 Produk"
+            emoji={"emojiProduk"}
+          />
         </div>
 
         {/* Sales Container */}
@@ -173,7 +180,10 @@ function Manage() {
                 ))}
               </div>
             </div>
-            <Link to={"/app/products"} className="p-[6px] hover:font-semibold text-sm rounded font-medium text-center border-[1.6px] border-purple-600 text-purple-600">
+            <Link
+              to={"/app/products"}
+              className="batalkanBtn border-[1.6px] text-center"
+            >
               Lihat Semua
             </Link>
           </div>

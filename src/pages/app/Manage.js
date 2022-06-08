@@ -2,24 +2,30 @@ import { Icon } from "@iconify/react";
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Link, useLocation, useNavigate, useOutletContext } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useOutletContext,
+} from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/userAtom";
 import NavbarAdmin from "../../components/NavbarAdmin";
 import VerificationReminder from "../../components/VerificationReminder";
 import { toast } from "react-toastify";
 import StatistikAngka from "../../components/StatistikAngka";
+import { SalesChart } from "../../components/SalesChart";
 
 function Manage() {
-  const location = useLocation()
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
   const [store, setStore] = useOutletContext();
   const user = useRecoilValue(userState);
 
-useEffect(()=>{
+  useEffect(() => {
     // if check kalo dia di path "/app" doang bukan di  "app/home"
-    if(!location.pathname.includes("/home")) navigate('/app/home')
-  },[])
+    if (!location.pathname.includes("/home")) navigate("/app/home");
+  }, []);
 
   return (
     <>
@@ -29,7 +35,7 @@ useEffect(()=>{
 
       <NavbarAdmin user={user} />
 
-      <div className="h-[120vh] layoutContainer">
+      <div className="layoutContainer">
         {!user.verified && <VerificationReminder />}
 
         <h1 className="pageName">Home</h1>
@@ -39,7 +45,11 @@ useEffect(()=>{
           <div className="flex items-start justify-between">
             {/* Bagian Kiri Atas */}
             <div className="md:flex-row flex flex-col items-start md:items-center gap-3">
-              <img src={store.profileImg} alt=""  className="w-16 h-16 rounded-full p-[2px] border-2 border-purple-600 object-cover" />
+              <img
+                src={store.profileImg}
+                alt=""
+                className="w-16 h-16 rounded-full p-[2px] border-2 border-purple-600 object-cover"
+              />
               <div>
                 <h5 className="font-semibold text-xl">
                   {store.storeName} Store
@@ -49,7 +59,7 @@ useEffect(()=>{
                   className="cursor-pointer"
                   onCopy={() => toast.success("Copied!")}
                 >
-                  <span  >
+                  <span>
                     <p className="opacity-75 flex gap-2 items-center">
                       merchain.com/{store.storeName}
                       <Icon
@@ -100,12 +110,33 @@ useEffect(()=>{
 
         {/* Statistik Angka */}
         <div className="grid grid-cols-3 my-4 gap-5">
-              <StatistikAngka emote={"👀"} title="Pengunjung Minggu Ini" value="120 Pengunjung" />
-              <StatistikAngka emote={"🛒"} title="Transaksi Berlangsung" value="8 Transaksi" />
-              <StatistikAngka emote={"🛍️"} title="Total Produk" value="10 Produk" />
-
+          <StatistikAngka
+            emote={"👀"}
+            title="Pengunjung Minggu Ini"
+            value="120 Pengunjung"
+          />
+          <StatistikAngka
+            emote={"🛒"}
+            title="Transaksi Berlangsung"
+            value="8 Transaksi"
+          />
+          <StatistikAngka emote={"🛍️"} title="Total Produk" value="10 Produk" />
         </div>
 
+        {/* Sales Container */}
+        <div className="grid grid-cols-6 gap-5">
+          <div className="bg-white rounded shadow col-span-4">
+            <h5 className="mx-4 pt-3 font-semibold text-xl">
+              Laporan Penjualan 📈
+            </h5>
+            <div className="w-full lg:h-80 md:h-72 sm:h-56  rounded-md px-4 py-3 bg-white">
+              <SalesChart className="w-full h-full" />
+            </div>
+          </div>
+          <div className="col-span-2 bg-white rounded shadow p-4">
+            <h5 className="font-medium">Produk Terlaris</h5>
+          </div>
+        </div>
       </div>
     </>
   );

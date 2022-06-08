@@ -91,7 +91,7 @@ function Setting() {
           facebook: data.facebook,
           instagram: data.instagram,
         },
-        colorTheme: color.hex
+        colorTheme: color
       });
       toast.update(id, {
         render: "Data Tersimpan!",
@@ -390,7 +390,7 @@ function Setting() {
                 <SketchPicker
                   color={color}
                   id="colorpick"
-                  onChangeComplete={(colorPicked) => setColor(colorPicked)}
+                  onChangeComplete={(colorPicked) => setColor(colorPicked.hex)}
                   onChange={()=>setIsChange(true)}
                 />
               </div>

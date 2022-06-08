@@ -15,6 +15,30 @@ import VerificationReminder from "../../components/VerificationReminder";
 import { toast } from "react-toastify";
 import StatistikAngka from "../../components/StatistikAngka";
 import { SalesChart } from "../../components/SalesChart";
+import TopProduct from "../../components/TopProduct";
+
+const products = [
+  {
+    name: "Nike Air Jordan 1 Mid",
+    sold: 23,
+  },
+  {
+    name: "Swallow Indomaret",
+    sold: 20,
+  },
+  {
+    name: "A Bathing Ape",
+    sold: 18,
+  },
+  {
+    name: "Kaos Catur Bekasi",
+    sold: 14,
+  },
+  {
+    name: "Jaket Jamet Yoru",
+    sold: 12,
+  },
+];
 
 function Manage() {
   const location = useLocation();
@@ -133,8 +157,25 @@ function Manage() {
               <SalesChart className="w-full h-full" />
             </div>
           </div>
-          <div className="col-span-2 bg-white rounded shadow p-4">
-            <h5 className="font-medium">Produk Terlaris</h5>
+
+          {/* Terlaris container */}
+          <div className="col-span-2 bg-white flex justify-between flex-col rounded shadow p-4">
+            <div>
+              <h5 className="font-semibold">Produk Terlaris 💰</h5>
+              <div className="flex flex-col gap-5 my-4">
+                {products.map((p, i) => (
+                  <TopProduct
+                    name={p.name}
+                    sold={p.sold}
+                    key={p.name}
+                    index={i + 1}
+                  />
+                ))}
+              </div>
+            </div>
+            <Link to={"/app/products"} className="p-[6px] hover:font-semibold text-sm rounded font-medium text-center border-[1.6px] border-purple-600 text-purple-600">
+              Lihat Semua
+            </Link>
           </div>
         </div>
       </div>

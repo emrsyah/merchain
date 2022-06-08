@@ -43,6 +43,7 @@ function NewProduct() {
         name: data.nama,
         desc: data.deskripsi,
         price: data.harga,
+        sold: 0,
         createdAt: serverTimestamp(),
       })
       const imgUrl = await setFirestoreStorage(selectedImage, docRef.id, "product-images")

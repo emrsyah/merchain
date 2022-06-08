@@ -135,19 +135,16 @@ function Manage() {
         {/* Statistik Angka */}
         <div className="grid grid-cols-3 my-4 gap-5">
           <StatistikAngka
-            // emote={"👀"}
             title="Pengunjung Minggu Ini"
             value="120 Pengunjung"
             emoji={"emojiMata"}
           />
           <StatistikAngka
-            // emote={"🛒"}
             title="Transaksi Berlangsung"
             value="8 Transaksi"
             emoji={"emojiCart"}
           />
           <StatistikAngka
-            // emote={"🛍️"}
             title="Total Produk"
             value="10 Produk"
             emoji={"emojiProduk"}

@@ -20,6 +20,7 @@ import NewOrder from "./pages/app/orders/NewOrder";
 import NewCustomer from "./pages/app/customers/NewCustomer";
 import EditCustomer from "./pages/app/customers/EditCustomer";
 import EditProduct from "./pages/app/products/EditProduct";
+import Storefront from "./pages/Storefront";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="onboarding" element={<Onboarding />} />
+        <Route path=":storeName" element={<Storefront />} />
         <Route path="app" element={<Layout />}>
           <Route index element={<Manage />} />
           <Route path="home" element={<Manage />} />

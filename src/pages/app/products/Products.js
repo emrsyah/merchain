@@ -11,6 +11,7 @@ import Table from "../../../components/Table";
 import VerificationReminder from "../../../components/VerificationReminder";
 import { firestoreDb } from "../../../firebase";
 import mappingToArray from "../../../helpers/mappingToArray";
+import rupiahConverter from "../../../helpers/rupiahConverter";
 
 function Products() {
   const user = useRecoilValue(userState);
@@ -74,7 +75,7 @@ function Products() {
           <p
             className={`text-[13px]`}
           >
-            Rp {value}
+            {rupiahConverter(value)}
           </p>
         ),
       },

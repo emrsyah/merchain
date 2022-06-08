@@ -72,7 +72,7 @@ function Products() {
         accessor: "price",
         Cell: ({ cell: { value } }) => (
           <p
-            className={`interFonts text-[13px]`}
+            className={`text-[13px]`}
           >
             Rp {value}
           </p>

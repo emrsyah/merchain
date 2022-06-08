@@ -21,7 +21,6 @@ function Customers() {
   const [customers, setCustomers] = useState("");
 
   const getCustomers = (id) => {
-    // console.log('fetching store')
     // ?? Unsubscribe itu buat clear memory mislanya componentnya udah unmount
     const unsubscribe = onSnapshot(
       query(collection(firestoreDb, "customers"), where("storeId", "==", id)),
@@ -112,12 +111,12 @@ function Customers() {
           </div>
 
           {/* Kalo Loading */}
-          {loading && <div>Loading...</div>}
+          {loading && <div>Tunggu...</div>}
 
           {/* Table */}
           {!loading && (
             <>
-              {dataMemo ? (
+              {customers ? (
                 <Table
                   columns={columns}
                   data={dataMemo}

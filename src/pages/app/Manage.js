@@ -8,6 +8,7 @@ import { userState } from "../../atoms/userAtom";
 import NavbarAdmin from "../../components/NavbarAdmin";
 import VerificationReminder from "../../components/VerificationReminder";
 import { toast } from "react-toastify";
+import StatistikAngka from "../../components/StatistikAngka";
 
 function Manage() {
   const location = useLocation()
@@ -96,6 +97,15 @@ useEffect(()=>{
             {store.storeBio ? store.storeBio : "Belum Ada Bio"}
           </p>
         </div>
+
+        {/* Statistik Angka */}
+        <div className="grid grid-cols-3 my-4 gap-5">
+              <StatistikAngka emote={"👀"} title="Pengunjung Minggu Ini" value="120 Pengunjung" />
+              <StatistikAngka emote={"🛒"} title="Transaksi Berlangsung" value="8 Transaksi" />
+              <StatistikAngka emote={"🛍️"} title="Total Produk" value="10 Produk" />
+
+        </div>
+
       </div>
     </>
   );

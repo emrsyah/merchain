@@ -10,6 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import dayjs from "dayjs";
 
 ChartJS.register(
   CategoryScale,
@@ -36,14 +37,16 @@ export const options = {
 };
 
 export function SalesChart() {
+  const nowDay = parseInt(dayjs().format("D"))
+  const nowMonth =dayjs().format("MMM")
   const labels = [
-    "3 Juni",
-    "2 Juni",
-    "4 Juni",
-    "5 Juni",
-    "6 Juni",
-    "7 Juni",
-    "8 Juni",
+    `${dayjs().subtract(6, 'day').format("D")} ${nowMonth}`,
+    `${dayjs().subtract(5, 'day').format("D")} ${nowMonth}`,
+    `${dayjs().subtract(4, 'day').format("D")} ${nowMonth}`,
+    `${dayjs().subtract(3, 'day').format("D")} ${nowMonth}`,
+    `${dayjs().subtract(2, 'day').format("D")} ${nowMonth}`,
+    `${dayjs().subtract(1, 'day').format("D")} ${nowMonth}`,
+    `${nowDay} ${nowMonth}`,
   ]
 
   const data = {

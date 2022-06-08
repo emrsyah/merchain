@@ -63,7 +63,8 @@ function Onboarding() {
         storeBio: bioRef.current.value,
         storeTime: [openRef.current.value, closeRef.current.value],
         visited: 0,
-        ecommerceLinks: {},
+        links: {},
+        colorTheme: "#9333ea",
         createdAt: serverTimestamp(),
       });
       setIsOboarding(false)

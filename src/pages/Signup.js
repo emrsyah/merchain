@@ -59,7 +59,8 @@ function Signup() {
         storeBio: null,
         storeTime: null,
         visited: 0,
-        ecommerceLinks: {},
+        links: {},
+        colorTheme: "#9333ea",
         createdAt: serverTimestamp(),
       });
       sendVerification()

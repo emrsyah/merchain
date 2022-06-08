@@ -18,7 +18,7 @@ function Customers() {
   const user = useRecoilValue(userState);
   const [loading, setLoading] = useState(true);
   const [filterInput, setFilterInput] = useState("");
-  const [customers, setCustomers] = useState("");
+  const [customers, setCustomers] = useState(null);
 
   const getCustomers = (id) => {
     // ?? Unsubscribe itu buat clear memory mislanya componentnya udah unmount
@@ -116,7 +116,7 @@ function Customers() {
           {/* Table */}
           {!loading && (
             <>
-              {customers ? (
+              {(dataMemo?.length > 0) ? (
                 <Table
                   columns={columns}
                   data={dataMemo}

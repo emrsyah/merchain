@@ -106,7 +106,7 @@ function Orders() {
           {/* Table */}
           {!loading && (
             <>
-              {data ? (
+              {(dataMemo?.length > 0) ? (
                 <Table
                   columns={columns}
                   data={dataMemo}

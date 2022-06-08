@@ -18,7 +18,7 @@ function Products() {
   const [store, setStore] = useOutletContext();
   const [loading, setLoading] = useState(true);
   const [filterInput, setFilterInput] = useState("");
-  const [products, setProducts] = useState("");
+  const [products, setProducts] = useState(null);
 
   const getProducts = (id) => {
     // console.log('fetching store')
@@ -167,7 +167,7 @@ function Products() {
           {/* Table */}
           {!loading && (
             <>
-              {dataMemo ? (
+              {(dataMemo?.length > 0) ? (
                 <Table
                   columns={columns}
                   data={dataMemo}

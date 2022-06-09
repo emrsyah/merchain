@@ -16,9 +16,8 @@ import rupiahConverter from "../../../helpers/rupiahConverter";
 function Products() {
   const user = useRecoilValue(userState);
   const [store, setStore] = useOutletContext();
-  const [loading, setLoading] = useState(true);
   const [filterInput, setFilterInput] = useState("");
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState(false);
 
   const getProducts = (id) => {
     // console.log('fetching store')
@@ -26,20 +25,22 @@ function Products() {
     const unsubscribe = onSnapshot(
       query(collection(firestoreDb, "products"), where("storeId", "==", id)),
       (snapshot) => {
-        setProducts(mappingToArray(snapshot.docs));
+        if (snapshot.docs.length) {
+          setProducts(mappingToArray(snapshot.docs));
+        } else {
+          setProducts(null);
+        }
       }
     );
     return unsubscribe;
   };
 
   useEffect(() => {
-    setLoading(true);
     try {
       getProducts(store.id);
     } catch (err) {
       console.error(err);
     }
-    setLoading(false);
   }, []);
 
   const dataMemo = useMemo(() => products, [products]);
@@ -61,22 +62,14 @@ function Products() {
         Header: "Nama",
         accessor: "name",
         Cell: ({ cell: { value } }) => (
-          <p
-            className={`max-w-[160px]`}
-          >
-            {value}
-          </p>
+          <p className={`max-w-[160px]`}>{value}</p>
         ),
       },
       {
         Header: "Harga",
         accessor: "price",
         Cell: ({ cell: { value } }) => (
-          <p
-            className={`text-[13px]`}
-          >
-            {rupiahConverter(value)}
-          </p>
+          <p className={`text-[13px]`}>{rupiahConverter(value)}</p>
         ),
       },
       {
@@ -95,7 +88,9 @@ function Products() {
         accessor: "active",
         Cell: ({ cell: { value } }) => (
           <div
-            className={`${!value && 'font-base text-gray-500'} text-[13px] py-[2px] flex items-center gap-[6px] px-[10px] font-medium interFonts rounded bg-[#F1F1F2] w-fit`}
+            className={`${
+              !value && "font-base text-gray-500"
+            } text-[13px] py-[2px] flex items-center gap-[6px] px-[10px] font-medium interFonts rounded bg-[#F1F1F2] w-fit`}
           >
             <div
               className={`${
@@ -136,7 +131,7 @@ function Products() {
         <title>Products | Merchain</title>
       </Helmet>
       <NavbarAdmin user={user} />
-      <div className="layoutContainer">
+      <div className="layoutContainer min-h-screen">
         {!user.verified && <VerificationReminder />}
         <div className="flex justify-between items-center">
           <h1 className="pageName">Products</h1>
@@ -162,12 +157,12 @@ function Products() {
           </div>
 
           {/* Kalo Loading */}
-          {loading && <div>Loading...</div>}
+          {(products === false) && <div>Loading...</div>}
 
           {/* Table */}
-          {!loading && (
+          {(!products === false) && (
             <>
-              {(dataMemo?.length > 0) ? (
+              {dataMemo?.length > 0 ? (
                 <Table
                   columns={columns}
                   data={dataMemo}

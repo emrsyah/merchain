@@ -75,7 +75,7 @@ function Orders() {
         <title>Orders | Merchain</title>
       </Helmet>
       <NavbarAdmin user={user} />
-      <div className="layoutContainer">
+      <div className="layoutContainer min-h-screen">
         {!user.verified && <VerificationReminder />}
         <div className="flex justify-between items-center">
           <h1 className="pageName">Orders</h1>

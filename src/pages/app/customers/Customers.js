@@ -16,29 +16,30 @@ import mappingToArray from "../../../helpers/mappingToArray";
 function Customers() {
   const [store, setStore] = useOutletContext();
   const user = useRecoilValue(userState);
-  const [loading, setLoading] = useState(true);
   const [filterInput, setFilterInput] = useState("");
-  const [customers, setCustomers] = useState(null);
+  const [customers, setCustomers] = useState(false);
 
   const getCustomers = (id) => {
     // ?? Unsubscribe itu buat clear memory mislanya componentnya udah unmount
     const unsubscribe = onSnapshot(
       query(collection(firestoreDb, "customers"), where("storeId", "==", id)),
       (snapshot) => {
-        setCustomers(mappingToArray(snapshot.docs));
+        if (snapshot.docs.length) {
+          setCustomers(mappingToArray(snapshot.docs));
+        } else {
+          setCustomers(null);
+        }
       }
     );
     return unsubscribe;
   };
 
   useEffect(() => {
-    setLoading(true);
     try {
       getCustomers(store.id);
     } catch (err) {
       console.error(err);
     }
-    setLoading(false);
   }, []); 
 
   const dataMemo = useMemo(() => customers, [customers]);
@@ -85,7 +86,7 @@ function Customers() {
         <title>Customers | Merchain</title>
       </Helmet>
       <NavbarAdmin user={user} />
-      <div className="layoutContainer">
+      <div className="layoutContainer min-h-screen">
         {!user.verified && <VerificationReminder />}
         <div className="flex justify-between items-center">
           <h1 className="pageName">Customers</h1>
@@ -111,10 +112,10 @@ function Customers() {
           </div>
 
           {/* Kalo Loading */}
-          {loading && <div>Tunggu...</div>}
+          {(customers === false) && <div>Tunggu...</div>}
 
           {/* Table */}
-          {!loading && (
+          {(!customers === false) && (
             <>
               {(dataMemo?.length > 0) ? (
                 <Table

@@ -6,12 +6,11 @@ import { firestoreDb } from "../firebase";
 import NotFound from "./NotFound";
 import lottieJson from "../assets/97110-purple-spinner.json";
 import logo from "../assets/merchainIcon.svg";
+import { Helmet } from "react-helmet-async";
 
 function Storefront() {
   const { storeName } = useParams();
   const [store, setStore] = useState(false);
-  //   const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
 
   const getStore = (name) => {
     const unsubscribe = onSnapshot(
@@ -21,18 +20,16 @@ function Storefront() {
       ),
       (snapshot) => {
         setStore(snapshot.docs[0] ? snapshot.docs[0].data() : null);
+        console.log(snapshot.docs[0] ? snapshot.docs[0].data() : null);
       }
     );
     return unsubscribe;
   };
 
   useEffect(() => {
-    // setLoading(true);
     const lowerName = storeName.toLowerCase();
     try {
       getStore(lowerName);
-      console.log(store?.storeName);
-      //   setLoading(false);
     } catch (err) {
       console.error(err);
     }
@@ -59,7 +56,14 @@ function Storefront() {
   } else if (store === null) {
     return <NotFound />;
   } else {
-    return <div>StorFronts</div>;
+    return (
+      <>
+        <Helmet>
+          <title>{store.storeName} - Merchain</title>
+        </Helmet>
+        <div>StorFronts {store.storeName}</div>
+      </>
+    );
   }
 }
 

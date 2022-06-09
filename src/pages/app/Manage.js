@@ -152,8 +152,8 @@ function Manage() {
         </div>
 
         {/* Sales Container */}
-        <div className="grid grid-cols-6 gap-5">
-          <div className="bg-white rounded shadow col-span-4">
+        <div className="md:grid flex flex-col md:grid-cols-6 gap-5">
+          <div className="bg-white rounded shadow md:col-span-4">
             <h5 className="mx-4 pt-3 font-semibold text-xl">
               Laporan Penjualan 📈
             </h5>
@@ -163,10 +163,10 @@ function Manage() {
           </div>
 
           {/* Terlaris container */}
-          <div className="col-span-2 bg-white flex justify-between flex-col rounded shadow p-4">
+          <div className="md:col-span-2 bg-white flex justify-between flex-col rounded shadow p-4">
             <div>
               <h5 className="font-semibold">Produk Terlaris 💰</h5>
-              <div className="flex flex-col gap-5 my-4">
+              <div className="flex md:flex-col overflow-scroll scrollProduct gap-5 flex-auto my-4">
                 {products.map((p, i) => (
                   <TopProduct
                     name={p.name}

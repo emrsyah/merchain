@@ -94,11 +94,19 @@ body{
 }
   ::-webkit-scrollbar-thumb {
   background: rgb(175, 175, 175); 
-    border-radius:10px;
+  border-radius:10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  
   background: rgb(150, 150, 150); 
+}
+
+.scrollProduct::-webkit-scrollbar {
+  width: 3px !important;
+}
+
+.scrollProduct::-webkit-scrollbar-thumb {
+  background: rgb(175, 175, 175); 
+  border-radius:20px;
 }
 
 input[type=number]::-webkit-inner-spin-button, 

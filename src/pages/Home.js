@@ -14,7 +14,7 @@ function Home() {
       <Navbar />
       <div className="flex-grow flex items-center mt-20 flex-col mb-20">
         <div className="flex items-center flex-col">
-          <h1 className="lg:text-6xl text-3xl font-bold text-center max-w-4xl leading-[1.15]">
+          <h1 className="lg:text-6xl md:text-5xl text-4xl font-bold text-center max-w-4xl leading-[1.15]">
             <span className="text-purple-600">
               Buat online store kamu sendiri{" "}
             </span>
@@ -24,7 +24,7 @@ function Home() {
           <p className="mt-3 lg:text-lg text-center">
             Tingkatkan penjualan, analisa peforma, dan lainnya dengan mudah.
           </p>
-          <div className="flex items-center border-2 border-purple-600 rounded-full pr-3 pl-5 py-2 mt-14">
+          <div className="flex items-center border-2 border-purple-600 rounded-full pr-3 pl-5 py-2 mt-7 md:mt-14">
             <p className="lg:text-xl font-medium">merchain.com/</p>
             <form className="flex" action="/signup">
               <input

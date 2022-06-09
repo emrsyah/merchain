@@ -56,7 +56,7 @@ function Navbar() {
           </div>
         )}
       </div>
-      
+
       <div className="md:hidden flex">
         <Icon icon="charm:menu-hamburger" width="32" className="opacity-80" />
       </div>

@@ -22,7 +22,12 @@ function Layout() {
     const unsubscribe = onSnapshot(
       query(collection(firestoreDb, "stores"), where("userId", "==", uid)),
       (snapshot) => {
-        setStore({ ...snapshot.docs[0].data(), id: snapshot.docs[0].id });
+        if(snapshot.docs[0]){
+          setStore({ ...snapshot.docs[0].data(), id: snapshot.docs[0].id });
+        } else{
+          navigate('/login')
+          throw new Error("Terjadi kesalahan, kemungkinan user belum membuat toko")
+        }
       }
     );
     return unsubscribe;
@@ -49,6 +54,7 @@ function Layout() {
       });
     } catch (err) {
       console.log(err);
+      navigate('/login')
     } finally{
       setLoading(false)
     }

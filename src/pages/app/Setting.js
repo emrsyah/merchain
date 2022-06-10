@@ -14,6 +14,7 @@ import { firestoreDb } from "../../firebase";
 import setFirestoreStorage from "../../helpers/setFirestoreStorage";
 import { toast } from "react-toastify";
 import { SketchPicker } from "react-color";
+import ColorThemeRadio from "../../components/ColorThemeRadio";
 
 function Setting() {
   const {
@@ -35,7 +36,7 @@ function Setting() {
     store.storeTime ? store.storeTime[1] : "00:00"
   );
   const [color, setColor] = useState(
-    store.colorTheme ? store.colorTheme : "#9333ea"
+    store.colorTheme ? store.colorTheme : "purple"
   );
 
   const changeHandler = () => {
@@ -386,13 +387,14 @@ function Setting() {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label htmlFor="colorpick" className="font-medium">Warna Toko</label>
-                <SketchPicker
+                <label htmlFor="colorpick" className="font-medium">Tema Toko</label>
+                {/* <SketchPicker
                   color={color}
                   id="colorpick"
                   onChangeComplete={(colorPicked) => setColor(colorPicked.hex)}
                   onChange={()=>setIsChange(true)}
-                />
+                /> */}
+                <ColorThemeRadio color={color} setColor={setColor} />
               </div>
 
               <div className="my-1 justify-end flex">

@@ -60,7 +60,7 @@ function Signup() {
         storeTime: null,
         visited: 0,
         links: {},
-        colorTheme: "#9333ea",
+        colorTheme: "purple",
         createdAt: serverTimestamp(),
       });
       sendVerification()

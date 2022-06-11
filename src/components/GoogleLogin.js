@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { signInWithPopup } from "firebase/auth";
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -15,10 +15,12 @@ function GoogleLogin() {
     try{
       const result = await signInWithPopup(auth, googleProvider)
       const user = result.user
-      const docSnap = await getDoc(doc(firestoreDb, "users", user.uid))
+      const q = query(collection(firestoreDb, "stores"), where("userId", "==", user.uid))
+      const docSnap = await getDocs(q)
+      const haveStore = docSnap.docs.length
 
-      //check if user already added in database or not, if not add user to database
-      if(docSnap.exists()){
+      // check if user have store already or not.
+      if(haveStore === 1){
         navigate("/app/home")
       }else{
         setOnboarding(true)

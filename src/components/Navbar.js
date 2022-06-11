@@ -42,7 +42,7 @@ function Navbar() {
         </NavLink>
         {userAvailable ? (
           <Link
-            to="app/home"
+            to="/app/home"
             className="hidden md:flex py-3 hover:bg-purple-700 hover:px-9 cursor-pointer transition-all duration-200 ease-out font-semibold items-center gap-3 text-white tracking-wider px-6 bg-purple-600 rounded-full"
           >
             <Icon icon="ri:pie-chart-2-fill" width={22} />

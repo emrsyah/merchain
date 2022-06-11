@@ -7,6 +7,7 @@ import NotFound from "./NotFound";
 import lottieJson from "../assets/97110-purple-spinner.json";
 import logo from "../assets/merchainIcon.svg";
 import { Helmet } from "react-helmet-async";
+import NavbarStore from "../components/NavbarStore";
 
 function Storefront() {
   const { storeName } = useParams();
@@ -20,7 +21,7 @@ function Storefront() {
       ),
       (snapshot) => {
         setStore(snapshot.docs[0] ? snapshot.docs[0].data() : null);
-        console.log(snapshot.docs[0] ? snapshot.docs[0].data() : null);
+        console.count(snapshot.docs[0] ? snapshot.docs[0].data() : null);
       }
     );
     return unsubscribe;
@@ -61,7 +62,10 @@ function Storefront() {
         <Helmet>
           <title>{store.storeName} - Merchain</title>
         </Helmet>
-        <div>StorFronts {store.storeName}</div>
+        <NavbarStore />
+        <div>
+          
+        </div>
       </>
     );
   }

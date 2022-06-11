@@ -99,7 +99,7 @@ function Manage() {
 
             {/* Bagian Kanan Atas */}
             <div className="flex items-start gap-4">
-              <button className="font-medium items-center text-sm  hover:bg-gray-200 flex gap-2 py-2 px-4 bg-gray-100 rounded-md">
+              <button onClick={()=>navigate(`/${store.storeName}`)} className="font-medium items-center text-sm  hover:bg-gray-200 flex gap-2 py-2 px-4 bg-gray-100 rounded-md">
                 <Icon icon="clarity:eye-line" width="22" />
                 <p className="hidden sm:inline">Kunjungi Toko</p>
               </button>

@@ -9,6 +9,8 @@ import { auth, firestoreDb } from "../firebase";
 function Navbar() {
   const [userAvailable, setUserAvailable] = useState(false);
 
+
+  // TODO Buat si fetch user pake useMemo/useCallback biar gak mubajir si readnya.
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -19,6 +21,7 @@ function Navbar() {
       }
     });
   }, []);
+  
 
   return (
     <nav className="flex items-center justify-between bg-white z-[999] py-5 px-6 lg:px-16 border-b-[1px] border-b-gray-200">

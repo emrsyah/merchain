@@ -28,7 +28,7 @@ function Products() {
         if (snapshot.docs.length) {
           setProducts(mappingToArray(snapshot.docs));
         } else {
-          setProducts(null);
+          setProducts([]);
         }
       }
     );

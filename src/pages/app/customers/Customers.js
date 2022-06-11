@@ -27,7 +27,7 @@ function Customers() {
         if (snapshot.docs.length) {
           setCustomers(mappingToArray(snapshot.docs));
         } else {
-          setCustomers(null);
+          setCustomers([]);
         }
       }
     );

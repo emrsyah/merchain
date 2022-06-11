@@ -92,7 +92,7 @@ function Setting() {
           facebook: data.facebook,
           instagram: data.instagram,
         },
-        colorTheme: color
+        colorTheme: color,
       });
       toast.update(id, {
         render: "Data Tersimpan!",
@@ -114,7 +114,6 @@ function Setting() {
       setChangedImg(null);
     }
   };
-
 
   return (
     <>
@@ -387,14 +386,18 @@ function Setting() {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label htmlFor="colorpick" className="font-medium">Tema Toko</label>
+                <label htmlFor="colorpick" className="font-medium">
+                  Pilih tema untuk toko
+                </label>
                 {/* <SketchPicker
                   color={color}
                   id="colorpick"
                   onChangeComplete={(colorPicked) => setColor(colorPicked.hex)}
                   onChange={()=>setIsChange(true)}
                 /> */}
-                <ColorThemeRadio color={color} setColor={setColor} />
+                <div>
+                  <ColorThemeRadio color={color} setColor={setColor} />
+                </div>
               </div>
 
               <div className="my-1 justify-end flex">

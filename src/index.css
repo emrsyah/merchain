@@ -49,7 +49,7 @@ body{
     @apply bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm
   }
   .linkItem{
-    @apply border-[1px] border-gray-300 py-[6px] px-3 gap-[6px] rounded-full flex items-center transition-all duration-300 ease-out cursor-pointer hover:px-5 hover:border-purple-600
+    @apply border-[1px] border-gray-300 py-[6px] px-3 gap-[6px] rounded-full flex items-center transition-all duration-300 ease-out cursor-pointer md:hover:px-5 hover:border-purple-600
   }
 }
 

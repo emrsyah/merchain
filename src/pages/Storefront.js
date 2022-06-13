@@ -104,26 +104,29 @@ function Storefront() {
               </h5>
               <div className="flex sm:flex-row items-start sm:items-center flex-col gap-1 sm:gap-5 text-sm text-gray-500">
                 <div className="flex items-center gap-1">
-                  <Icon icon="akar-icons:link-on" width={18} />
+                  <Icon icon="akar-icons:link-chain" width={18} />
                   <p>merchain.com/Mindrown</p>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Icon icon="ic:round-access-time" width={18} />
+                  <Icon icon="ic:outline-access-time" width={18} />
                   <p>
                     Buka: {store.storeTime[0] ? store.storeTime[0] : "00:00"} -{" "}
                     {store.storeTime[1] ? store.storeTime[1] : "00:00"}
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Icon icon="ant-design:calendar-outlined" width={18} />
+                  <Icon icon="ic:baseline-calendar-month" width={18} />
                   <p>
-                    Bergabung {dayjs(store.createdAt?.toDate()).format("MMM YYYY")}
+                    Bergabung{" "}
+                    {dayjs(store.createdAt?.toDate()).format("MMM YYYY")}
                   </p>
                 </div>
               </div>
+
               <p className="text-sm text-gray-900 my-[6px] max-w-2xl">
                 {store.storeBio}
               </p>
+
               {/* Link2 */}
               <div className="flex items-center flex-wrap gap-2 text-sm font-medium">
                 <div className="linkItem">
@@ -135,17 +138,23 @@ function Storefront() {
                   <p>+6282115023866</p>
                 </div>
                 <div className="linkItem">
-                  {/* <Icon icon="logos:whatsapp" width={22} /> */}
                   <img src={shopee} className="w-6 h-6" alt="" />
                   <p>mantaptoko</p>
                 </div>
                 <div className="linkItem">
-                  {/* <Icon icon="logos:whatsapp" width={22} /> */}
                   <img
                     src={tokopedia}
                     className="w-6 h-6 text-green-600"
                     alt=""
                   />
+                  <p>mantaptoko</p>
+                </div>
+                <div className="linkItem">
+                  <Icon icon="akar-icons:instagram-fill" className="text-pink-600" width={24} />
+                  <p>mantaptoko</p>
+                </div>
+                <div className="linkItem">
+                  <Icon icon="akar-icons:facebook-fill" className="text-blue-600" width={24} />
                   <p>mantaptoko</p>
                 </div>
               </div>

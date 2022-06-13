@@ -51,12 +51,10 @@ function Onboarding() {
         email: userNow.email,
         username: userNow.displayName,
         userImg: userNow.photoURL,
-        emailVerified: userNow.emailVerified,
         createdAt: serverTimestamp(),
       });
       await addDoc(collection(firestoreDb, "stores"), {
         userId: userNow.uid,
-        emailVerified: userNow.emailVerified,
         profileImg: "https://firebasestorage.googleapis.com/v0/b/merchain-77995.appspot.com/o/svgDefault.svg?alt=media&token=2f08d0c9-8555-4376-8d1d-a1f60e76b4af",
         storeName: storeName,
         storeNameLowercase: storeLower,

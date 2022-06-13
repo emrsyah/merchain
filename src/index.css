@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body{
-  font-family: 'Inter', Helvetica;
+  font-family: 'Inter', 'Poppins', Helvetica;
 }
 
 @layer components{
@@ -48,6 +48,9 @@ body{
   .simpanBtn{
     @apply bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm
   }
+  .linkItem{
+    @apply border-[1px] border-gray-300 py-[6px] px-3 gap-[6px] rounded-full flex items-center transition-all duration-300 ease-out cursor-pointer hover:px-5 hover:border-purple-600
+  }
 }
 
 .Ended{
@@ -74,6 +77,10 @@ body{
   opacity: 100% !important;
 }
  */
+
+.poppins{
+  font-family: 'Poppins';
+}
 
 .shadowProfile{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;

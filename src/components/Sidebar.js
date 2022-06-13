@@ -49,7 +49,6 @@ function Sidebar({ store }) {
             <img src={store.profileImg} className="w-12 h-12 rounded-full p-[2px] border-2 border-purple-600 object-cover" alt="" />
             <p className="font-medium text-left lg:text-[15px]">
               {store.storeName}
-              <span className="hidden lg:inline"> Store</span>
             </p>
           </div>
 

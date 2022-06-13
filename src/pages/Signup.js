@@ -43,7 +43,6 @@ function Signup() {
         email: user.email,
         username: username,
         userImg: `https://avatars.dicebear.com/api/micah/${username}.svg`,
-        emailVerified: user.emailVerified,
         createdAt: serverTimestamp(),
       })
       await updateProfile(user,{
@@ -52,12 +51,11 @@ function Signup() {
       })
       await addDoc(collection(firestoreDb, "stores"), {
         userId: user.uid,
-        emailVerified: user.emailVerified,
         profileImg: "https://firebasestorage.googleapis.com/v0/b/merchain-77995.appspot.com/o/svgDefault.svg?alt=media&token=2f08d0c9-8555-4376-8d1d-a1f60e76b4af",
         storeName: storeName,
         storeNameLowercase: storeLower,
         storeBio: null,
-        storeTime: null,
+        storeTime: ["00:00", "00:00"],
         visited: 0,
         links: {},
         colorTheme: "purple",

@@ -1,10 +1,4 @@
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import Lottie from "lottie-web";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -20,10 +14,8 @@ import { Icon } from "@iconify/react";
 import dayjs from "dayjs";
 import shopee from "../assets/shopee.svg";
 import tokopedia from "../assets/tokopedia.svg";
-import product1 from "../assets/product1.jpg";
-import product2 from "../assets/product2.jpg";
-import product3 from "../assets/product3.jpg";
-import product4 from "../assets/product4.jpg";
+import noProduct from "../assets/noProduct.svg";
+import sadFace from "../assets/sadFace.svg";
 import ShopItem from "../components/ShopItem";
 import rupiahConverter from "../helpers/rupiahConverter";
 
@@ -200,14 +192,30 @@ function Storefront() {
           {/* Shop Container */}
           <div className="-translate-y-20 mt-6 mx-0 lg:mx-20 xl:mx-36 px-2 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-8 md:gap-y-6">
             {/* Shop Item */}
-            {products ? (
+            {!products ? (
               <>
                 {products.map((product) => (
-                  <ShopItem key={product.id} slug={product.id} name={product.data().name} price={rupiahConverter(product.data().price)} img={product.data().image} />
+                  <ShopItem
+                    key={product.id}
+                    slug={product.id}
+                    name={product.data().name}
+                    price={rupiahConverter(product.data().price)}
+                    img={product.data().image}
+                    desc={product.data().desc}
+                    active={product.data().active}
+                  />
                 ))}
               </>
             ) : (
-              <div>No Products</div>
+              <div className="flex flex-col items-center text-center gap-2 col-span-3 justify-center">
+                <img src={sadFace} alt="no data img" className="w-24" />
+                <div>
+                  <h6 className="font-medium">Belum Ada Produk</h6>
+                  <p className="text-sm text-gray-600">
+                    Pemilik toko belum menambahkan produk, mohon kembali nanti.
+                  </p>
+                </div>
+              </div>
             )}
             {/* <ShopItem
               price="Rp 36.000"

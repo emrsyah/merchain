@@ -1,4 +1,10 @@
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import Lottie from "lottie-web";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -24,18 +30,13 @@ function Storefront() {
   const { storeName } = useParams();
   const [store, setStore] = useState(false);
 
-  const getStore = (name) => {
-    const unsubscribe = onSnapshot(
-      query(
-        collection(firestoreDb, "stores"),
-        where("storeNameLowercase", "==", name)
-      ),
-      (snapshot) => {
-        setStore(snapshot.docs[0] ? snapshot.docs[0].data() : null);
-        console.log(snapshot.docs[0] ? snapshot.docs[0].data() : null);
-      }
+  const getStore = async (name) => {
+    const q = query(
+      collection(firestoreDb, "stores"),
+      where("storeNameLowercase", "==", name)
     );
-    return unsubscribe;
+    const snapshot = await getDocs(q);
+    setStore(snapshot.docs[0] ? snapshot.docs[0].data() : null);
   };
 
   useEffect(() => {
@@ -175,11 +176,24 @@ function Storefront() {
           </div>
 
           {/* Shop Container */}
-          <div className="-translate-y-20 mt-6 mx-0 lg:mx-20 xl:mx-36 px-2 grid grid-cols-3 gap-x-8 gap-y-6">
+          <div className="-translate-y-20 mt-6 mx-0 lg:mx-20 xl:mx-36 px-2 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-8 md:gap-y-6">
             {/* Shop Item */}
-            <ShopItem price="Rp. 30.000" name="Novel Milk & Honey" img={product1} />
-            <ShopItem price="Rp. 48.000" name="The Black Arts" img={product2} />
-            <ShopItem price="Rp. 60.000" name="The Art Of Making Memories" img={product4} />
+            <ShopItem
+              price="Rp 36.000"
+              name="Novel Milk & Honey"
+              img={product1}
+            />
+            <ShopItem price="Rp 48.000" name="The Black Arts" img={product2} />
+            <ShopItem
+              price="Rp 60.000"
+              name="The Art Of Making Memories"
+              img={product4}
+            />
+            <ShopItem
+              price="Rp 52.000"
+              name="The Golem and The Jinni"
+              img={product3}
+            />
           </div>
         </div>
       </>

@@ -13,7 +13,6 @@ import { doc, updateDoc } from "firebase/firestore";
 import { firestoreDb } from "../../firebase";
 import setFirestoreStorage from "../../helpers/setFirestoreStorage";
 import { toast } from "react-toastify";
-import { SketchPicker } from "react-color";
 import ColorThemeRadio from "../../components/ColorThemeRadio";
 
 function Setting() {

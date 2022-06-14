@@ -25,10 +25,13 @@ import product2 from "../assets/product2.jpg";
 import product3 from "../assets/product3.jpg";
 import product4 from "../assets/product4.jpg";
 import ShopItem from "../components/ShopItem";
+import rupiahConverter from "../helpers/rupiahConverter";
 
 function Storefront() {
   const { storeName } = useParams();
+  const [status, setStatus] = useState("loading");
   const [store, setStore] = useState(false);
+  const [products, setProducts] = useState(null);
 
   const getStore = async (name) => {
     const q = query(
@@ -36,13 +39,32 @@ function Storefront() {
       where("storeNameLowercase", "==", name)
     );
     const snapshot = await getDocs(q);
-    setStore(snapshot.docs[0] ? snapshot.docs[0].data() : null);
+    return snapshot.docs[0]
+      ? { ...snapshot.docs[0].data(), id: snapshot.docs[0].id }
+      : null;
+  };
+
+  const getProducts = async (id) => {
+    const q = query(
+      collection(firestoreDb, "products"),
+      where("storeId", "==", id)
+    );
+    const snapshot = await getDocs(q);
+    setProducts(snapshot.docs.length > 0 ? snapshot.docs : null);
+    setStatus("finished");
   };
 
   useEffect(() => {
     const lowerName = storeName.toLowerCase();
     try {
-      getStore(lowerName);
+      getStore(lowerName).then((data) => {
+        if (!data) {
+          setStatus("not found");
+          return;
+        }
+        setStore(data);
+        getProducts(data.id);
+      });
     } catch (err) {
       console.error(err);
     }
@@ -57,7 +79,7 @@ function Storefront() {
     return () => instance.destroy();
   }, []);
 
-  if (store === false) {
+  if (status === "loading") {
     return (
       <div className="flex justify-center items-center h-[100vh] flex-col">
         {/* <img src={loading} alt="" /> */}
@@ -66,7 +88,7 @@ function Storefront() {
         {/* <div>loading</div> */}
       </div>
     );
-  } else if (store === null) {
+  } else if (status === "not found") {
     return <NotFound />;
   } else {
     return (
@@ -178,7 +200,16 @@ function Storefront() {
           {/* Shop Container */}
           <div className="-translate-y-20 mt-6 mx-0 lg:mx-20 xl:mx-36 px-2 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-8 md:gap-y-6">
             {/* Shop Item */}
-            <ShopItem
+            {products ? (
+              <>
+                {products.map((product) => (
+                  <ShopItem key={product.id} slug={product.id} name={product.data().name} price={rupiahConverter(product.data().price)} img={product.data().image} />
+                ))}
+              </>
+            ) : (
+              <div>No Products</div>
+            )}
+            {/* <ShopItem
               price="Rp 36.000"
               name="Novel Milk & Honey"
               img={product1}
@@ -193,7 +224,7 @@ function Storefront() {
               price="Rp 52.000"
               name="The Golem and The Jinni"
               img={product3}
-            />
+            /> */}
           </div>
         </div>
       </>

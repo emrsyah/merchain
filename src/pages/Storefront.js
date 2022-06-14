@@ -15,6 +15,10 @@ import dayjs from "dayjs";
 import shopee from "../assets/shopee.svg";
 import tokopedia from "../assets/tokopedia.svg";
 import product1 from "../assets/product1.jpg";
+import product2 from "../assets/product2.jpg";
+import product3 from "../assets/product3.jpg";
+import product4 from "../assets/product4.jpg";
+import ShopItem from "../components/ShopItem";
 
 function Storefront() {
   const { storeName } = useParams();
@@ -171,28 +175,11 @@ function Storefront() {
           </div>
 
           {/* Shop Container */}
-          <div className="-translate-y-20 mt-6 mx-0 lg:mx-20 xl:mx-36 px-2 grid grid-cols-3 gap-3">
+          <div className="-translate-y-20 mt-6 mx-0 lg:mx-20 xl:mx-36 px-2 grid grid-cols-3 gap-x-8 gap-y-6">
             {/* Shop Item */}
-            <div className="border-[1px] border-gray-300 rounded hover:border-purple-600  hover:scale-[102%] transition-all duration-200 ease-out cursor-pointer">
-              <div className="w-full h-80 relative">
-                <img
-                  src={product1}
-                  className="w-full h-full object-cover rounded-t"
-                  alt=""
-                />
-                <h5 className="font-semibold text-lg absolute top-2 text-white py-1 px-3 rounded-lg  right-2 bg-purple-600">
-                  Rp 20.000
-                </h5>
-              </div>
-              <div className="py-4 px-3 flex flex-col gap-1">
-                <h5 className="font-semibold text-xl">Novel Milk & Honey</h5>
-                <p className="text-sm text-gray-700  line-clamp-2 leading-[1.55]">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Suscipit aspernatur, ipsa animi esse similique sequi illo
-                  adipisci laudantium quos praesentium.
-                </p>
-              </div>
-            </div>
+            <ShopItem price="Rp. 30.000" name="Novel Milk & Honey" img={product1} />
+            <ShopItem price="Rp. 48.000" name="The Black Arts" img={product2} />
+            <ShopItem price="Rp. 60.000" name="The Art Of Making Memories" img={product4} />
           </div>
         </div>
       </>

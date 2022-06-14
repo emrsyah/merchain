@@ -1,11 +1,16 @@
 import { RadioGroup } from "@headlessui/react";
 import { Icon } from "@iconify/react";
-import React, { useState } from "react";
+import React from "react";
 
-function ColorThemeRadio({color, setColor}) {
+function ColorThemeRadio({color, setColor, setIsChange}) {
+
+  const changeColorHandler = (value) =>{
+    setColor(value)
+    setIsChange(true)
+  }
 
   return (
-    <RadioGroup value={color} onChange={setColor} as="div" className="flex items-center gap-4">
+    <RadioGroup value={color} onChange={(value)=>changeColorHandler(value)} as="div" className="flex items-center gap-4">
       {/* <RadioGroup.Label>Plan</RadioGroup.Label> */}
       <RadioGroup.Option value="purple">
         {({ checked }) => (

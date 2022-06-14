@@ -1,70 +1,137 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body{
-  font-family: 'Inter', 'Poppins', Helvetica;
+body {
+  font-family: "Inter", "Poppins", Helvetica;
 }
 
-@layer components{
-  .btnPrimary{
+@layer components {
+  .btnPrimary {
     @apply font-semibold rounded-md py-3 px-6 border-purple-600 border-2   bg-purple-600 text-white hover:bg-purple-700 hover:border-purple-700;
   }
-  .btnSecondary{
-    @apply font-semibold rounded-md py-3 px-6 border-purple-200 border-2 text-purple-600 hover:border-purple-600 transition-all duration-300 ease-in-out
+  .btnSecondary {
+    @apply font-semibold rounded-md py-3 px-6 border-purple-200 border-2 text-purple-600 hover:border-purple-600 transition-all duration-300 ease-in-out;
   }
-  .inputStyle{
-    @apply font-medium p-4 flex py-3 border-2 border-gray-300 rounded-lg outline-purple-500 hover:border-purple-600 duration-500 ease-out transition-all
+  .inputStyle {
+    @apply font-medium p-4 flex py-3 border-2 border-gray-300 rounded-lg outline-purple-500 hover:border-purple-600 duration-500 ease-out transition-all;
   }
-  .sidebarItem{
-    @apply flex items-center gap-3 p-2 rounded-sm hover:bg-gray-100 opacity-70
+  .sidebarItem {
+    @apply flex items-center gap-3 p-2 rounded-sm hover:bg-gray-100 opacity-70;
   }
-  .sidebarActive{
-    @apply text-purple-600 font-semibold bg-purple-100 opacity-100 hover:bg-purple-100
+  .sidebarActive {
+    @apply text-purple-600 font-semibold bg-purple-100 opacity-100 hover:bg-purple-100;
   }
-  .layoutContainer{
-    @apply  py-2 md:py-4 px-4 md:px-10
+  .layoutContainer {
+    @apply py-2 md:py-4 px-4 md:px-10;
   }
-  .pageName{
-    @apply font-semibold text-2xl
+  .pageName {
+    @apply font-semibold text-2xl;
   }
-  .contentContainer{
-    @apply bg-white p-4 my-4 rounded shadow
+  .contentContainer {
+    @apply bg-white p-4 my-4 rounded shadow;
   }
-  .addInput{
-    @apply flex text-sm py-2 w-full outline-none focus-within:border-purple-600 focus:border-purple-600 px-3 border-gray-300 border-[1px] my-[6px] rounded
+  .addInput {
+    @apply flex text-sm py-2 w-full outline-none focus-within:border-purple-600 focus:border-purple-600 px-3 border-gray-300 border-[1px] my-[6px] rounded;
   }
-  .addButton{
-    @apply bg-purple-600 py-2 px-3 hover:bg-purple-700 rounded text-white font-medium  flex items-center gap-2 text-sm
+  .addButton {
+    @apply bg-purple-600 py-2 px-3 hover:bg-purple-700 rounded text-white font-medium  flex items-center gap-2 text-sm;
   }
-  .Ended{
-    @apply bg-red-500
+  .Ended {
+    @apply bg-red-500;
   }
-  .batalkanBtn{
-    @apply rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600
+  .batalkanBtn {
+    @apply rounded py-3 hover:bg-purple-100 font-semibold text-sm px-6 text-purple-600 border-2 border-purple-600;
   }
-  .simpanBtn{
-    @apply bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm
+  .simpanBtn {
+    @apply bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm;
   }
-  .linkItem{
-    @apply border-[1px] border-gray-300 py-[6px] px-3 gap-[6px] rounded-full flex items-center transition-all duration-300 ease-out cursor-pointer md:hover:px-[15px] hover:border-purple-600
+  .linkItem {
+    @apply border-[1px] border-gray-300 py-[6px] px-3 gap-[6px] rounded-full flex items-center transition-all duration-300 ease-out cursor-pointer md:hover:px-[15px] hover:border-purple-600;
   }
 }
 
-.Ended{
+.purple-tag {
+  background-color: #b14eff;
+}
+.blue-tag {
+  background-color: #4e66ff;
+}
+.red-tag {
+  background-color: #ff4e4e;
+}
+.green-tag {
+  background-color: #25c235;
+}
+.yellow-tag {
+  background-color: rgb(225, 206, 0);
+}
+.orange-tag {
+  background-color: #ff9b4e;
+}
+
+.purple-btn {
+  background-color: rgb(147, 51, 234);
+}
+
+.purple-btn:hover {
+  background-color: rgb(126, 34, 206);
+}
+
+.red-btn {
+  background-color: rgb(220, 38, 38);
+}
+
+.red-btn:hover {
+  background-color: rgb(185, 28, 28);
+}
+
+.blue-btn {
+  background-color: rgb(37, 99, 235);
+}
+
+.blue-btn:hover {
+  background-color: rgb(29, 78, 216);
+}
+
+.green-btn {
+  background-color: rgb(22, 163, 74);
+}
+
+.green-btn:hover {
+  background-color: rgb(21, 128, 61);
+}
+
+.yellow-btn {
+  background-color: rgb(202, 138, 4);
+}
+
+.yellow-btn:hover {
+  background-color: rgb(161, 98, 7);
+}
+
+.orange-btn {
+  background-color: rgb(234, 88, 12);
+}
+
+.orange-btn:hover {
+  background-color: rgb(194, 65, 12);
+}
+
+.Ended {
   background-color: rgb(255, 150, 150);
   /* color: rgb(218, 0, 0); */
 }
 
-.Determined{
+.Determined {
   background-color: rgb(255, 255, 150);
   /* color: rgb(224, 176, 0); */
 }
 
-.colorPrimary{
-  color: #7C3AED;
+.colorPrimary {
+  color: #7c3aed;
 }
 /* 
 .hoverSide:hover p{
@@ -78,16 +145,15 @@ body{
 }
  */
 
-.poppins{
-  font-family: 'Poppins';
+.poppins {
+  font-family: "Poppins";
 }
 
-.shadowProfile{
+.shadowProfile {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-
-.sidebarSticky{
+.sidebarSticky {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -96,15 +162,15 @@ body{
 ::-webkit-scrollbar {
   width: 7px;
 }
-  ::-webkit-scrollbar-track {
-  background: #fff; 
+::-webkit-scrollbar-track {
+  background: #fff;
 }
-  ::-webkit-scrollbar-thumb {
-  background: rgb(175, 175, 175); 
-  border-radius:10px;
+::-webkit-scrollbar-thumb {
+  background: rgb(175, 175, 175);
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(150, 150, 150); 
+  background: rgb(150, 150, 150);
 }
 
 .scrollProduct::-webkit-scrollbar {
@@ -112,26 +178,26 @@ body{
 }
 
 .scrollProduct::-webkit-scrollbar-thumb {
-  background: rgb(175, 175, 175); 
-  border-radius:20px;
+  background: rgb(175, 175, 175);
+  border-radius: 20px;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.helveticaFonts{
+.helveticaFonts {
   font-family: Helvetica;
 }
 
-.interFonts{
-  font-family: 'Inter';
+.interFonts {
+  font-family: "Inter";
 }
 
 .line-clamp {
   display: -webkit-box;
   -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;  
+  -webkit-box-orient: vertical;
 }

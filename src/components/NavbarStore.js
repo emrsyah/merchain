@@ -12,8 +12,8 @@ function NavbarStore() {
       <div className="flex items-center justify-between gap-2 md:gap-10">
         <div className="font-medium text-xs md:text-base bg-purple-200 py-2 px-4 rounded-md md:rounded-lg border-[1px] border-purple-200 hover:bg-white hover:border-purple-700 cursor-pointer text-purple-700">Coba Merchain</div>
         <div className="relative cursor-pointer">
-            <div className="bg-purple-600 w-5 h-5 rounded-full absolute -right-[10px] -top-1 text-xs p-2 text-white flex items-center justify-center">30</div>
-            <Icon icon="clarity:shopping-bag-line" width={28}/>
+            <div className="bg-purple-600 w-5 h-5 rounded-full absolute -right-[10px] -top-2 text-xs p-2 text-white flex items-center justify-center">30</div>
+            <Icon icon="clarity:shopping-cart-line" width={28}/>
         </div>
       </div>
     </nav>

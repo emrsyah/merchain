@@ -113,6 +113,7 @@ function Setting() {
       setChangedImg(null);
     }
   };
+  
 
   return (
     <>
@@ -395,7 +396,7 @@ function Setting() {
                   onChange={()=>setIsChange(true)}
                 /> */}
                 <div>
-                  <ColorThemeRadio color={color} setColor={setColor} />
+                  <ColorThemeRadio color={color} setColor={setColor} setIsChange={setIsChange} />
                 </div>
               </div>
 

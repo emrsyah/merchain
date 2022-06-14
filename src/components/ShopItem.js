@@ -1,6 +1,6 @@
 import React from "react";
 
-function ShopItem({ img, price, name, desc, slug, active }) {
+function ShopItem({ img, price, name, desc, slug, active, color }) {
   const clickHandler = () => {
     console.log(slug);
   };
@@ -16,8 +16,8 @@ function ShopItem({ img, price, name, desc, slug, active }) {
           className="w-full h-full object-cover rounded-t-lg"
           alt=""
           loading="lazy"
-        />
-        <div className="font-semibold text-lg absolute bottom-2 text-white py-1 px-2 rounded-md  right-2 bg-[#B14EFF]">
+        /> 
+        <div className={`font-semibold text-lg absolute bottom-2 ${color + "-tag"} text-white py-1 px-2 rounded-md  right-2`}>
           {active ? <p>{price}</p> : "Sold Out"}
         </div>
       </div>

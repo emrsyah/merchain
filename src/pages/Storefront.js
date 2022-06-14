@@ -1,7 +1,7 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
 import Lottie from "lottie-web";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { firestoreDb } from "../firebase";
 import NotFound from "./NotFound";
 import lottieJson from "../assets/97110-purple-spinner.json";
@@ -21,6 +21,7 @@ import rupiahConverter from "../helpers/rupiahConverter";
 
 function Storefront() {
   const { storeName } = useParams();
+  const navigate = useNavigate();
   const [status, setStatus] = useState("loading");
   const [store, setStore] = useState(false);
   const [products, setProducts] = useState(null);
@@ -54,6 +55,7 @@ function Storefront() {
           setStatus("not found");
           return;
         }
+        console.log(data);
         setStore(data);
         getProducts(data.id);
       });
@@ -150,49 +152,61 @@ function Storefront() {
 
             {/* Link2 */}
             <div className="flex items-center flex-wrap gap-2 text-sm font-medium">
-              <div className="linkItem">
-                <Icon icon="logos:whatsapp" width={24} />
-                <p>+6282115023866</p>
-              </div>
-              <div className="linkItem">
-                <Icon icon="logos:telegram" width={24} />
-                <p>+6282115023866</p>
-              </div>
-              <div className="linkItem">
-                <img src={shopee} className="w-6 h-6" alt="" />
-                <p>mantaptoko</p>
-              </div>
-              <div className="linkItem">
-                <img
-                  src={tokopedia}
-                  className="w-6 h-6 text-green-600"
-                  alt=""
-                />
-                <p>mantaptoko</p>
-              </div>
-              <div className="linkItem">
-                <Icon
-                  icon="akar-icons:instagram-fill"
-                  className="text-pink-600"
-                  width={24}
-                />
-                <p>mantaptoko</p>
-              </div>
-              <div className="linkItem">
-                <Icon
-                  icon="akar-icons:facebook-fill"
-                  className="text-blue-600"
-                  width={24}
-                />
-                <p>mantaptoko</p>
-              </div>
+              {store.links.whatsapp && (
+                <div className="linkItem">
+                  <Icon icon="logos:whatsapp" width={24} />
+                  <p>{store.links.whatsapp}</p>
+                </div>
+              )}
+              {store.links.telegram && (
+                <div className="linkItem">
+                  <Icon icon="logos:telegram" width={24} />
+                  <p>{store.links.telegram}</p>
+                </div>
+              )}
+              {store.links.shopee && (
+                <div className="linkItem">
+                  <img src={shopee} className="w-6 h-6" alt="" />
+                  <p>{store.storeName}</p>
+                </div>
+              )}
+              {store.links.tokopedia && (
+                <div className="linkItem">
+                  <img
+                    src={tokopedia}
+                    className="w-6 h-6 text-green-600"
+                    alt=""
+                  />
+                  <p>{store.storeName}</p>
+                </div>
+              )}
+              {store.links.instagram && (
+                <div className="linkItem">
+                  <Icon
+                    icon="akar-icons:instagram-fill"
+                    className="text-pink-600"
+                    width={24}
+                  />
+                  <p>{store.storeName}</p>
+                </div>
+              )}
+              {store.links.facebook && (
+                <div className="linkItem">
+                  <Icon
+                    icon="akar-icons:facebook-fill"
+                    className="text-blue-600"
+                    width={24}
+                  />
+                  <p>{store.storeName}</p>
+                </div>
+              )}
             </div>
           </div>
 
           {/* Shop Container */}
           <div className="-translate-y-20 mt-6 mx-0 lg:mx-20 xl:mx-36 px-2 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-8 md:gap-y-6">
             {/* Shop Item */}
-            {!products ? (
+            {products ? (
               <>
                 {products.map((product) => (
                   <ShopItem
@@ -233,6 +247,18 @@ function Storefront() {
               name="The Golem and The Jinni"
               img={product3}
             /> */}
+          </div>
+
+          <div className="mb-10 text-center flex items-center justify-center text-sm">
+            <p>
+              Powered by <br />{" "}
+              <span
+                className="text-2xl font-semibold cursor-pointer text-purple-600"
+                onClick={() => navigate("/")}
+              >
+                Merchain
+              </span>
+            </p>
           </div>
         </div>
       </>

@@ -90,10 +90,10 @@ function Storefront() {
         <Helmet>
           <title>{store.storeName} - Merchain</title>
         </Helmet>
-        <NavbarStore />
+        <NavbarStore color={store.colorTheme} />
         <div className=" poppins">
           {/* Cover Img */}
-          <div className="mx-0 lg:mx-20 xl:mx-36">
+          <div className="mx-0 lg:mx-20 max-w-7xl 2xl:mx-auto xl:mx-36">
             {true ? (
               <img
                 src={cover}
@@ -106,7 +106,7 @@ function Storefront() {
           </div>
 
           {/* Header Profile */}
-          <div className="-translate-y-20 shadow px-2 md:px-6 gap-1 flex flex-col lg:px-[84px] pb-10 xl:px-[152px]">
+          <div className="-translate-y-20 xl:px-[152px] xl:mx-auto max-w-7xl 2xl:mx-auto 2xl:px-2 px-2 md:px-6 gap-1 flex flex-col lg:px-[84px] pb-10">
             <div className="flex items-end justify-between">
               <img
                 src={store.profileImg}
@@ -153,25 +153,25 @@ function Storefront() {
             {/* Link2 */}
             <div className="flex items-center flex-wrap gap-2 text-sm font-medium">
               {store.links.whatsapp && (
-                <div className="linkItem">
+                <div className={`linkItem ${store.colorTheme + "link"}`}>
                   <Icon icon="logos:whatsapp" width={24} />
                   <p>{store.links.whatsapp}</p>
                 </div>
               )}
               {store.links.telegram && (
-                <div className="linkItem">
+                <div className={`linkItem ${store.colorTheme + "link"}`}>
                   <Icon icon="logos:telegram" width={24} />
                   <p>{store.links.telegram}</p>
                 </div>
               )}
               {store.links.shopee && (
-                <a className="linkItem" href={store.links.shopee} target="_blank" rel="noreferrer" >
+                <a className={`linkItem ${store.colorTheme + "link"}`} href={store.links.shopee} target="_blank" rel="noreferrer" >
                   <img src={shopee} className="w-6 h-6" alt="" />
                   <p>{store.storeName}</p>
                 </a>
               )}
               {store.links.tokopedia && (
-                <a className="linkItem" href={store.links.tokopedia} target="_blank" rel="noreferrer">
+                <a className={`linkItem ${store.colorTheme + "link"}`} href={store.links.tokopedia} target="_blank" rel="noreferrer">
                   <img
                     src={tokopedia}
                     className="w-6 h-6 text-green-600"
@@ -181,7 +181,7 @@ function Storefront() {
                 </a>
               )}
               {store.links.instagram && (
-                <a className="linkItem" href={store.links.instagram} target="_blank" rel="noreferrer">
+                <a className={`linkItem ${store.colorTheme + "link"}`} href={store.links.instagram} target="_blank" rel="noreferrer">
                   <Icon
                     icon="akar-icons:instagram-fill"
                     className="text-pink-600"
@@ -191,7 +191,7 @@ function Storefront() {
                 </a>
               )}
               {store.links.facebook && (
-                <a className="linkItem" href={store.links.facebook} target="_blank" rel="noreferrer">
+                <a className={`linkItem ${store.colorTheme + "link"}`} href={store.links.facebook} target="_blank" rel="noreferrer">
                   <Icon
                     icon="akar-icons:facebook-fill"
                     className="text-blue-600"
@@ -203,8 +203,12 @@ function Storefront() {
             </div>
           </div>
 
+          <div className="h-1 shadow-2xl w-full -translate-y-20 border-b-[1px] border-gray-500">
+                {/* <p>halo</p> */}
+          </div>
+
           {/* Shop Container */}
-          <div className="-translate-y-20 mt-6 mx-2 lg:mx-20 xl:mx-36 px-2 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-8 md:gap-y-6">
+          <div className="-translate-y-20 max-w-7xl 2xl:mx-auto 2xl:grid-cols-4 mt-6 mx-2 lg:mx-20 xl:mx-36 px-2 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-8 md:gap-y-6">
             {/* Shop Item */}
             {products ? (
               <>

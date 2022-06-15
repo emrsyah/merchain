@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/merchainLogo.svg";
 
-function NavbarStore() {
+function NavbarStore({color}) {
   return (
     <nav className="flex items-center justify-between bg-white z-[999] py-3 px-3 md:px-6 lg:px-16 border-b-gray-200 sticky top-0 border-b-[1px]">
       <Link to="/">

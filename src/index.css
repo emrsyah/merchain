@@ -51,7 +51,14 @@ body {
   .linkItem {
     @apply border-[1px] border-gray-300 py-[6px] px-3 gap-[6px] rounded-full flex items-center transition-all duration-300 ease-out cursor-pointer md:hover:px-[15px] hover:border-purple-600;
   }
+  .hoverpurple{
+    @apply bg-red-500 !border-8
+  }
 }
+
+/* .purpleHover{
+  border:#25c235 solid 2px
+} */
 
 .purple-tag {
   background-color: #b14eff;

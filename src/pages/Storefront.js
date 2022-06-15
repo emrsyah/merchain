@@ -106,7 +106,7 @@ function Storefront() {
           </div>
 
           {/* Header Profile */}
-          <div className="-translate-y-20 xl:px-[152px] xl:mx-auto max-w-7xl 2xl:mx-auto 2xl:px-2 px-2 md:px-6 gap-1 flex flex-col lg:px-[84px] pb-10">
+          <div className="-translate-y-20 xl:px-[152px] xl:mx-auto max-w-7xl 2xl:mx-auto 2xl:px-2 px-2 md:px-6 gap-1 flex flex-col lg:px-[84px] pb-2">
             <div className="flex items-end justify-between">
               <img
                 src={store.profileImg}
@@ -203,12 +203,13 @@ function Storefront() {
             </div>
           </div>
 
-          <div className="h-1 shadow-2xl w-full -translate-y-20 border-b-[1px] border-gray-500">
-                {/* <p>halo</p> */}
+          {/* Line Break */}
+          <div className="shadow w-full -translate-y-20">
+            <p className="opacity-0 cursor-default">Line Breaker</p>
           </div>
 
           {/* Shop Container */}
-          <div className="-translate-y-20 max-w-7xl 2xl:mx-auto 2xl:grid-cols-4 mt-6 mx-2 lg:mx-20 xl:mx-36 px-2 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-8 md:gap-y-6">
+          <div className="-translate-y-20 max-w-7xl 2xl:mx-auto 2xl:grid-cols-4 mt-6 md:mt-10 mx-2 lg:mx-20 xl:mx-36 px-2 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-8 md:gap-y-6">
             {/* Shop Item */}
             {products ? (
               <>

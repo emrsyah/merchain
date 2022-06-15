@@ -49,16 +49,65 @@ body {
     @apply bg-purple-600 py-3 hover:bg-purple-700 px-6 font-semibold text-white rounded text-sm;
   }
   .linkItem {
-    @apply border-[1px] border-gray-300 py-[6px] px-3 gap-[6px] rounded-full flex items-center transition-all duration-300 ease-out cursor-pointer md:hover:px-[15px] hover:border-purple-600;
-  }
-  .hoverpurple{
-    @apply bg-red-500 !border-8
+    @apply border-[1px] border-gray-300 py-[6px] px-3 gap-[6px] rounded-full flex items-center transition-all duration-300 ease-out cursor-pointer md:hover:px-[15px];
   }
 }
 
-/* .purpleHover{
-  border:#25c235 solid 2px
-} */
+.purpleNav{
+  color: #7c3aed;
+  /* background-color: ; */
+  border-color: #7c3aed;
+}
+
+.blueNav{
+  color: #4e66ff;
+  /* background-color: ; */
+  border-color: #4e66ff;
+}
+
+.redNav{
+  color: #ff4e4e;
+  /* background-color: ; */
+  border-color: #ff4e4e;
+}
+
+.greenNav{
+  color: #25c235;
+  /* background-color: ; */
+  border-color: #25c235;
+}
+
+.yellowNav{
+  color: rgb(225, 206, 0);
+  /* background-color: ; */
+  border-color: rgb(225, 206, 0);
+}
+
+.orangeNav{
+  color: #ff9b4e;
+  /* background-color: ; */
+  border-color: #ff9b4e;
+}
+
+.purplelink:hover {
+  border-color: #7c3aed;
+}
+
+.bluelink:hover {
+  border-color: #4e66ff;
+}
+.redlink:hover {
+  border-color: rgb(220, 38, 38);;
+}
+.greenlink:hover {
+  border-color: #25c235;
+}
+.yellowlink:hover {
+  border-color: rgb(225, 206, 0);
+}
+.orangelink:hover {
+  border-color: #ff9b4e;
+}
 
 .purple-tag {
   background-color: #b14eff;
@@ -112,12 +161,13 @@ body {
 }
 
 .yellow-btn {
-  background-color: rgb(202, 138, 4);
+  background-color: rgb(226, 206, 10);
 }
 
 .yellow-btn:hover {
-  background-color: rgb(161, 98, 7);
+  background-color: rgb(212, 192, 9);
 }
+
 
 .orange-btn {
   background-color: rgb(234, 88, 12);

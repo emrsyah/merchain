@@ -63,6 +63,7 @@ function Onboarding() {
         visited: 0,
         links: {},
         colorTheme: "purple",
+        coverImg: null,
         createdAt: serverTimestamp(),
       });
       setIsOboarding(false)

@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function ShopItem({ img, price, name, desc, slug, active, color }) {
+  const navigate = useNavigate()
   const clickHandler = () => {
-    console.log(slug);
+    navigate(slug)
   };
 
   return (

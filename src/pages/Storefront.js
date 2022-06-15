@@ -14,7 +14,6 @@ import { Icon } from "@iconify/react";
 import dayjs from "dayjs";
 import shopee from "../assets/shopee.svg";
 import tokopedia from "../assets/tokopedia.svg";
-import noProduct from "../assets/noProduct.svg";
 import sadFace from "../assets/sadFace.svg";
 import ShopItem from "../components/ShopItem";
 import rupiahConverter from "../helpers/rupiahConverter";
@@ -101,7 +100,7 @@ function Storefront() {
                 alt=""
               />
             ) : (
-              <div className="w-full h-44 lg:h-60 m-auto object-cover rounded-b-xl bg-purple-200"></div>
+              <div className={`w-full h-44 lg:h-60 m-auto object-cover rounded-b-xl ${store.colorTheme + "-tag"}`}></div>
             )}
           </div>
 

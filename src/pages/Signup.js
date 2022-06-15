@@ -59,6 +59,7 @@ function Signup() {
         visited: 0,
         links: {},
         colorTheme: "purple",
+        coverImg: null,
         createdAt: serverTimestamp(),
       });
       sendVerification()

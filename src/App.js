@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import Faq from "./pages/Faq";
 import Home from "./pages/Home";
 import Layout from "./pages/app/Layout";
@@ -21,37 +21,44 @@ import NewCustomer from "./pages/app/customers/NewCustomer";
 import EditCustomer from "./pages/app/customers/EditCustomer";
 import EditProduct from "./pages/app/products/EditProduct";
 import Storefront from "./pages/Storefront";
+import StoreItem from "./pages/StoreItem";
+import StoreLayout from "./pages/StoreLayout";
 
 function App() {
   return (
     <HelmetProvider>
-    <RecoilRoot>
-    <ToastContainer />    
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="faq" element={<Faq />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="onboarding" element={<Onboarding />} />
-        <Route path=":storeName" element={<Storefront />} />
-        <Route path="app" element={<Layout />}>
-          <Route index element={<Manage />} />
-          <Route path="home" element={<Manage />} />
-          <Route path="orders" element={<Orders />} />
-          <Route path="orders/new" element={<NewOrder />} />
-          <Route path="products" element={<Products />} />
-          <Route path="products/new" element={<NewProduct />} />
-          <Route path="products/:id" element={<EditProduct />} />
-          <Route path="customers" element={<Customers />} />
-          <Route path="customers/new" element={<NewCustomer />} />
-          <Route path="customers/:id" element={<EditCustomer />} />
-          <Route path="settings" element={<Setting />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-    </RecoilRoot>
+      <RecoilRoot>
+        <ToastContainer />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="faq" element={<Faq />} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="onboarding" element={<Onboarding />} />
+            {/* <Route path=":storeName" element={<Storefront />} /> */}
+            <Route path=":storeName" element={<StoreLayout />}>
+              <Route index element={<Storefront />} />
+              <Route path=":productId" element={<StoreItem />} />
+            </Route>
+            {/* <Route path="/:storeName/:productId" element={<StoreItem />} /> */}
+            <Route path="app" element={<Layout />}>
+              <Route index element={<Manage />} />
+              <Route path="home" element={<Manage />} />
+              <Route path="orders" element={<Orders />} />
+              <Route path="orders/new" element={<NewOrder />} />
+              <Route path="products" element={<Products />} />
+              <Route path="products/new" element={<NewProduct />} />
+              <Route path="products/:id" element={<EditProduct />} />
+              <Route path="customers" element={<Customers />} />
+              <Route path="customers/new" element={<NewCustomer />} />
+              <Route path="customers/:id" element={<EditCustomer />} />
+              <Route path="settings" element={<Setting />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </RecoilRoot>
     </HelmetProvider>
   );
 }

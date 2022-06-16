@@ -67,7 +67,7 @@ function Storefront() {
     return <NotFound />;
   } else {
     return (
-      <>
+    <>
         <Helmet>
           <title>{store.storeName} - Merchain</title>
         </Helmet>

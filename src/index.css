@@ -53,37 +53,56 @@ body {
   }
 }
 
-.purpleNav{
+.purple-pg {
+  background-color: rgb(243, 232, 255);
+}
+.blue-pg {
+  background-color: rgb(234, 232, 255);
+}
+.red-pg {
+  background-color: rgb(255, 232, 232);
+}
+.green-pg {
+  background-color: rgb(232, 255, 232);
+}
+.yellow-pg {
+  background-color: rgb(255, 255, 232);
+}
+.orange-pg {
+  background-color: rgb(255, 245, 232);
+}
+
+.purpleNav {
   color: #7c3aed;
   /* background-color: ; */
   border-color: #7c3aed;
 }
 
-.blueNav{
+.blueNav {
   color: #4e66ff;
   /* background-color: ; */
   border-color: #4e66ff;
 }
 
-.redNav{
+.redNav {
   color: #ff4e4e;
   /* background-color: ; */
   border-color: #ff4e4e;
 }
 
-.greenNav{
+.greenNav {
   color: #25c235;
   /* background-color: ; */
   border-color: #25c235;
 }
 
-.yellowNav{
+.yellowNav {
   color: rgb(225, 206, 0);
   /* background-color: ; */
   border-color: rgb(225, 206, 0);
 }
 
-.orangeNav{
+.orangeNav {
   color: #ff9b4e;
   /* background-color: ; */
   border-color: #ff9b4e;
@@ -97,7 +116,7 @@ body {
   border-color: #4e66ff;
 }
 .redlink:hover {
-  border-color: rgb(220, 38, 38);;
+  border-color: rgb(220, 38, 38);
 }
 .greenlink:hover {
   border-color: #25c235;
@@ -167,7 +186,6 @@ body {
 .yellow-btn:hover {
   background-color: rgb(212, 192, 9);
 }
-
 
 .orange-btn {
   background-color: rgb(234, 88, 12);

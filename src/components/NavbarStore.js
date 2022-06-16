@@ -13,7 +13,7 @@ function NavbarStore({color}) {
         <div className={` ${color + "Nav"} font-medium text-xs md:text-base transition-all duration-150 ease-out hover:-translate-y-[2px]  py-2 px-4 rounded-md md:rounded-lg border-[1.4px] cursor-pointer`}>Coba Merchain</div>
         <div className="relative cursor-pointer">
             <div className={` ${color + "-btn"} w-5 h-5 rounded-full absolute -right-[10px] -top-2 text-xs p-2 text-white flex items-center justify-center`}>30</div>
-            <Icon icon="clarity:shopping-cart-line" width={28}/>
+            <Icon icon="clarity:shopping-bag-line" width={28}/>
         </div>
       </div>
     </nav>

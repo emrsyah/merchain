@@ -24,7 +24,7 @@ function Storefront() {
   const [store, setStore] = useOutletContext();
 
   const getProducts = async (id) => {
-    console.log(id)
+    console.log(id);
     const q = query(
       collection(firestoreDb, "products"),
       where("storeId", "==", id)
@@ -56,18 +56,15 @@ function Storefront() {
   if (status === "loading") {
     return (
       <div className="flex justify-center items-center h-[100vh] flex-col">
-        {/* <img src={loading} alt="" /> */}
-        {/* <img src={logo} alt="" className="h-14" />
-        <div id="lottie-container" className="w-28" /> */}
-        {/* <div>loading</div> */}
-        loading Ke-2
+        <img src={logo} alt="" className="h-14" />
+        <div id="lottie-container" className="w-28" />
       </div>
     );
   } else if (status === "not found") {
     return <NotFound />;
   } else {
     return (
-    <>
+      <>
         <Helmet>
           <title>{store.storeName} - Merchain</title>
         </Helmet>

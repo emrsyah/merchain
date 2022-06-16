@@ -50,10 +50,9 @@ function StoreItem() {
   }, []);
 
   const addToCartHandler = () => {
-    // setCart(cart => [...cart, {...product}])
-    const newCart = addToCart(cart, { ...product, id: productId });
+    const newCart = addToCart(cart, { ...product, id: productId }, quantity);
     setCart(newCart);
-    console.log(cart);
+    setQuantity(1)
   };
 
   if (status === "loading") {
@@ -109,11 +108,11 @@ function StoreItem() {
               <p className="text-gray-600 leading-relaxed text-[15px]">
                 {product.desc}
               </p>
-              <div className="w-full flex flex-col gap-3">
+              <div className="w-full flex flex-col gap-[10px] mt-5">
                 {product.active && (
-                  <button className="flex cursor-default items-center justify-between py-[10px] px-6 border-[1.5px] border-gray-200 rounded-full">
+                  <button className="flex cursor-default items-center justify-between py-2 px-5 border-[1.5px] border-gray-200 rounded-full">
                     <button
-                      className={`${
+                      className={`p-2 ${
                         quantity - 1 > 0
                           ? store.colorTheme + "Nav"
                           : "text-gray-400"
@@ -127,7 +126,7 @@ function StoreItem() {
                       {quantity}
                     </h6>
                     <button
-                      className={`${store.colorTheme + "Nav"}`}
+                      className={`p-2 ${store.colorTheme + "Nav"}`}
                       onClick={() => setQuantity((prev) => prev + 1)}
                     >
                       <Icon icon="fa-solid:plus" />

@@ -1,4 +1,4 @@
-export const addToCart = (cart, item) => {
+export const addToCart = (cart, item, quantity) => {
   const newCart = [...cart];
   const foundIndex = cart.findIndex((x) => x.id === item.id);
 
@@ -6,7 +6,7 @@ export const addToCart = (cart, item) => {
   if (foundIndex >= 0) {
     newCart[foundIndex] = {
       ...cart[foundIndex],
-      quantity: cart[foundIndex].quantity + 1,
+      quantity: cart[foundIndex].quantity + quantity,
     };
     return newCart;
   }

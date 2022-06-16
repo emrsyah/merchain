@@ -7,12 +7,15 @@ import { Helmet } from "react-helmet-async";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import lottieJson from "../assets/97110-purple-spinner.json";
 import logo from "../assets/merchainIcon.svg";
-import NavbarStore from "../components/NavbarStore";
+import { cartState } from "../atoms/cartAtom";
 import { firestoreDb } from "../firebase";
 import rupiahConverter from "../helpers/rupiahConverter";
 import NotFound from "./NotFound";
+import { useRecoilState } from "recoil";
+import { addToCart } from "../helpers/addToCart";
 
 function StoreItem() {
+  const [cart, setCart] = useRecoilState(cartState);
   const { productId } = useParams();
   const navigate = useNavigate();
   const [status, setStatus] = useState("loading");
@@ -46,6 +49,13 @@ function StoreItem() {
     }
   }, []);
 
+  const addToCartHandler = () => {
+    // setCart(cart => [...cart, {...product}])
+    const newCart = addToCart(cart, { ...product, id: productId });
+    setCart(newCart);
+    console.log(cart);
+  };
+
   if (status === "loading") {
     return (
       <div className="flex justify-center items-center h-[100vh] flex-col">
@@ -63,7 +73,6 @@ function StoreItem() {
         <Helmet>
           <title>{store.storeName} - Merchain</title>
         </Helmet>
-        <NavbarStore color={store.colorTheme} />
         <div className="poppins">
           <button
             className={`md:hidden flex gap-1 items-center font-medium cursor-pointer mb-3  ${
@@ -93,14 +102,18 @@ function StoreItem() {
                 Kembali Ke Toko
               </button>
               <h5 className="text-3xl font-semibold">{product.name}</h5>
-              <h6 className="text-xl font-medium">
+              <p className="text-sm">Terjual {product.sold}</p>
+              <h6 className="text-xl font-semibold">
                 {rupiahConverter(product.price)}
               </h6>
-              <p className="text-gray-600">{product.desc}</p>
+              <p className="text-gray-600 leading-relaxed text-[15px]">
+                {product.desc}
+              </p>
               <button
                 className={`p-[10px] rounded-full mt-5 font-semibold text-lg text-white ${
                   store.colorTheme + "-btn"
                 } `}
+                onClick={() => addToCartHandler()}
               >
                 Tambah Ke Keranjang
               </button>

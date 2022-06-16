@@ -7,6 +7,7 @@ import { firestoreDb } from "../firebase";
 import { useState } from "react";
 import Lottie from "lottie-web";
 import lottieJson from "../assets/97110-purple-spinner.json";
+import NavbarStore from "../components/NavbarStore";
 
 function StoreLayout() {
   const [status, setStatus] = useState("loading");
@@ -29,8 +30,8 @@ function StoreLayout() {
       `https://merchain-api-production.up.railway.app/status/${id}`
     );
     const resJson = await res.json();
-    const verifed =  resJson.emailVerified;
-    return verifed
+    const verifed = resJson.emailVerified;
+    return verifed;
   };
 
   useEffect(() => {
@@ -42,14 +43,14 @@ function StoreLayout() {
           return;
         }
         const isVerified = getStoreVerifiedStatus(data.userId);
-        isVerified.then(verified=>{
+        isVerified.then((verified) => {
           if (!verified) {
             setStatus("not verified");
             return;
           }
           setStore(data);
           setStatus("finished");
-        })
+        });
         // getProducts(data.id);
       });
     } catch (err) {
@@ -78,12 +79,13 @@ function StoreLayout() {
   } else if (status === "not found") {
     return <NotFound />;
   } else if (status === "not verified") {
-    return <NotFound />
+    return <NotFound />;
   } else if (status === "finished") {
     return (
       <>
         {store && (
           <div>
+            <NavbarStore color={store.colorTheme} />
             <Outlet context={[store, setStore]} />
           </div>
         )}

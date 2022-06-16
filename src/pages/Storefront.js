@@ -1,13 +1,12 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
 import Lottie from "lottie-web";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { firestoreDb } from "../firebase";
 import NotFound from "./NotFound";
 import lottieJson from "../assets/97110-purple-spinner.json";
 import logo from "../assets/merchainIcon.svg";
 import { Helmet } from "react-helmet-async";
-import NavbarStore from "../components/NavbarStore";
 import cover from "../assets/coverImg2.jpg";
 import { Icon } from "@iconify/react";
 import dayjs from "dayjs";
@@ -68,7 +67,6 @@ function Storefront() {
         <Helmet>
           <title>{store.storeName} - Merchain</title>
         </Helmet>
-        <NavbarStore color={store.colorTheme} />
         <div className=" poppins">
           {/* Cover Img */}
           <div className="mx-0 lg:mx-20 max-w-7xl 2xl:mx-auto xl:mx-36">

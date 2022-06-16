@@ -70,7 +70,7 @@ function StoreItem() {
     return (
       <>
         <Helmet>
-          <title>{store.storeName} - Merchain</title>
+          <title>{product.name} - {store.storeName} - Merchain</title>
         </Helmet>
         <div className="poppins">
           <button
@@ -108,9 +108,9 @@ function StoreItem() {
               <p className="text-gray-600 leading-relaxed text-[15px]">
                 {product.desc}
               </p>
-              <div className="w-full flex flex-col gap-[10px] mt-5">
+              <div className="w-full flex flex-col gap-[10px] mt-4">
                 {product.active && (
-                  <button className="flex cursor-default items-center justify-between py-2 px-5 border-[1.5px] border-gray-200 rounded-full">
+                  <div className="flex cursor-default items-center justify-between py-[6px] px-5 border-[1.5px] border-gray-200 rounded-full">
                     <button
                       className={`p-2 ${
                         quantity - 1 > 0
@@ -122,7 +122,7 @@ function StoreItem() {
                     >
                       <Icon icon="fa-solid:minus" />
                     </button>
-                    <h6 className="flex-grow font-semibold text-lg">
+                    <h6 className="flex-grow text-center font-semibold text-lg">
                       {quantity}
                     </h6>
                     <button
@@ -131,7 +131,7 @@ function StoreItem() {
                     >
                       <Icon icon="fa-solid:plus" />
                     </button>
-                  </button>
+                  </div>
                 )}
                 <button
                   className={`p-[10px] rounded-full font-semibold text-lg text-white ${

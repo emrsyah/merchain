@@ -21,6 +21,7 @@ function StoreItem() {
   const [status, setStatus] = useState("loading");
   const [product, setProduct] = useState(null);
   const [store, setStore] = useOutletContext();
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const instance = Lottie.loadAnimation({
@@ -37,7 +38,6 @@ function StoreItem() {
       return;
     }
     setProduct(docSnap.data());
-    console.log(docSnap.data());
     setStatus("finished");
   };
 
@@ -109,14 +109,45 @@ function StoreItem() {
               <p className="text-gray-600 leading-relaxed text-[15px]">
                 {product.desc}
               </p>
-              <button
-                className={`p-[10px] rounded-full mt-5 font-semibold text-lg text-white ${
-                  store.colorTheme + "-btn"
-                } `}
-                onClick={() => addToCartHandler()}
-              >
-                Tambah Ke Keranjang
-              </button>
+              <div className="w-full flex flex-col gap-3">
+                {product.active && (
+                  <button className="flex cursor-default items-center justify-between py-[10px] px-6 border-[1.5px] border-gray-200 rounded-full">
+                    <button
+                      className={`${
+                        quantity - 1 > 0
+                          ? store.colorTheme + "Nav"
+                          : "text-gray-400"
+                      }`}
+                      disabled={!(quantity - 1 > 0)}
+                      onClick={() => setQuantity((prev) => prev - 1)}
+                    >
+                      <Icon icon="fa-solid:minus" />
+                    </button>
+                    <h6 className="flex-grow font-semibold text-lg">
+                      {quantity}
+                    </h6>
+                    <button
+                      className={`${store.colorTheme + "Nav"}`}
+                      onClick={() => setQuantity((prev) => prev + 1)}
+                    >
+                      <Icon icon="fa-solid:plus" />
+                    </button>
+                  </button>
+                )}
+                <button
+                  className={`p-[10px] rounded-full font-semibold text-lg text-white ${
+                    store.colorTheme + "-btn"
+                  }
+                ${
+                  !product.active && "!bg-gray-200 text-gray-400 cursor-default"
+                }
+                `}
+                  onClick={() => addToCartHandler()}
+                  disabled={!product.active}
+                >
+                  {product.active ? "Tambah Ke Keranjang" : "Sold Out"}
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -9,7 +9,6 @@ import logo from "../assets/merchainIcon.svg";
 import { Helmet } from "react-helmet-async";
 import NavbarStore from "../components/NavbarStore";
 import cover from "../assets/coverImg2.jpg";
-import profile from "../assets/profileImg.jpg";
 import { Icon } from "@iconify/react";
 import dayjs from "dayjs";
 import shopee from "../assets/shopee.svg";
@@ -54,7 +53,6 @@ function Storefront() {
           setStatus("not found");
           return;
         }
-        console.log(data);
         setStore(data);
         getProducts(data.id);
       });
@@ -64,7 +62,7 @@ function Storefront() {
   }, []);
 
   useEffect(() => {
-    // console.count("loaded")
+    console.count("loaded")
     const instance = Lottie.loadAnimation({
       container: document.querySelector("#lottie-container"),
       animationData: lottieJson,
@@ -85,7 +83,7 @@ function Storefront() {
     return <NotFound />;
   } else {
     return (
-      <>
+    <>
         <Helmet>
           <title>{store.storeName} - Merchain</title>
         </Helmet>

@@ -22,7 +22,6 @@ import EditCustomer from "./pages/app/customers/EditCustomer";
 import EditProduct from "./pages/app/products/EditProduct";
 import Storefront from "./pages/Storefront";
 import StoreItem from "./pages/StoreItem";
-import StoreLayout from "./pages/StoreLayout";
 
 function App() {
   return (
@@ -36,11 +35,11 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
             <Route path="onboarding" element={<Onboarding />} />
-            {/* <Route path=":storeName" element={<Storefront />} /> */}
-            <Route path=":storeName" element={<StoreLayout />}>
+            <Route path=":storeName" element={<Storefront />} />
+            <Route path="p/:productId" element={<StoreItem />} />
+            {/* <Route path=":storeName" element={<StoreLayout />}>
               <Route index element={<Storefront />} />
-              <Route path=":productId" element={<StoreItem />} />
-            </Route>
+            </Route> */}
             {/* <Route path="/:storeName/:productId" element={<StoreItem />} /> */}
             <Route path="app" element={<Layout />}>
               <Route index element={<Manage />} />

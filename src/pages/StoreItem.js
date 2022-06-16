@@ -14,6 +14,7 @@ function StoreItem() {
   const [product, setProduct] = useState(null)
   
   useEffect(() => {
+    console.log("loh kok masuk")
     const instance = Lottie.loadAnimation({
       container: document.querySelector("#lottie-container"),
       animationData: lottieJson,

@@ -27,6 +27,12 @@ function StoreLayout() {
       ? { ...snapshot.docs[0].data(), id: snapshot.docs[0].id }
       : null;
   };
+  
+  const getStoreVerifiedStatus = async (id) =>{
+    const res = await fetch(`https://merchain-api-production.up.railway.app/status/${id}`)
+    const resJson = await res.json()
+    return (resJson.emailVerified)
+  }
 
   useEffect(() => {
     const lowerName = storeName.toLowerCase();
@@ -35,6 +41,11 @@ function StoreLayout() {
         if (!data) {
           setStatus("not found");
           return;
+        }
+        const isVerified = getStoreVerifiedStatus(data.userId)
+        if(!isVerified){
+          setStatus('not verified')
+          return
         }
         setStore(data);
         setStatus("finished");
@@ -65,6 +76,10 @@ function StoreLayout() {
     );
   } else if (status === "not found") {
     return <NotFound />;
+  } else if (status === "not verified") {
+    return(
+      <div>Account Not Verified</div>
+    )
   } else if (status === "finished") {
     return (
       <>

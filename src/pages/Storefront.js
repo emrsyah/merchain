@@ -1,7 +1,7 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
 import Lottie from "lottie-web";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { firestoreDb } from "../firebase";
 import NotFound from "./NotFound";
 import lottieJson from "../assets/97110-purple-spinner.json";
@@ -9,7 +9,6 @@ import logo from "../assets/merchainIcon.svg";
 import { Helmet } from "react-helmet-async";
 import NavbarStore from "../components/NavbarStore";
 import cover from "../assets/coverImg2.jpg";
-import profile from "../assets/profileImg.jpg";
 import { Icon } from "@iconify/react";
 import dayjs from "dayjs";
 import shopee from "../assets/shopee.svg";
@@ -19,24 +18,13 @@ import ShopItem from "../components/ShopItem";
 import rupiahConverter from "../helpers/rupiahConverter";
 
 function Storefront() {
-  const { storeName } = useParams();
   const navigate = useNavigate();
   const [status, setStatus] = useState("loading");
-  const [store, setStore] = useState(false);
   const [products, setProducts] = useState(null);
-
-  const getStore = async (name) => {
-    const q = query(
-      collection(firestoreDb, "stores"),
-      where("storeNameLowercase", "==", name)
-    );
-    const snapshot = await getDocs(q);
-    return snapshot.docs[0]
-      ? { ...snapshot.docs[0].data(), id: snapshot.docs[0].id }
-      : null;
-  };
+  const [store, setStore] = useOutletContext();
 
   const getProducts = async (id) => {
+    console.log(id)
     const q = query(
       collection(firestoreDb, "products"),
       where("storeId", "==", id)
@@ -47,24 +35,17 @@ function Storefront() {
   };
 
   useEffect(() => {
-    const lowerName = storeName.toLowerCase();
+    // console.log(storeKu)
+    // setStore(storeKu);
     try {
-      getStore(lowerName).then((data) => {
-        if (!data) {
-          setStatus("not found");
-          return;
-        }
-        console.log(data);
-        setStore(data);
-        getProducts(data.id);
-      });
+      getProducts(store.id);
     } catch (err) {
       console.error(err);
     }
   }, []);
 
   useEffect(() => {
-    // console.count("loaded")
+    console.count("loaded");
     const instance = Lottie.loadAnimation({
       container: document.querySelector("#lottie-container"),
       animationData: lottieJson,
@@ -76,9 +57,10 @@ function Storefront() {
     return (
       <div className="flex justify-center items-center h-[100vh] flex-col">
         {/* <img src={loading} alt="" /> */}
-        <img src={logo} alt="" className="h-14" />
-        <div id="lottie-container" className="w-28" />
+        {/* <img src={logo} alt="" className="h-14" />
+        <div id="lottie-container" className="w-28" /> */}
         {/* <div>loading</div> */}
+        loading Ke-2
       </div>
     );
   } else if (status === "not found") {
@@ -100,7 +82,11 @@ function Storefront() {
                 alt=""
               />
             ) : (
-              <div className={`w-full h-44 lg:h-60 m-auto object-cover rounded-b-xl ${store.colorTheme + "-tag"}`}></div>
+              <div
+                className={`w-full h-44 lg:h-60 m-auto object-cover rounded-b-xl ${
+                  store.colorTheme + "-tag"
+                }`}
+              ></div>
             )}
           </div>
 
@@ -113,7 +99,11 @@ function Storefront() {
                 alt="store img"
               />
               <div className="col-span-2 ml-auto translate-y-1 md:translate-y-0">
-                <div className={`flex items-center w-fit gap-3 py-2 text-white cursor-pointer font-medium rounded-md px-3 ${store.colorTheme + "-btn"}`}>
+                <div
+                  className={`flex items-center w-fit gap-3 py-2 text-white cursor-pointer font-medium rounded-md px-3 ${
+                    store.colorTheme + "-btn"
+                  }`}
+                >
                   <Icon icon="bi:share-fill" />
                   <h6 className="hidden md:inline  text-sm ">Bagikan Toko</h6>
                 </div>
@@ -164,13 +154,23 @@ function Storefront() {
                 </div>
               )}
               {store.links.shopee && (
-                <a className={`linkItem ${store.colorTheme + "link"}`} href={store.links.shopee} target="_blank" rel="noreferrer" >
+                <a
+                  className={`linkItem ${store.colorTheme + "link"}`}
+                  href={store.links.shopee}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img src={shopee} className="w-6 h-6" alt="" />
                   <p>{store.storeName}</p>
                 </a>
               )}
               {store.links.tokopedia && (
-                <a className={`linkItem ${store.colorTheme + "link"}`} href={store.links.tokopedia} target="_blank" rel="noreferrer">
+                <a
+                  className={`linkItem ${store.colorTheme + "link"}`}
+                  href={store.links.tokopedia}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src={tokopedia}
                     className="w-6 h-6 text-green-600"
@@ -180,7 +180,12 @@ function Storefront() {
                 </a>
               )}
               {store.links.instagram && (
-                <a className={`linkItem ${store.colorTheme + "link"}`} href={store.links.instagram} target="_blank" rel="noreferrer">
+                <a
+                  className={`linkItem ${store.colorTheme + "link"}`}
+                  href={store.links.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <Icon
                     icon="akar-icons:instagram-fill"
                     className="text-pink-600"
@@ -190,7 +195,12 @@ function Storefront() {
                 </a>
               )}
               {store.links.facebook && (
-                <a className={`linkItem ${store.colorTheme + "link"}`} href={store.links.facebook} target="_blank" rel="noreferrer">
+                <a
+                  className={`linkItem ${store.colorTheme + "link"}`}
+                  href={store.links.facebook}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <Icon
                     icon="akar-icons:facebook-fill"
                     className="text-blue-600"

@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import React from "react";
 import rupiahConverter from "../helpers/rupiahConverter";
 
-function CartItem({ image, name, quantity, price, deleteHandler, id }) {
+function CartItem({ image, name, quantity, price, deleteHandler, id, color }) {
 
   return (
     <div className="grid grid-cols-12 gap-2 items-center">
@@ -14,7 +14,7 @@ function CartItem({ image, name, quantity, price, deleteHandler, id }) {
         <span className="text-sm">x</span>
         {quantity}
       </h6>
-      <div className="col-span-3 text-purple-600 font-medium text-[15px] text-center">
+      <div className={`col-span-3 ${color + "-txt"} font-medium text-[15px] text-center`}>
         {rupiahConverter(quantity * price)}
       </div>
       <button

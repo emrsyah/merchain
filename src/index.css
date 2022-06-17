@@ -72,6 +72,36 @@ body {
   background-color: rgb(255, 245, 232);
 }
 
+.purple-txt {
+  color: #7c3aed;
+  /* background-color: ; */
+}
+
+.blue-txt {
+  color: #4e66ff;
+  /* background-color: ; */
+}
+
+.red-txt {
+  color: #ff4e4e;
+  /* background-color: ; */
+}
+
+.green-txt {
+  color: #25c235;
+  /* background-color: ; */
+}
+
+.yellow-txt {
+  color: rgb(225, 206, 0);
+  /* background-color: ; */
+}
+
+.orange-txt {
+  color: #ff9b4e;
+  /* background-color: ; */
+}
+
 .purpleNav {
   color: #7c3aed;
   /* background-color: ; */

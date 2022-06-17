@@ -1,24 +1,27 @@
-import { Icon } from "@iconify/react";
 import React from "react";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { useRecoilState } from "recoil";
-import { cartState } from "../atoms/cartAtom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { cartState, cartTotal } from "../atoms/cartAtom";
+import { storeColor } from "../atoms/storeColor";
 import CartItem from "../components/CartItem";
 import NavbarStore from "../components/NavbarStore";
 import { deleteFromCart } from "../helpers/helperCart";
+import rupiahConverter from "../helpers/rupiahConverter";
 
 function Cart() {
   const [cart, setCart] = useRecoilState(cartState);
+  const color = useRecoilValue(storeColor);
+  const total = useRecoilValue(cartTotal)
 
   useEffect(() => {
     console.log(cart);
   }, []);
 
-  const deleteHandler = (id) =>{
-    const newCart = deleteFromCart(cart, id)
-    setCart(newCart)
-  }
+  const deleteHandler = (id) => {
+    const newCart = deleteFromCart(cart, id);
+    setCart(newCart);
+  };
 
   return (
     <>
@@ -39,6 +42,7 @@ function Cart() {
                 id={c.id}
                 key={c.id}
                 deleteHandler={deleteHandler}
+                color={color}
               />
             ))}
           </div>
@@ -47,7 +51,10 @@ function Cart() {
         <div className=" col-span-2">
           <h5 className="text-xl font-semibold">Pembayaran</h5>
           <div className="border-[1.2px] mt-[10px] border-gray-200 p-2 rounded-md">
-            hi
+            <div className="flex justify-between items-center">
+              <p className="text-gray-600 font-medium">Total</p>
+              <p className={`font-semibold ${color + "-txt"} `}>{rupiahConverter(total)}</p>
+            </div>
           </div>
         </div>
       </div>

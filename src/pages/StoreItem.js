@@ -4,7 +4,7 @@ import Lottie from "lottie-web";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, useNavigate, useOutletContext, useParams } from "react-router-dom";
+import {  useNavigate, useOutletContext, useParams } from "react-router-dom";
 import lottieJson from "../assets/97110-purple-spinner.json";
 import logo from "../assets/merchainIcon.svg";
 import { cartState } from "../atoms/cartAtom";

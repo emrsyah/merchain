@@ -4,7 +4,7 @@ import Lottie from "lottie-web";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { Link, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import lottieJson from "../assets/97110-purple-spinner.json";
 import logo from "../assets/merchainIcon.svg";
 import { cartState } from "../atoms/cartAtom";
@@ -13,6 +13,7 @@ import rupiahConverter from "../helpers/rupiahConverter";
 import NotFound from "./NotFound";
 import { useRecoilState } from "recoil";
 import { addToCart } from "../helpers/addToCart";
+import { toast } from "react-toastify";
 
 function StoreItem() {
   const [cart, setCart] = useRecoilState(cartState);
@@ -22,6 +23,18 @@ function StoreItem() {
   const [product, setProduct] = useState(null);
   const [store, setStore] = useOutletContext();
   const [quantity, setQuantity] = useState(1);
+
+  const addCartToast = () => (
+    <div>
+      Produk ditambahkan ke{" "}
+      <div
+        onClick={()=>navigate("/cart")}
+        className={`${store.colorTheme + "Nav"} font-medium hover:font-semibold underline`}
+      >
+        Keranjang
+      </div>
+    </div>
+  );
 
   useEffect(() => {
     const instance = Lottie.loadAnimation({
@@ -53,6 +66,7 @@ function StoreItem() {
     const newCart = addToCart(cart, { ...product, id: productId }, quantity);
     setCart(newCart);
     setQuantity(1)
+    toast.info(addCartToast)
   };
 
   if (status === "loading") {

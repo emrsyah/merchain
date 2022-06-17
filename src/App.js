@@ -23,6 +23,7 @@ import EditProduct from "./pages/app/products/EditProduct";
 import Storefront from "./pages/Storefront";
 import StoreItem from "./pages/StoreItem";
 import StoreLayout from "./pages/StoreLayout";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
             <Route path="onboarding" element={<Onboarding />} />
+            <Route path="cart" element={<Cart />} />
             {/* <Route path=":storeName" element={<Storefront />} /> */}
             <Route path=":storeName" element={<StoreLayout />}>
               <Route index element={<Storefront />} />

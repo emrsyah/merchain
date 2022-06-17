@@ -8,11 +8,14 @@ import { useState } from "react";
 import Lottie from "lottie-web";
 import lottieJson from "../assets/97110-purple-spinner.json";
 import NavbarStore from "../components/NavbarStore";
+import { useSetRecoilState } from "recoil";
+import { storeColor } from "../atoms/storeColor";
 
 function StoreLayout() {
   const [status, setStatus] = useState("loading");
   const { storeName, productId } = useParams();
   const [store, setStore] = useState(null);
+  const setStoreColor = useSetRecoilState(storeColor)
 
   const getStore = async (name) => {
     const q = query(
@@ -49,6 +52,7 @@ function StoreLayout() {
             return;
           }
           setStore(data);
+          setStoreColor(data.colorTheme)
           setStatus("finished");
         });
         // getProducts(data.id);
@@ -85,7 +89,7 @@ function StoreLayout() {
       <>
         {store && (
           <div>
-            <NavbarStore color={store.colorTheme} />
+            <NavbarStore />
             <Outlet context={[store, setStore]} />
           </div>
         )}

@@ -12,7 +12,7 @@ import { firestoreDb } from "../firebase";
 import rupiahConverter from "../helpers/rupiahConverter";
 import NotFound from "./NotFound";
 import { useRecoilState } from "recoil";
-import { addToCart } from "../helpers/addToCart";
+import { addToCart } from "../helpers/helperCart";
 import { toast } from "react-toastify";
 
 function StoreItem() {

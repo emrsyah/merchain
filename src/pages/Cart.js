@@ -6,7 +6,7 @@ import { useRecoilState } from "recoil";
 import { cartState } from "../atoms/cartAtom";
 import CartItem from "../components/CartItem";
 import NavbarStore from "../components/NavbarStore";
-import rupiahConverter from "../helpers/rupiahConverter";
+import { deleteFromCart } from "../helpers/helperCart";
 
 function Cart() {
   const [cart, setCart] = useRecoilState(cartState);
@@ -14,6 +14,11 @@ function Cart() {
   useEffect(() => {
     console.log(cart);
   }, []);
+
+  const deleteHandler = (id) =>{
+    const newCart = deleteFromCart(cart, id)
+    setCart(newCart)
+  }
 
   return (
     <>
@@ -31,6 +36,9 @@ function Cart() {
                 name={c.product.name}
                 price={c.product.price}
                 quantity={c.quantity}
+                id={c.id}
+                key={c.id}
+                deleteHandler={deleteHandler}
               />
             ))}
           </div>

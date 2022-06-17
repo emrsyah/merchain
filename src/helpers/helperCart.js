@@ -19,3 +19,13 @@ export const addToCart = (cart, item, quantity) => {
   });
   return newCart;
 };
+
+export const deleteFromCart = (cart, id) =>{
+  const newCart = [...cart]
+  const foundIndex = cart.findIndex((x) => x.id === id);
+  console.log(foundIndex)
+  if(foundIndex >= 0){
+    newCart.splice(foundIndex, 1)
+  }
+  return newCart;
+}

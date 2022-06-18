@@ -12,7 +12,7 @@ function NavbarStore() {
   const color = useRecoilValue(storeColor)
 
   return (
-    <nav className="flex 2xl:max-w-7xl 2xl:mx-auto 2xl:px-0 items-center justify-between bg-white z-[999] py-3 px-3 md:px-6 lg:px-16 border-b-gray-200 sticky top-0 border-b-[1px]">
+    <nav className="flex 2xl:max-w-7xl 2xl:mx-auto 2xl:px-0 items-center justify-between bg-white z-[49] py-3 px-3 md:px-6 lg:px-16 border-b-gray-200 sticky top-0 border-b-[1px]">
       <Link to="/">
         <img src={logo} alt="merchain logo" className="w-3/4 md:w-auto" />
       </Link>

@@ -10,22 +10,30 @@ import { deleteFromCart } from "../helpers/helperCart";
 import rupiahConverter from "../helpers/rupiahConverter";
 import noCart from "../assets/noCart.svg";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
+import CheckoutModal from "../components/CheckoutModal";
+import { checkoutModal } from "../atoms/checkoutModalAtom";
 
 function Cart() {
   const [cart, setCart] = useRecoilState(cartState);
+  const [isOpen, setIsOpen] = useRecoilState(checkoutModal);
   const color = useRecoilValue(storeColor);
   const total = useRecoilValue(cartTotal);
   const count = useRecoilValue(cartCount)
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(cart);
-  }, []);
-
   const deleteHandler = (id) => {
     const newCart = deleteFromCart(cart, id);
     setCart(newCart);
   };
+
+  const checkoutHandler = () =>{
+    const user = auth.currentUser;
+    if(!user){
+      setIsOpen(true)
+      return
+    }
+  }
 
   return (
     <>
@@ -36,6 +44,7 @@ function Cart() {
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-5 my-6 gap-2 md:gap-6 poppins">
         {cart.length > 0 ? (
           <>
+            <CheckoutModal />
             <div className="col-span-3">
               <h5 className="text-xl font-semibold">Belanjaan</h5>
               <div className="border-[1.2px] border-gray-200 mt-[10px] px-3 py-4 rounded-md flex flex-col gap-4">
@@ -56,7 +65,7 @@ function Cart() {
 
             <div className=" col-span-2">
               <h5 className="text-xl font-semibold">Pembayaran</h5>
-              <div className="border-[1.2px] mt-[10px] flex flex-col gap-2 border-gray-200 p-2 rounded-md">
+              <div className="border-[1.2px] mt-[10px] flex flex-col gap-2 border-gray-200 p-3 rounded-md">
                 <div className="flex justify-between items-center">
                   <p className="text-gray-600 font-medium">Total</p>
                   <p className={`font-semibold ${color + "-txt"} `}>
@@ -69,7 +78,9 @@ function Cart() {
                     {count}
                   </p>
                 </div>
-                  <button className="font-semibold mt-3 bg-purple-600 hover:bg-purple-700 rounded text-white p-3">Checkout</button>
+                  <button className="font-semibold mt-3 bg-purple-600 hover:bg-purple-700 rounded text-white p-3"
+                  onClick={checkoutHandler}
+                  >Checkout</button>
               </div>
             </div>
           </>

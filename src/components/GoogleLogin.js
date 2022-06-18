@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { signInWithPopup } from "firebase/auth";
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";

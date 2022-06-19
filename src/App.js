@@ -24,6 +24,7 @@ import Storefront from "./pages/Storefront";
 import StoreItem from "./pages/StoreItem";
 import StoreLayout from "./pages/StoreLayout";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path="signup" element={<Signup />} />
             <Route path="onboarding" element={<Onboarding />} />
             <Route path="cart" element={<Cart />} />
+            <Route path="checkout" element={<Checkout />} />
             {/* <Route path=":storeName" element={<Storefront />} /> */}
             <Route path=":storeName" element={<StoreLayout />}>
               <Route index element={<Storefront />} />

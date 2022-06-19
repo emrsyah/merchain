@@ -33,6 +33,7 @@ function Cart() {
       setIsOpen(true)
       return
     }
+    navigate("/checkout")
   }
 
   return (

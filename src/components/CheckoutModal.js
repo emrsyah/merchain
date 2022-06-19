@@ -1,19 +1,36 @@
 import { Dialog } from "@headlessui/react";
 import { Icon } from "@iconify/react";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useRef } from "react";
 import { useRecoilState } from "recoil";
 import { checkoutModal } from "../atoms/checkoutModalAtom";
+import { auth } from "../firebase";
+import { toast } from "react-toastify";
+import {useNavigate} from 'react-router-dom'
 
 export default function CheckoutModal() {
   const [isOpen, setIsOpen] = useRecoilState(checkoutModal);
   const [mode, setMode] = useState("login");
   const emailRef = useRef(null);
   const passRef = useRef(null);
+  const navigate = useNavigate()
 
-  const submitHandler = (ev) => {
+  const submitHandler = async (ev) => {
     ev.preventDefault();
-    console.log("sub");
+    if (mode === "login") {
+      await signInWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passRef.current.value
+      );
+      toast.success("Berhasil Login")
+      navigate('/checkout')
+    } else {
+      const userCred = await createUserWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
+      toast.success("Berhasil Membuat Akun")
+      navigate("/checkout")
+    }
   };
 
   const googleLoginHandler = () => {
@@ -57,6 +74,7 @@ export default function CheckoutModal() {
                 className="border-[1px] w-full border-gray-400 rounded outline-none p-2 text-sm focus:border-purple-600"
                 placeholder="user@gmail.com"
                 ref={emailRef}
+                required
               />
             </div>
             <div>
@@ -66,6 +84,8 @@ export default function CheckoutModal() {
                 className="border-[1px] w-full border-gray-400 rounded outline-none p-2 text-sm focus:border-purple-600"
                 placeholder="password"
                 ref={passRef}
+                required
+                minLength={8}
               />
             </div>
             <button className="btnPrimary py-[6px]" type="submit">
@@ -83,16 +103,22 @@ export default function CheckoutModal() {
             <p>Masuk dengan Google</p>
           </button>
           {mode === "login" ? (
-            <p className="text-center mt-3 text-sm text-gray-700" onClick={()=>setMode('daftar')}>
+            <p className="text-center mt-3 text-sm text-gray-700">
               Belum punya akun?{" "}
-              <span className="text-purple-600 font-semibold underline cursor-pointer">
+              <span
+                className="text-purple-600 font-semibold underline cursor-pointer"
+                onClick={() => setMode("daftar")}
+              >
                 Daftar
               </span>
             </p>
           ) : (
-            <p className="text-center mt-3 text-sm text-gray-700" onClick={()=>setMode('login')}>
+            <p className="text-center mt-3 text-sm text-gray-700">
               Sudah punya akun?{" "}
-              <span className="text-purple-600 font-semibold underline cursor-pointer">
+              <span
+                className="text-purple-600 font-semibold underline cursor-pointer"
+                onClick={() => setMode("login")}
+              >
                 Masuk
               </span>
             </p>

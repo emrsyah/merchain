@@ -1,9 +1,17 @@
-import React from 'react'
+import React from "react";
+import { useEffect } from "react";
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 function Checkout() {
-  return (
-    <div>Checkout</div>
-  )
+  const navigate = useNavigate();
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (!user) {
+      navigate("/");
+    }
+  }, []);
+  return <div>Checkout</div>;
 }
 
-export default Checkout
+export default Checkout;

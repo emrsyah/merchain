@@ -25,6 +25,7 @@ import StoreItem from "./pages/StoreItem";
 import StoreLayout from "./pages/StoreLayout";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import CheckoutModal from "./components/CheckoutModal";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
       <RecoilRoot>
         <ToastContainer />
         <BrowserRouter>
+        <CheckoutModal />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="faq" element={<Faq />} />

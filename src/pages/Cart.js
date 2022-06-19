@@ -45,7 +45,6 @@ function Cart() {
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-5 my-6 gap-2 md:gap-6 poppins">
         {cart.length > 0 ? (
           <>
-            <CheckoutModal />
             <div className="col-span-3">
               <h5 className="text-xl font-semibold">Belanjaan</h5>
               <div className="border-[1.2px] border-gray-200 mt-[10px] px-3 py-4 rounded-md flex flex-col gap-4">

@@ -25,11 +25,13 @@ export default function CheckoutModal() {
         passRef.current.value
       );
       toast.success("Berhasil Login")
-      navigate('/checkout')
+      // navigate('/checkout')
+      setIsOpen(false)
     } else {
       const userCred = await createUserWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
       toast.success("Berhasil Membuat Akun")
-      navigate("/checkout")
+      // navigate("/checkout")
+      setIsOpen(false)
     }
   };
 
@@ -63,8 +65,8 @@ export default function CheckoutModal() {
           </div>
           <Dialog.Description className="mt-2 text-gray-700">
             {mode === "login"
-              ? "Silahkan login terlebih dahulu untuk melanjutkan proses checkout"
-              : "Silahkan daftar dahulu untuk melanjutkan proses checkout"}
+              ? "Silahkan login terlebih dahulu untuk melanjutkan belanjamu"
+              : "Silahkan daftar dahulu untuk melanjutkan belanjamu"}
           </Dialog.Description>
           <form className="flex flex-col mt-3 gap-2" onSubmit={submitHandler}>
             <div>

@@ -1,11 +1,11 @@
 import { Dialog } from "@headlessui/react";
 import { Icon } from "@iconify/react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useState } from "react";
 import { useRef } from "react";
 import { useRecoilState } from "recoil";
 import { checkoutModal } from "../atoms/checkoutModalAtom";
-import { auth } from "../firebase";
+import { auth, googleProvider } from "../firebase";
 import { toast } from "react-toastify";
 import {useNavigate} from 'react-router-dom'
 
@@ -35,8 +35,10 @@ export default function CheckoutModal() {
     }
   };
 
-  const googleLoginHandler = () => {
-    console.log("first");
+  const googleLoginHandler = async () => {
+    const result = await signInWithPopup(auth, googleProvider)
+    toast.success("Berhasil Login")
+    setIsOpen(false)
   };
 
   return (

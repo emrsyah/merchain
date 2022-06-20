@@ -3,11 +3,12 @@ import { Icon } from "@iconify/react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useState } from "react";
 import { useRef } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { checkoutModal } from "../atoms/checkoutModalAtom";
 import { auth, googleProvider } from "../firebase";
 import { toast } from "react-toastify";
 import {useNavigate} from 'react-router-dom'
+import { userCustomer } from "../atoms/userCustomer";
 
 export default function CheckoutModal() {
   const [isOpen, setIsOpen] = useRecoilState(checkoutModal);
@@ -15,6 +16,7 @@ export default function CheckoutModal() {
   const emailRef = useRef(null);
   const passRef = useRef(null);
   const navigate = useNavigate()
+  const setUser = useSetRecoilState(userCustomer)
 
   const submitHandler = async (ev) => {
     ev.preventDefault();
@@ -24,11 +26,13 @@ export default function CheckoutModal() {
         emailRef.current.value,
         passRef.current.value
       );
+      setUser(true)
       toast.success("Berhasil Login")
       // navigate('/checkout')
       setIsOpen(false)
     } else {
-      const userCred = await createUserWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
+      await createUserWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
+      setUser(true)
       toast.success("Berhasil Membuat Akun")
       // navigate("/checkout")
       setIsOpen(false)
@@ -36,7 +40,8 @@ export default function CheckoutModal() {
   };
 
   const googleLoginHandler = async () => {
-    const result = await signInWithPopup(auth, googleProvider)
+    await signInWithPopup(auth, googleProvider)
+    setUser(true)
     toast.success("Berhasil Login")
     setIsOpen(false)
   };

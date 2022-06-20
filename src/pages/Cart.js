@@ -42,7 +42,7 @@ function Cart() {
         <title>Keranjang Belanja - Merchain</title>
       </Helmet>
       <NavbarStore />
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-5 my-6 gap-2 md:gap-6 poppins">
+      <div className="max-w-5xl px-4 mx-auto grid grid-cols-1 md:grid-cols-5 my-6 gap-2 md:gap-6 poppins">
         {cart.length > 0 ? (
           <>
             <div className="col-span-3">

@@ -1,25 +1,24 @@
 import React from "react";
 import { useEffect } from "react";
-import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
 import useScript from "../hooks/useScript";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { cartState, cartTotal } from "../atoms/cartAtom";
 import rupiahConverter from "../helpers/rupiahConverter";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 import { userCustomer } from "../atoms/userCustomer";
 
 function Checkout() {
   const clientKey = process.env.MIDTRANS_CLIENT_KEY;
   const endpoint = "https://merchain-api-production.up.railway.app/charge";
   const navigate = useNavigate();
-  useScript("https://app.sandbox.midtrans.com/snap/snap.js", clientKey);
-  const cart = useRecoilValue(cartState);
+  // useScript("https://app.sandbox.midtrans.com/snap/snap.js", clientKey);
+  const [cart, setCart] = useRecoilState(cartState);
   const total = useRecoilValue(cartTotal);
-  const user = useRecoilValue(userCustomer)
+  const user = useRecoilValue(userCustomer);
 
   const {
     register,
@@ -28,14 +27,34 @@ function Checkout() {
   } = useForm();
 
   useEffect(() => {
-    const user = auth.currentUser;
+    //change this to the script source you want to load, for example this is snap.js sandbox env
+    const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+    //change this according to your client-key
+    const myMidtransClientKey = clientKey;
+
+    let scriptTag = document.createElement("script");
+    scriptTag.src = midtransScriptUrl;
+    // optional if you want to set script attribute
+    // for example snap.js have data-client-key attribute
+    scriptTag.setAttribute("data-client-key", myMidtransClientKey);
+
+    document.body.appendChild(scriptTag);
+    return () => {
+      document.body.removeChild(scriptTag);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!user) {
       navigate("/");
+    }
+    if (!cart) {
+      navigate("/checkout");
     }
   }, []);
 
   const submitHandler = async (data) => {
-    const id = toast.loading("Tolong tunggu...")
+    const id = toast.loading("Tolong tunggu...");
     try {
       const cartUbah = cart.map((c) => {
         return {
@@ -53,6 +72,9 @@ function Checkout() {
           phone: data.nomor.toString(),
         },
         items: cartUbah,
+        callbacks: {
+          finish: "https://youtube.com"
+        }
       };
       const res = await fetch(endpoint, {
         method: "post",
@@ -62,13 +84,50 @@ function Checkout() {
         },
       });
       const resJson = await res.json();
-      toast.update(id, { render: "Berhasil, Silahkan Bayar", type: "success", isLoading: false, autoClose: 3000 });
-      console.log(resJson)
-      window.snap.pay(resJson.token)
+      console.log(resJson);
+      toast.update(id, {
+        render: "Berhasil, Silahkan Bayar",
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
+      window.snap.pay(resJson.token, {
+        onSuccess: function (result) {
+          /* You may add your own implementation here */
+          alert("payment success!");
+          console.log(result);
+          // navigate('/order-status');
+        },
+        onPending: function (result) {
+          /* You may add your own implementation here */
+          alert("wating your payment!");
+          console.log(result);
+          // navigate('/order-status');
+        },
+        onError: function (result) {
+          /* You may add your own implementation here */
+          alert("payment failed!");
+          console.log(result);
+          // navigate('/order-status');
+        },
+        onClose: function () {
+          /* You may add your own implementation here */
+          alert("you closed the popup without finishing the payment");
+        },
+      });
     } catch (err) {
       console.error(err);
-      toast.update(id, { render: "Terjadi Kesalahan", type: "error", isLoading: false, autoClose: 3000 });
+      toast.update(id, {
+        render: "Terjadi Kesalahan",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     }
+  };
+
+  const cobaHandler = () => {
+    window.snap.pay("bbd89a73-bd63-4250-a22f-aa86c6e16b43");
   };
 
   return (
@@ -97,6 +156,7 @@ function Checkout() {
                 </p>
                 <input
                   type="text"
+                  defaultValue={user?.email}
                   {...register("email", { required: true })}
                   className="checkoutInput"
                   placeholder="user@gmail.com"
@@ -144,13 +204,13 @@ function Checkout() {
                   Nomor Telepon<span className="text-red-600">*</span>
                 </p>
                 <input
-                  type="number"
+                  type="string"
                   {...register("nomor", {
                     required: true,
-                    valueAsNumber: true,
                   })}
+                  defaultValue={user?.nomor}
                   className="checkoutInput"
-                  placeholder="08xxxxxxxxxx"
+                  placeholder="62xxxxxxxxxxx"
                 />
                 {errors.nomor && (
                   <span className="text-[13px] ml-1 text-red-500">
@@ -192,7 +252,7 @@ function Checkout() {
             <h5 className="font-medium text-lg">Ringkasan Pesanan</h5>
             <div className="flex flex-col gap-3 my-4">
               {cart.map((c) => (
-                <div className="grid grid-cols-4">
+                <div className="grid grid-cols-4" key={c.id}>
                   <img
                     src={c.product.image}
                     alt="product img"
@@ -220,6 +280,7 @@ function Checkout() {
           </div>
         </div>
       </div>
+      <button onClick={cobaHandler}>Klik</button>
     </>
   );
 }

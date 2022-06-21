@@ -10,6 +10,7 @@ import { useRecoilValue } from "recoil";
 import { cartState, cartTotal } from "../atoms/cartAtom";
 import rupiahConverter from "../helpers/rupiahConverter";
 import {toast} from 'react-toastify'
+import { userCustomer } from "../atoms/userCustomer";
 
 function Checkout() {
   const clientKey = process.env.MIDTRANS_CLIENT_KEY;
@@ -18,6 +19,7 @@ function Checkout() {
   useScript("https://app.sandbox.midtrans.com/snap/snap.js", clientKey);
   const cart = useRecoilValue(cartState);
   const total = useRecoilValue(cartTotal);
+  const user = useRecoilValue(userCustomer)
 
   const {
     register,

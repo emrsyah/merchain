@@ -35,7 +35,14 @@ function NavbarStore() {
 
   useEffect(()=>{
     const user = auth.currentUser;
-    setUser(user ? true : null)
+    let userNow = null
+    if(user){
+      userNow = ({
+        email : user.email,
+        nomor: user.phoneNumber ? user.phoneNumber : "",
+      })
+    }
+    setUser(userNow)
   }, [])
 
   return (

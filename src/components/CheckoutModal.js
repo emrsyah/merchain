@@ -1,13 +1,17 @@
 import { Dialog } from "@headlessui/react";
 import { Icon } from "@iconify/react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { useState } from "react";
 import { useRef } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { checkoutModal } from "../atoms/checkoutModalAtom";
 import { auth, googleProvider } from "../firebase";
 import { toast } from "react-toastify";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { userCustomer } from "../atoms/userCustomer";
 
 export default function CheckoutModal() {
@@ -15,35 +19,54 @@ export default function CheckoutModal() {
   const [mode, setMode] = useState("login");
   const emailRef = useRef(null);
   const passRef = useRef(null);
-  const navigate = useNavigate()
-  const setUser = useSetRecoilState(userCustomer)
+  const navigate = useNavigate();
+  const setUser = useSetRecoilState(userCustomer);
 
   const submitHandler = async (ev) => {
     ev.preventDefault();
     if (mode === "login") {
-      await signInWithEmailAndPassword(
+      const userCred = await signInWithEmailAndPassword(
         auth,
         emailRef.current.value,
         passRef.current.value
       );
-      setUser(true)
-      toast.success("Berhasil Login")
+      const user = userCred.user;
+      let userNow = {
+        email: user.email,
+        nomor: user.phoneNumber ? user.phoneNumber : "",
+      };
+      setUser(userNow);
+      toast.success("Berhasil Login");
       // navigate('/checkout')
-      setIsOpen(false)
+      setIsOpen(false);
     } else {
-      await createUserWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
-      setUser(true)
-      toast.success("Berhasil Membuat Akun")
+      const userCred = await createUserWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passRef.current.value
+      );
+      const user = userCred.user;
+      let userNow = {
+        email: user.email,
+        nomor: user.phoneNumber ? user.phoneNumber : "",
+      };
+      setUser(userNow);
+      toast.success("Berhasil Membuat Akun");
       // navigate("/checkout")
-      setIsOpen(false)
+      setIsOpen(false);
     }
   };
 
   const googleLoginHandler = async () => {
-    await signInWithPopup(auth, googleProvider)
-    setUser(true)
-    toast.success("Berhasil Login")
-    setIsOpen(false)
+    const userCred = await signInWithPopup(auth, googleProvider);
+    const user = userCred.user;
+    let userNow = {
+      email: user.email,
+      nomor: user.phoneNumber ? user.phoneNumber : "",
+    };
+    setUser(userNow);
+    toast.success("Berhasil Login");
+    setIsOpen(false);
   };
 
   return (

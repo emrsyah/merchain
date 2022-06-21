@@ -39,6 +39,7 @@ function NavbarStore() {
       let userNow = null;
       if (user) {
         userNow = {
+          uid: user.uid,
           email: user.email,
           nomor: user.phoneNumber ? user.phoneNumber : "",
         };

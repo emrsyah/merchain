@@ -5,11 +5,15 @@ import { Helmet } from "react-helmet-async";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
 import useScript from "../hooks/useScript";
+import { v4 as uuidv4 } from "uuid";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartState, cartTotal } from "../atoms/cartAtom";
 import rupiahConverter from "../helpers/rupiahConverter";
 import { toast } from "react-toastify";
 import { userCustomer } from "../atoms/userCustomer";
+import { storeNameAtom } from "../atoms/storeName";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { firestoreDb } from "../firebase";
 
 function Checkout() {
   const clientKey = process.env.MIDTRANS_CLIENT_KEY;
@@ -19,6 +23,7 @@ function Checkout() {
   const [cart, setCart] = useRecoilState(cartState);
   const total = useRecoilValue(cartTotal);
   const user = useRecoilValue(userCustomer);
+  const storeState = useRecoilValue(storeNameAtom);
 
   const {
     register,
@@ -53,8 +58,22 @@ function Checkout() {
     }
   }, []);
 
+  const addOrderFirebase = async (orderId, customerData) => {
+    await addDoc(collection(firestoreDb, "orders"), {
+      storeId: storeState.id,
+      storeName: storeState.name,
+      orderId: orderId,
+      total: total,
+      userId: user.uid,
+      products: cart,
+      customer: customerData,
+      createdAt: serverTimestamp()
+    });
+  };
+
   const submitHandler = async (data) => {
     const id = toast.loading("Tolong tunggu...");
+    const orderId = uuidv4();
     try {
       const cartUbah = cart.map((c) => {
         return {
@@ -64,15 +83,17 @@ function Checkout() {
           name: c.product.name,
         };
       });
+      const customerData = {
+        email: data.email,
+        firstname: data.nama1,
+        lastname: data.nama2,
+        phone: data.nomor.toString(),
+      };
       const bodyRequest = {
-        customers: {
-          email: data.email,
-          firstname: data.nama1,
-          lastname: data.nama2,
-          phone: data.nomor.toString(),
-        },
+        customers: customerData,
         items: cartUbah,
         url: "order-status",
+        order_id: orderId,
       };
       const res = await fetch(endpoint, {
         method: "post",
@@ -89,30 +110,7 @@ function Checkout() {
         isLoading: false,
         autoClose: 3000,
       });
-      // window.snap.pay(resJson.token, {
-      //   onSuccess: function (result) {
-      //     /* You may add your own implementation here */
-      //     alert("payment success!");
-      //     console.log(result);
-      //     // navigate('/order-status');
-      //   },
-      //   onPending: function (result) {
-      //     /* You may add your own implementation here */
-      //     alert("wating your payment!");
-      //     console.log(result);
-      //     // navigate('/order-status');
-      //   },
-      //   onError: function (result) {
-      //     /* You may add your own implementation here */
-      //     alert("payment failed!");
-      //     console.log(result);
-      //     // navigate('/order-status');
-      //   },
-      //   onClose: function () {
-      //     /* You may add your own implementation here */
-      //     alert("you closed the popup without finishing the payment");
-      //   },
-      // });
+      // addOrderFirebase(orderId, {...customerData, alamat: data.alamat})
       window.snap.pay(resJson.token, {
         onSuccess: function (result) {
           /* You may add your own implementation here */
@@ -154,7 +152,7 @@ function Checkout() {
       <Helmet>
         <title>Checkout - Merchain</title>
       </Helmet>
-      <div className="max-w-5xl px-4 mx-auto flex flex-col my-12 gap-2 md:gap-4 poppins">
+      <div className="containerStore">
         <div
           className="flex items-center gap-1 text-purple-600 font-medium cursor-pointer w-fit"
           onClick={() => navigate(-1)}

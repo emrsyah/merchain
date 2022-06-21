@@ -10,12 +10,14 @@ import lottieJson from "../assets/97110-purple-spinner.json";
 import NavbarStore from "../components/NavbarStore";
 import { useSetRecoilState } from "recoil";
 import { storeColor } from "../atoms/storeColor";
+import { storeNameAtom } from "../atoms/storeName";
 
 function StoreLayout() {
   const [status, setStatus] = useState("loading");
   const { storeName, productId } = useParams();
   const [store, setStore] = useState(null);
   const setStoreColor = useSetRecoilState(storeColor)
+  const setStoreName = useSetRecoilState(storeNameAtom)
 
   const getStore = async (name) => {
     const q = query(
@@ -51,8 +53,10 @@ function StoreLayout() {
             setStatus("not verified");
             return;
           }
+          console.log(data)
           setStore(data);
           setStoreColor(data.colorTheme)
+          setStoreName({name: data.storeName, id: data.id})
           setStatus("finished");
         });
         // getProducts(data.id);

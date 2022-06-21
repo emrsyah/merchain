@@ -54,6 +54,9 @@ body {
   .checkoutInput{
     @apply w-full py-[6px] outline-none focus:border-purple-600 px-2 text-sm border-[1.2px] rounded-sm border-gray-300
   }
+  .containerStore{
+    @apply max-w-5xl px-4 mx-auto flex flex-col my-12 gap-2 md:gap-4 poppins
+  }
 }
 
 .purple-pg {

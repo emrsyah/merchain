@@ -7,7 +7,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { storeColor } from "../atoms/storeColor";
 import { checkoutModal } from "../atoms/checkoutModalAtom";
 import { auth } from "../firebase";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import { userCustomer } from "../atoms/userCustomer";
 import { useEffect } from "react";
@@ -17,7 +17,7 @@ function NavbarStore() {
   const navigate = useNavigate();
   const color = useRecoilValue(storeColor);
   const setIsOpen = useSetRecoilState(checkoutModal);
-  const [user, setUser] = useRecoilState(userCustomer)
+  const [user, setUser] = useRecoilState(userCustomer);
 
   const clickHandler = () => {
     setIsOpen(true);
@@ -26,24 +26,26 @@ function NavbarStore() {
   const logoutHandler = async () => {
     try {
       await signOut(auth);
-      toast.info("Berhasil Logout")
-      setUser(null)
+      toast.info("Berhasil Logout");
+      setUser(null);
     } catch (err) {
       console.error(err);
     }
   };
 
-  useEffect(()=>{
-    const user = auth.currentUser;
-    let userNow = null
-    if(user){
-      userNow = ({
-        email : user.email,
-        nomor: user.phoneNumber ? user.phoneNumber : "",
-      })
-    }
-    setUser(userNow)
-  }, [])
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log(user)
+      let userNow = null;
+      if (user) {
+        userNow = {
+          email: user.email,
+          nomor: user.phoneNumber ? user.phoneNumber : "",
+        };
+      }
+      setUser(userNow);
+    });
+  }, []);
 
   return (
     <nav className="flex 2xl:max-w-7xl 2xl:mx-auto 2xl:px-0 items-center justify-between bg-white z-[49] py-3 px-3 md:px-6 lg:px-16 border-b-gray-200 sticky top-0 border-b-[1px]">

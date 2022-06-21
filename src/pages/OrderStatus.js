@@ -9,10 +9,12 @@ function OrderStatus() {
     searchParams.get("order_id") ? searchParams.get("order_id") : ""
   );
 
+  console.log(orderId)
+
   return (
     <>
       <Helmet>
-        <title>Checkout - Merchain</title>
+        <title>Status Pesanan - Merchain</title>
       </Helmet>
       <NavbarStore />
       <div>Order Status</div>

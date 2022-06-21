@@ -72,9 +72,7 @@ function Checkout() {
           phone: data.nomor.toString(),
         },
         items: cartUbah,
-        callbacks: {
-          finish: "https://youtube.com"
-        }
+        url: "order-status",
       };
       const res = await fetch(endpoint, {
         method: "post",
@@ -91,24 +89,45 @@ function Checkout() {
         isLoading: false,
         autoClose: 3000,
       });
+      // window.snap.pay(resJson.token, {
+      //   onSuccess: function (result) {
+      //     /* You may add your own implementation here */
+      //     alert("payment success!");
+      //     console.log(result);
+      //     // navigate('/order-status');
+      //   },
+      //   onPending: function (result) {
+      //     /* You may add your own implementation here */
+      //     alert("wating your payment!");
+      //     console.log(result);
+      //     // navigate('/order-status');
+      //   },
+      //   onError: function (result) {
+      //     /* You may add your own implementation here */
+      //     alert("payment failed!");
+      //     console.log(result);
+      //     // navigate('/order-status');
+      //   },
+      //   onClose: function () {
+      //     /* You may add your own implementation here */
+      //     alert("you closed the popup without finishing the payment");
+      //   },
+      // });
       window.snap.pay(resJson.token, {
         onSuccess: function (result) {
           /* You may add your own implementation here */
           alert("payment success!");
           console.log(result);
-          // navigate('/order-status');
         },
         onPending: function (result) {
           /* You may add your own implementation here */
           alert("wating your payment!");
           console.log(result);
-          // navigate('/order-status');
         },
         onError: function (result) {
           /* You may add your own implementation here */
           alert("payment failed!");
           console.log(result);
-          // navigate('/order-status');
         },
         onClose: function () {
           /* You may add your own implementation here */

@@ -10,6 +10,7 @@ import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import { userCustomer } from "../atoms/userCustomer";
+import { useEffect } from "react";
 
 function NavbarStore() {
   const count = useRecoilValue(cartCount);
@@ -31,6 +32,11 @@ function NavbarStore() {
       console.error(err);
     }
   };
+
+  useEffect(()=>{
+    const user = auth.currentUser;
+    setUser(user ? true : null)
+  }, [])
 
   return (
     <nav className="flex 2xl:max-w-7xl 2xl:mx-auto 2xl:px-0 items-center justify-between bg-white z-[49] py-3 px-3 md:px-6 lg:px-16 border-b-gray-200 sticky top-0 border-b-[1px]">

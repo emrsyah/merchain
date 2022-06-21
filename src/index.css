@@ -51,6 +51,9 @@ body {
   .linkItem {
     @apply border-[1px] border-gray-300 py-[6px] px-3 gap-[6px] rounded-full flex items-center transition-all duration-300 ease-out cursor-pointer md:hover:px-[15px];
   }
+  .checkoutInput{
+    @apply w-full py-[6px] outline-none focus:border-purple-600 px-2 text-sm border-[1.2px] rounded-sm border-gray-300
+  }
 }
 
 .purple-pg {

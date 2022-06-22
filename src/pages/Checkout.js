@@ -12,7 +12,7 @@ import rupiahConverter from "../helpers/rupiahConverter";
 import { toast } from "react-toastify";
 import { userCustomer } from "../atoms/userCustomer";
 import { storeNameAtom } from "../atoms/storeName";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, serverTimestamp } from "firebase/firestore";
 import { firestoreDb } from "../firebase";
 
 function Checkout() {
@@ -59,16 +59,18 @@ function Checkout() {
   }, []);
 
   const addOrderFirebase = async (orderId, customerData) => {
-    await addDoc(collection(firestoreDb, "orders"), {
+    const docRef = await addDoc(collection(firestoreDb, "orders"), {
       storeId: storeState.id,
       storeName: storeState.name,
-      orderId: orderId,
+      orderId: "order-id-" + orderId,
       total: total,
-      userId: user.uid,
+      customerId: user.uid,
       products: cart,
+      status: "",
       customer: customerData,
       createdAt: serverTimestamp()
     });
+    return docRef.id
   };
 
   const submitHandler = async (data) => {
@@ -103,35 +105,39 @@ function Checkout() {
         },
       });
       const resJson = await res.json();
-      console.log(resJson);
       toast.update(id, {
         render: "Berhasil, Silahkan Bayar",
         type: "success",
         isLoading: false,
         autoClose: 3000,
       });
-      // addOrderFirebase(orderId, {...customerData, alamat: data.alamat})
-      window.snap.pay(resJson.token, {
+      const docId = addOrderFirebase(orderId, {...customerData, alamat: data.alamat})
+      await window.snap.pay(resJson.token, {
         onSuccess: function (result) {
           /* You may add your own implementation here */
           alert("payment success!");
+          console.log("payment success!");
           console.log(result);
         },
         onPending: function (result) {
           /* You may add your own implementation here */
           alert("wating your payment!");
+          console.log("wating your payment!");
           console.log(result);
         },
         onError: function (result) {
           /* You may add your own implementation here */
           alert("payment failed!");
+          console.log("payment failed!");
           console.log(result);
         },
-        onClose: function () {
+        onClose: async function () {
           /* You may add your own implementation here */
           alert("you closed the popup without finishing the payment");
+          await deleteDoc(doc(firestoreDb, "orders", docId))
         },
       });
+      console.log("first ku")
     } catch (err) {
       console.error(err);
       toast.update(id, {
@@ -143,9 +149,6 @@ function Checkout() {
     }
   };
 
-  const cobaHandler = () => {
-    window.snap.pay("bbd89a73-bd63-4250-a22f-aa86c6e16b43");
-  };
 
   return (
     <>
@@ -297,7 +300,6 @@ function Checkout() {
           </div>
         </div>
       </div>
-      <button onClick={cobaHandler}>Klik</button>
     </>
   );
 }

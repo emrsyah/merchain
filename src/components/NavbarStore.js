@@ -35,7 +35,6 @@ function NavbarStore() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log(user)
       let userNow = null;
       if (user) {
         userNow = {

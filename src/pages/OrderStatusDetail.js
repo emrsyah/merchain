@@ -136,14 +136,21 @@ function OrderStatusDetail() {
                           <h5 className="font-semibold">
                             {rupiahConverter(order.total)}
                           </h5>
-                          <h6 className={`font-medium ${orderStatus.transaction_status}`}>
+                          <h6
+                            className={`font-medium ${orderStatus.transaction_status}`}
+                          >
                             Status:{" "}
                             {capitalizeFirstLetter(
                               orderStatus.transaction_status
                             )}
                           </h6>
                           <p className="text-gray-600 font-medium">
-                            Batas: {orderStatus.transaction_status === "settlement" ? "Sudah Dibayar" : dayjs(orderStatus.transaction_time.split(" ")[0]).add(1, 'day').fromNow()}
+                            Batas:{" "}
+                            {orderStatus.transaction_status === "settlement"
+                              ? "Sudah Dibayar"
+                              : dayjs(orderStatus.transaction_time)
+                                  .add(1, "day")
+                                  .fromNow()}
                           </p>
                         </div>
                       </div>
@@ -153,7 +160,13 @@ function OrderStatusDetail() {
                           total={rupiahConverter(order.total)}
                           bank={orderStatus.va_numbers[0].bank}
                           va_number={orderStatus.va_numbers[0].va_number}
-                          deadline={orderStatus.transaction_status === "settlement" ? "Sudah Dibayar" : dayjs(orderStatus.transaction_time.split(" ")[0]).add(1, 'day').fromNow()}
+                          deadline={
+                            orderStatus.transaction_status === "settlement"
+                              ? "Sudah Dibayar"
+                              : dayjs(orderStatus.transaction_time)
+                                  .add(1, "day")
+                                  .fromNow()
+                          }
                         />
                       </div>
                       <div className="flex flex-col gap-4 p-4 border-t-[1px] border-gray-300">

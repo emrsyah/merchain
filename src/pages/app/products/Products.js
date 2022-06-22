@@ -141,7 +141,7 @@ function Products() {
           </Link>
         </div>
         <div className="contentContainer">
-          <h5 className="font-semibold">Total Produk: {dataMemo?.length}</h5>
+          <h5 className="font-semibold">Total Produk: {products?.length}</h5>
           {/* Search Bar & Filter Nanti */}
           <div className="flex w-full my-2">
             <input

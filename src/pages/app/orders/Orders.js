@@ -111,7 +111,7 @@ function Orders() {
           <h1 className="pageName">Orders</h1>
         </div>
         <div className="contentContainer">
-          <h5 className="font-semibold">Total Orderan: {dataMemo?.length}</h5>
+          <h5 className="font-semibold">Total Orderan: {orders?.length}</h5>
           {/* Search Bar & Filter Nanti */}
           <div className="flex w-full my-2">
             <input

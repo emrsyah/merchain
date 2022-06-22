@@ -119,7 +119,7 @@ function StoreItem() {
               <h6 className="text-xl font-semibold">
                 {rupiahConverter(product.price)}
               </h6>
-              <p className="text-gray-600 leading-relaxed text-[15px]">
+              <p className="text-gray-600 leading-relaxed text-[15px] line-clamp-6">
                 {product.desc}
               </p>
               <div className="w-full flex flex-col gap-[10px] mt-4">

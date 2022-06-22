@@ -96,7 +96,7 @@ function Customers() {
           </Link>
         </div>
         <div className="contentContainer">
-          <h5 className="font-semibold">Total Kustomer: {dataMemo?.length}</h5>
+          <h5 className="font-semibold">Total Kustomer: {customers?.length}</h5>
           {/* Search Bar & Filter Nanti */}
           <div className="flex w-full my-2">
             <input

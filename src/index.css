@@ -57,6 +57,9 @@ body {
   .containerStore{
     @apply max-w-5xl px-4 mx-auto flex flex-col my-12 gap-2 md:gap-4 poppins
   }
+  .orderContainer{
+    @apply border-[1px] p-2 border-gray-300 rounded flex flex-col gap-4
+  }
 }
 
 .purple-pg {

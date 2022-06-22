@@ -1,4 +1,10 @@
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -41,21 +47,17 @@ function OrderStatus() {
     return unsubscribe;
   };
 
-  const getSpecificOrder = (id) => {
-    setStatus('loading')
-    
-  };
 
   useEffect(() => {
     if (orderId) {
-      getSpecificOrder(orderId);
+      navigate(orderId)
     }
   }, [orderId]);
 
   useEffect(() => {
+    let userNow = null;
     try {
       onAuthStateChanged(auth, (user) => {
-        let userNow = null;
         if (user) {
           userNow = {
             uid: user.uid,
@@ -67,12 +69,13 @@ function OrderStatus() {
           return;
         }
         setUser(userNow);
-        getOrders(user.uid);
+        getOrders(user.uid)
       });
     } catch (err) {
       console.error(err);
     }
   }, []);
+
 
   return (
     <>
@@ -82,7 +85,7 @@ function OrderStatus() {
       <NavbarStore />
       <div className="containerStore">
         <h5 className="font-semibold text-xl">Status Pesanan</h5>
-        <div className="border-[1px] p-2 border-gray-300 rounded flex flex-col gap-4">
+        <div className="orderContainer">
           {status === "loading" ? (
             <div className="flex justify-center">
               <img className="h-28" src={spinner} alt="" />
@@ -113,37 +116,45 @@ function OrderStatus() {
                       ))}
                     </>
                   ) : (
-                    <div>
-                      <div className="flex items-center justify-between border-b-[1px] border-gray-300 p-3">
+                    <>
+                      {status === "founded" && (
                         <div>
-                          <h5 className="font-semibold text-lg">Mindrown</h5>
-                          <h6 className="font-medium text-gray-600">
-                            order-id-ajv214-anIybc2-jbac8
-                          </h6>
-                          <p className="text-gray-600 text-sm">5 Juni 2022</p>
+                          <div className="flex items-center justify-between border-b-[1px] border-gray-300 p-3">
+                            <div>
+                              <h5 className="font-semibold text-lg">
+                                Mindrown
+                              </h5>
+                              <h6 className="font-medium text-gray-600">
+                                order-id-ajv214-anIybc2-jbac8
+                              </h6>
+                              <p className="text-gray-600 text-sm">
+                                5 Juni 2022
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <h5 className="font-semibold">Rp 120.000</h5>
+                              <h6 className="font-medium text-green-600">
+                                Status: Dibayar
+                              </h6>
+                            </div>
+                          </div>
+                          <div className="flex flex-col gap-2 p-4">
+                            <CartItem
+                              image={
+                                "https://www.lsflowerdesign.com.au/wp-content/uploads/2020/02/Sunflower-bouquet1-scaled.jpeg"
+                              }
+                              name={"Sedih Muka"}
+                              price={120000}
+                              quantity={2}
+                              id={"acnjabcj"}
+                              key={"adljcba"}
+                              deleteHandler={null}
+                              // color={color}
+                            />
+                          </div>
                         </div>
-                        <div className="text-right">
-                          <h5 className="font-semibold">Rp 120.000</h5>
-                          <h6 className="font-medium text-green-600">
-                            Status: Dibayar
-                          </h6>
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-2 p-4">
-                        <CartItem
-                          image={
-                            "https://www.lsflowerdesign.com.au/wp-content/uploads/2020/02/Sunflower-bouquet1-scaled.jpeg"
-                          }
-                          name={"Sedih Muka"}
-                          price={120000}
-                          quantity={2}
-                          id={"acnjabcj"}
-                          key={"adljcba"}
-                          deleteHandler={null}
-                          // color={color}
-                        />
-                      </div>
-                    </div>
+                      )}
+                    </>
                   )}
                 </>
               )}

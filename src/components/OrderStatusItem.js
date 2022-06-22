@@ -9,7 +9,7 @@ function OrderStatusItem({ storeName, createdAt, orderId, total }) {
   return (
     <div
       className="flex items-center justify-between p-2 border-b-[1px] cursor-pointer orderP"
-      onClick={() => navigate(`?order_id=${orderId}`)}
+      onClick={() => navigate(orderId)}
     >
       <div>
         <h5 className="font-medium text-lg">{storeName}</h5>

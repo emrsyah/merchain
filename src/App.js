@@ -27,6 +27,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import CheckoutModal from "./components/CheckoutModal";
 import OrderStatus from "./pages/OrderStatus";
+import OrderStatusDetail from "./pages/OrderStatusDetail";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             <Route path="cart" element={<Cart />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="order-status" element={<OrderStatus />} />
+            <Route path="order-status/:orderId" element={<OrderStatusDetail />} />
             {/* <Route path=":storeName" element={<Storefront />} /> */}
             <Route path=":storeName" element={<StoreLayout />}>
               <Route index element={<Storefront />} />

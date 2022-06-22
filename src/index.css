@@ -62,6 +62,17 @@ body {
   }
 }
 
+.settlement{
+  color: #25c235;
+}
+.capture{
+  color: #25c235;
+}
+
+.pending{
+  color: rgb(212, 192, 9);
+}
+
 .purpleLow {
   background-color: rgb(233, 213, 255);
 }

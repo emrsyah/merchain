@@ -104,7 +104,7 @@ function OrderStatusDetail() {
             <>
               {status === "no data" ? (
                 <div className="flex justify-center items-center gap-2 flex-col">
-                  <img src={sadFace} alt="" className="h-32" />
+                  <img loading="lazy" src={sadFace} alt="" className="h-32" />
                   <h5 className="font-medium text-lg">Data tidak ditemukan</h5>
                   <p className="text-sm text-gray-600 w-3/5 text-center">
                     Data yang anda cari tidak bisa ditemukan, silahkan hubungi
@@ -126,7 +126,7 @@ function OrderStatusDetail() {
                           <p className="text-gray-600 text-sm">
                             {dayjs(order.createdAt.toDate()).isToday()
                               ? "Hari Ini " +
-                                dayjs(order.createdAt.toDate()).format("hh:mm")
+                                dayjs(order.createdAt.toDate()).format("HH:mm")
                               : dayjs(order.createdAt.toDate()).format(
                                   "DD MMM YYYY"
                                 )}
@@ -136,7 +136,7 @@ function OrderStatusDetail() {
                           <h5 className="font-semibold">
                             {rupiahConverter(order.total)}
                           </h5>
-                          <h6 className="font-medium text-green-600">
+                          <h6 className={`font-medium ${orderStatus.transaction_status}`}>
                             Status:{" "}
                             {capitalizeFirstLetter(
                               orderStatus.transaction_status

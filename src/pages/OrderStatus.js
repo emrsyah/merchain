@@ -2,6 +2,7 @@ import {
   collection,
   getDocs,
   onSnapshot,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -29,7 +30,7 @@ function OrderStatus() {
 
   const getOrders = (uid) => {
     const unsubscribe = onSnapshot(
-      query(collection(firestoreDb, "orders"), where("customerId", "==", uid)),
+      query(collection(firestoreDb, "orders"), where("customerId", "==", uid), orderBy('createdAt', "desc")),
       (snapshot) => {
         if (snapshot.docs.length > 0) {
           setOrders(snapshot.docs);
@@ -88,7 +89,7 @@ function OrderStatus() {
             <>
               {status === "no data" ? (
                 <div className="flex justify-center items-center gap-2 flex-col">
-                  <img src={sadFace} alt="" className="h-32" />
+                  <img loading="lazy" src={sadFace} alt="" className="h-32" />
                   <h5 className="font-medium text-lg">Data tidak ditemukan</h5>
                   <p className="text-sm text-gray-600 w-3/5 text-center">
                     Data yang anda cari tidak bisa ditemukan, silahkan hubungi

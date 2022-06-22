@@ -225,7 +225,7 @@ function Storefront() {
           </div>
 
           {/* Shop Container */}
-          <div className="-translate-y-20 max-w-7xl 2xl:mx-auto 2xl:grid-cols-4 mt-6 md:mt-10 mx-2 lg:mx-20 xl:mx-36 px-2 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-8 md:gap-y-6">
+          <div className="-translate-y-20 max-w-7xl 2xl:mx-auto 2xl:grid-cols-4 mt-6 md:mt-10 mx-2 lg:mx-20 xl:mx-36 px-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-8 md:gap-y-6">
             {/* Shop Item */}
             {products ? (
               <>

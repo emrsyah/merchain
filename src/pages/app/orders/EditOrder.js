@@ -17,6 +17,7 @@ import { firestoreDb } from "../../../firebase";
 import dayjs from "dayjs";
 import rupiahConverter from "../../../helpers/rupiahConverter";
 import CartItem from "../../../components/CartItem";
+import capitalizeFirstLetter from "../../../helpers/capitalizeFirstLetter";
 
 function EditOrder() {
   let { id } = useParams();
@@ -131,13 +132,13 @@ function EditOrder() {
                 </div>
                 <div className="text-right">
                   <h6 className={`${order.status} text-lg font-medium`}>
-                    {order.status}
+                    {capitalizeFirstLetter(order.status)}
                   </h6>
                   <h6 className="font-medium text-lg text-gray-900">
                     {rupiahConverter(order.total)}
                   </h6>
                   {order.status !== "settlement" &&
-                    order.status !== "capture" && <h6>{order.createdAt}</h6>}
+                    order.status !== "capture" && <h6 className="text-sm text-gray-600 font-medium">Deadline {dayjs(order.createdAt.toDate()).add(1, 'day').format("DD MMM")}</h6>}
                 </div>
               </div>
               <div className="flex items-center mt-4 gap-5">
@@ -158,7 +159,7 @@ function EditOrder() {
                 <div className="border-r-[1px] border-gray-300 pr-3">
                   <h6 className="text-sm text-gray-500">Pembayaran</h6>
                   <p className="text-sm">
-                    {midOrder.payment_type.split("_").join(" ")}
+                    {midOrder?.payment_type?.split("_").join(" ")}
                   </p>
                 </div>
               </div>

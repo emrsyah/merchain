@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import rupiahConverter from "../helpers/rupiahConverter";
 import dayjs from "dayjs";
 
+var isToday = require("dayjs/plugin/isToday");
+dayjs.extend(isToday);
+
 function OrderStatusItem({ storeName, createdAt, orderId, total }) {
   const navigate = useNavigate();
 
@@ -14,7 +17,9 @@ function OrderStatusItem({ storeName, createdAt, orderId, total }) {
       <div>
         <h5 className="font-medium text-lg">{storeName}</h5>
         <p className="text-gray-600 text-sm">
-          {dayjs(createdAt.toDate()).format("DD MMM YYYY")}
+          {dayjs(createdAt.toDate()).isToday()
+            ? "Hari Ini " + dayjs(createdAt.toDate()).format("hh:mm")
+            : dayjs(createdAt.toDate()).format("DD MMM YYYY")}
         </p>
       </div>
       <h5 className="font-medium text-gray-500 orderC">{orderId}</h5>

@@ -12,12 +12,17 @@ import dayjs from "dayjs";
 import rupiahConverter from "../helpers/rupiahConverter";
 import spinner from "../assets/spinner.gif";
 import sadFace from "../assets/sadFace.svg";
+import capitalizeFirstLetter from "../helpers/capitalizeFirstLetter";
+import TransactionDisclosure from "../components/TransactionDisclosure";
+var isToday = require("dayjs/plugin/isToday");
+dayjs.extend(isToday);
 
 function OrderStatusDetail() {
   const navigate = useNavigate();
   let { orderId } = useParams();
   const [status, setStatus] = useState("loading");
   const [order, setOrder] = useState(null);
+  const [orderStatus, setOrderStatus] = useState("loading...")
 
   const getSpecificOrder = async (orderId, uid) => {
     setStatus("loading");
@@ -28,19 +33,24 @@ function OrderStatusDetail() {
     );
     const querySnapshot = await getDocs(q);
     if (querySnapshot.docs[0]) {
-      setOrder({
+      const data = {
         ...querySnapshot.docs[0].data(),
         id: querySnapshot.docs[0].id,
-      });
-      console.log({
-        ...querySnapshot.docs[0].data(),
-        id: querySnapshot.docs[0].id,
-      });
-      setStatus("founded");
+      };
+      return data;
     } else {
       setStatus("no data");
+      return;
     }
   };
+
+  const getOrderStatus = async () =>{
+    const url = `https://merchain-api-production.up.railway.app/det/${orderId}`
+    const res = await fetch(url)
+    const resJson = await res.json()
+    setOrderStatus(resJson)
+    setStatus('founded')
+  }
 
   useEffect(() => {
     let userNow = null;
@@ -52,7 +62,12 @@ function OrderStatusDetail() {
             email: user.email,
             nomor: user.phoneNumber ? user.phoneNumber : "",
           };
-          getSpecificOrder(orderId, user.uid);
+          getSpecificOrder(orderId, user.uid).then((data) => {
+            if (data) {
+              setOrder(data);
+              getOrderStatus()
+            }
+          });
         } else {
           navigate("/");
           return;
@@ -98,7 +113,7 @@ function OrderStatusDetail() {
                 <>
                   {order && (
                     <div>
-                      <div className="flex items-center justify-between border-b-[1px] border-gray-300 p-3">
+                      <div className="flex items-center justify-between p-3">
                         <div>
                           <h5 className="font-semibold text-lg">
                             {order.storeName}
@@ -107,9 +122,12 @@ function OrderStatusDetail() {
                             {order.orderId}
                           </h6>
                           <p className="text-gray-600 text-sm">
-                            {dayjs(order.createdAt.toDate()).format(
-                              "DD MMM YYYY"
-                            )}
+                            {dayjs(order.createdAt.toDate()).isToday()
+                              ? "Hari Ini " +
+                                dayjs(order.createdAt.toDate()).format("hh:mm")
+                              : dayjs(order.createdAt.toDate()).format(
+                                  "DD MMM YYYY"
+                                )}
                           </p>
                         </div>
                         <div className="text-right">
@@ -117,11 +135,19 @@ function OrderStatusDetail() {
                             {rupiahConverter(order.total)}
                           </h5>
                           <h6 className="font-medium text-green-600">
-                            Status: {order.status === "" && "hmm"}
+                            Status: {capitalizeFirstLetter(orderStatus.transaction_status)}
                           </h6>
                         </div>
                       </div>
-                      <div className="flex flex-col gap-4 p-4">
+                      <div className="p-2 mb-2">
+                      <TransactionDisclosure
+                        status={orderStatus.transaction_status}
+                        total= {rupiahConverter(order.total)}
+                        bank = {orderStatus.va_numbers[0].bank}
+                        va_number = {orderStatus.va_numbers[0].va_number}
+                      />
+                      </div>
+                      <div className="flex flex-col gap-4 p-4 border-t-[1px] border-gray-300">
                         {order.products.map((p) => (
                           <CartItem
                             image={p.product.image}

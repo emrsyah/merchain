@@ -107,6 +107,7 @@ function OrderStatus() {
                           createdAt={order.data().createdAt}
                           orderId={order.data().orderId}
                           total={order.data().total}
+                          status={order.data().status}
                         />
                       ))}
                     </>

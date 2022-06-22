@@ -114,7 +114,7 @@ function Checkout() {
         autoClose: 3000,
       });
       const docId = addOrderFirebase(orderId, {...customerData, alamat: data.alamat})
-      await window.snap.pay(resJson.token, {
+      window.snap.pay(resJson.token, {
         onSuccess: function (result) {
           /* You may add your own implementation here */
           alert("payment success!");

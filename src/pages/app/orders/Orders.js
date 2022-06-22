@@ -70,17 +70,17 @@ function Orders() {
           </p>
         ),
       },
-      // {
-      //   Header: "Status",
-      //   accessor: "show.status",
-      //   Cell: ({ cell: { value } }) => (
-      //     <p
-      //       className={`${value} rounded text-[13px] py-1 px-2 w-fit font-semibold interFonts`}
-      //     >
-      //       {value}
-      //     </p>
-      //   ),
-      // },
+      {
+        Header: "Status",
+        accessor: "status",
+        Cell: ({ cell: { value } }) => (
+          <p
+            className={`${value} rounded text-sm w-fit font-semibold`}
+          >
+            {value}
+          </p>
+        ),
+      },
       {
         Header: "Total",
         accessor: "total",

@@ -28,6 +28,7 @@ import Checkout from "./pages/Checkout";
 import CheckoutModal from "./components/CheckoutModal";
 import OrderStatus from "./pages/OrderStatus";
 import OrderStatusDetail from "./pages/OrderStatusDetail";
+import EditOrder from "./pages/app/orders/EditOrder";
 
 function App() {
   return (
@@ -56,7 +57,8 @@ function App() {
               <Route index element={<Manage />} />
               <Route path="home" element={<Manage />} />
               <Route path="orders" element={<Orders />} />
-              <Route path="orders/new" element={<NewOrder />} />
+              <Route path="orders/:id" element={<EditOrder />} />
+              {/* <Route path="orders/new" element={<NewOrder />} /> */}
               <Route path="products" element={<Products />} />
               <Route path="products/new" element={<NewProduct />} />
               <Route path="products/:id" element={<EditProduct />} />

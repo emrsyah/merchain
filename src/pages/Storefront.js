@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import Lottie from "lottie-web";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
@@ -28,7 +28,8 @@ function Storefront() {
     console.log(id);
     const q = query(
       collection(firestoreDb, "products"),
-      where("storeId", "==", id)
+      where("storeId", "==", id),
+      orderBy('active', "desc")
     );
     const snapshot = await getDocs(q);
     setProducts(snapshot.docs.length > 0 ? snapshot.docs : null);
@@ -72,7 +73,7 @@ function Storefront() {
         <div className=" poppins">
           {/* Cover Img */}
           <div className="mx-0 lg:mx-20 max-w-7xl 2xl:mx-auto xl:mx-36">
-            {true ? (
+            {false ? (
               <img
                 src={cover}
                 className="w-full h-44 lg:h-60 m-auto object-cover rounded-b-xl"

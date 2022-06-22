@@ -73,6 +73,11 @@ body {
   color: rgb(212, 192, 9);
 }
 
+.expire{
+  color: #ff4e4e;
+}
+
+
 .purpleLow {
   background-color: rgb(233, 213, 255);
 }

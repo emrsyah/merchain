@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 var isToday = require("dayjs/plugin/isToday");
 dayjs.extend(isToday);
 
-function OrderStatusItem({ storeName, createdAt, orderId, total }) {
+function OrderStatusItem({ storeName, createdAt, orderId, total, status }) {
   const navigate = useNavigate();
 
   return (
@@ -23,7 +23,10 @@ function OrderStatusItem({ storeName, createdAt, orderId, total }) {
         </p>
       </div>
       <h5 className="font-medium text-gray-500 orderC truncate">{orderId}</h5>
+      <div  className="text-right">
       <h5 className="font-medium text-lg">{rupiahConverter(total)}</h5>
+      <p className={`text-sm ${status} font-medium `}>{status}</p>
+      </div>
     </div>
   );
 }

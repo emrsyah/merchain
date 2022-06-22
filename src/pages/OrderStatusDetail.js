@@ -51,6 +51,7 @@ function OrderStatusDetail() {
     const res = await fetch(url);
     const resJson = await res.json();
     setOrderStatus(resJson);
+    console.log(resJson)
     setStatus("founded");
   };
 
@@ -146,7 +147,7 @@ function OrderStatusDetail() {
                           </h6>
                           <p className="text-gray-600 font-medium">
                             Batas:{" "}
-                            {orderStatus.transaction_status === "settlement"
+                            {orderStatus.transaction_status === ("settlement" || "capture")
                               ? "Sudah Dibayar"
                               : dayjs(orderStatus.transaction_time)
                                   .add(1, "day")
@@ -161,7 +162,7 @@ function OrderStatusDetail() {
                           bank={orderStatus.va_numbers[0].bank}
                           va_number={orderStatus.va_numbers[0].va_number}
                           deadline={
-                            orderStatus.transaction_status === "settlement"
+                            orderStatus.transaction_status === ("settlement" || 'capture')
                               ? "Sudah Dibayar"
                               : dayjs(orderStatus.transaction_time)
                                   .add(1, "day")

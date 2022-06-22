@@ -1,0 +1,26 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import rupiahConverter from "../helpers/rupiahConverter";
+import dayjs from "dayjs";
+
+function OrderStatusItem({ storeName, createdAt, orderId, total }) {
+  const navigate = useNavigate();
+
+  return (
+    <div
+      className="flex items-center justify-between p-2 border-b-[1px] cursor-pointer orderP"
+      onClick={() => navigate(`?order_id=${orderId}`)}
+    >
+      <div>
+        <h5 className="font-medium text-lg">{storeName}</h5>
+        <p className="text-gray-600 text-sm">
+          {dayjs(createdAt.toDate()).format("DD MMM YYYY")}
+        </p>
+      </div>
+      <h5 className="font-medium text-gray-500 orderC">{orderId}</h5>
+      <h5 className="font-medium text-lg">{rupiahConverter(total)}</h5>
+    </div>
+  );
+}
+
+export default OrderStatusItem;

@@ -16,16 +16,19 @@ function CartItem({ image, name, quantity, price, deleteHandler, id, color }) {
       <div
         className={`col-span-3 ${
           color + "-txt"
-        } font-medium text-[15px] text-center`}
+        } font-medium text-[15px] text-center ${deleteHandler === null && "col-span-5"} `}
       >
         {rupiahConverter(quantity * price)}
       </div>
-      <button
-        className="col-span-2 flex justify-center p-1 text-gray-600 hover:text-red-500 cursor-pointer rounded bg-gray-100 w-fit mx-auto"
-        onClick={() => deleteHandler(id)}
-      >
-        <Icon icon="ci:trash-full" width={24} />
-      </button>
+      {deleteHandler !==
+        null && (
+          <button
+            className="col-span-2 flex justify-center p-1 text-gray-600 hover:text-red-500 cursor-pointer rounded bg-gray-100 w-fit mx-auto"
+            onClick={() => deleteHandler(id)}
+          >
+            <Icon icon="ci:trash-full" width={24} />
+          </button>
+        )}
     </div>
   );
 }

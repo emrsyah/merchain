@@ -26,7 +26,9 @@ function Setting() {
   const [loading, setLoading] = useState(false);
   const [isChange, setIsChange] = useState(false);
   const imgRef = useRef("");
+  const coverRef = useRef("");
   const [changedImg, setChangedImg] = useState(null);
+  const [changedCover, setChangedCover] = useState(null);
   const [nameUsed, setNameUsed] = useState(false);
   const [storeBuka, setStoreBuka] = useState(
     store.storeTime ? store.storeTime[0] : "00:00"
@@ -47,6 +49,13 @@ function Setting() {
     // console.log(changedImg)
     if (e.target.files && e.target.files.length > 0) {
       setChangedImg(e.target.files[0]);
+    }
+    return false;
+  };
+  const changeCoverHandler = (e) => {
+    // console.log(changedImg)
+    if (e.target.files && e.target.files.length > 0) {
+      setChangedCover(e.target.files[0]);
     }
     return false;
   };
@@ -113,7 +122,6 @@ function Setting() {
       setChangedImg(null);
     }
   };
-  
 
   return (
     <>
@@ -131,6 +139,39 @@ function Setting() {
               onSubmit={handleSubmit(submitHandler)}
               onChange={changeHandler}
             >
+              {/* Cover Input */}
+              <div className="relative">
+                {!changedCover ? (
+                  <img
+                    className="h-40 rounded-t-lg w-full object-cover"
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpx.com%2Fimage%2F2020%2F11%2Fsunset-pixel-scenery-mountain.jpg&f=1&nofb=1"
+                    alt=""
+                  />
+                  ) : (
+                  <img
+                    className="h-40 rounded-t-lg w-full object-cover"
+                    src={URL.createObjectURL(changedCover)}
+                    alt=""
+                  />
+
+                )}
+                <button
+                  type="button"
+                  onClick={() => coverRef.current.click()}
+                  className="absolute bottom-4 rounded py-1 px-4 bg-purple-200 border-[1px] border-purple-600 hover:bg-purple-300 font-medium right-4 text-sm"
+                >
+                  Ganti Cover
+                </button>
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={coverRef}
+                  className="hidden"
+                  alt=""
+                  onChange={changeCoverHandler}
+                />
+              </div>
+
               {/* Image Input */}
               <div className="mt-3">
                 <label htmlFor="nama" className="font-semibold">
@@ -396,7 +437,11 @@ function Setting() {
                   onChange={()=>setIsChange(true)}
                 /> */}
                 <div>
-                  <ColorThemeRadio color={color} setColor={setColor} setIsChange={setIsChange} />
+                  <ColorThemeRadio
+                    color={color}
+                    setColor={setColor}
+                    setIsChange={setIsChange}
+                  />
                 </div>
               </div>
 

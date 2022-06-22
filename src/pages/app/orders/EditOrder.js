@@ -134,7 +134,7 @@ function EditOrder() {
                   <h6 className={`${order.status} text-lg font-medium`}>
                     {capitalizeFirstLetter(order.status)}
                   </h6>
-                  <h6 className="font-medium text-lg text-gray-900">
+                  <h6 className="font-semibold text-lg text-gray-900">
                     {rupiahConverter(order.total)}
                   </h6>
                   {order.status !== "settlement" &&

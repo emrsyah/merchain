@@ -73,9 +73,9 @@ function Storefront() {
         <div className=" poppins">
           {/* Cover Img */}
           <div className="mx-0 lg:mx-20 max-w-7xl 2xl:mx-auto xl:mx-36">
-            {false ? (
+            {store.coverImg ? (
               <img
-                src={cover}
+                src={store.coverImg}
                 className="w-full h-44 lg:h-60 m-auto object-cover rounded-b-xl"
                 alt=""
               />

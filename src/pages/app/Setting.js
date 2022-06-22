@@ -79,11 +79,24 @@ function Setting() {
         const imgUrl = await setFirestoreStorage(
           changedImg,
           uuidv4(),
-          "stores-pofile"
+          "stores-profile"
         );
         // console.log("new img = " + imgUrl)
         await updateDoc(doc(firestoreDb, "stores", store.id), {
           profileImg: imgUrl,
+        });
+      }
+
+      // Update cover field if change
+      if (changedCover) {
+        const imgUrl = await setFirestoreStorage(
+          changedCover,
+          uuidv4(),
+          "stores-cover"
+        );
+        // console.log("new img = " + imgUrl)
+        await updateDoc(doc(firestoreDb, "stores", store.id), {
+          coverImg: imgUrl,
         });
       }
 
@@ -142,18 +155,27 @@ function Setting() {
               {/* Cover Input */}
               <div className="relative">
                 {!changedCover ? (
+                  <>
+                    {store?.coverImg ? (
+                      <img
+                        className="h-44 rounded-t-lg w-full object-cover"
+                        src={store?.coverImg ? store.coverImg : ""}
+                        alt=""
+                      />
+                    ) : (
+                      <div className="h-44 rounded-t-lg flex items-center justify-center text-white w-full bg-purple-600">
+                        <h5 className="font-medium text-2xl">
+                          Belum Ada Cover
+                        </h5>
+                      </div>
+                    )}
+                  </>
+                ) : (
                   <img
-                    className="h-40 rounded-t-lg w-full object-cover"
-                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpx.com%2Fimage%2F2020%2F11%2Fsunset-pixel-scenery-mountain.jpg&f=1&nofb=1"
-                    alt=""
-                  />
-                  ) : (
-                  <img
-                    className="h-40 rounded-t-lg w-full object-cover"
+                    className="h-44 rounded-t-lg w-full object-cover"
                     src={URL.createObjectURL(changedCover)}
                     alt=""
                   />
-
                 )}
                 <button
                   type="button"

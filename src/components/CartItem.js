@@ -5,7 +5,7 @@ import rupiahConverter from "../helpers/rupiahConverter";
 function CartItem({ image, name, quantity, price, deleteHandler, id, color }) {
   return (
     <div className="grid grid-cols-12 gap-2 items-center">
-      <img src={image} className="w-20 h-24 object-cover col-span-2" alt="" />
+      <img src={image} className={`w-20 h-24 object-cover col-span-2`} alt="" />
       <div className="flex items-center gap-[10px] col-span-4">
         <h6 className="font-semibold">{name}</h6>
       </div>

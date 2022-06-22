@@ -10,6 +10,8 @@ import NavbarStore from "../components/NavbarStore";
 import { auth, firestoreDb } from "../firebase";
 import dayjs from "dayjs";
 import rupiahConverter from "../helpers/rupiahConverter";
+import spinner from "../assets/spinner.gif";
+import sadFace from "../assets/sadFace.svg";
 
 function OrderStatusDetail() {
   const navigate = useNavigate();
@@ -77,47 +79,68 @@ function OrderStatusDetail() {
         </button>
         <h5 className="font-semibold text-xl">Detail Status Pesanan</h5>
         <div className="orderContainer">
-          <>
-            {order && (
-              <div>
-                <div className="flex items-center justify-between border-b-[1px] border-gray-300 p-3">
-                  <div>
-                    <h5 className="font-semibold text-lg">{order.storeName}</h5>
-                    <h6 className="font-medium text-gray-600">
-                      {order.orderId}
-                    </h6>
-                    <p className="text-gray-600 text-sm">
-                      {dayjs(order.createdAt.toDate()).format("DD MMM YYYY")}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <h5 className="font-semibold">
-                      {rupiahConverter(order.total)}
-                    </h5>
-                    <h6 className="font-medium text-green-600">
-                      Status: {order.status === "" && "hmm"}
-                    </h6>
-                  </div>
+          {status === "loading" ? (
+            <div className="flex justify-center">
+              <img className="h-28" src={spinner} alt="" />
+            </div>
+          ) : (
+            <>
+              {status === "no data" ? (
+                <div className="flex justify-center items-center gap-2 flex-col">
+                  <img src={sadFace} alt="" className="h-32" />
+                  <h5 className="font-medium text-lg">Data tidak ditemukan</h5>
+                  <p className="text-sm text-gray-600 w-3/5 text-center">
+                    Data yang anda cari tidak bisa ditemukan, silahkan hubungi
+                    developer bila ada yang ingin ditanyakan
+                  </p>
                 </div>
-                <div className="flex flex-col gap-2 p-4">
-                  {order.products.map((p) => (
-                    <CartItem
-                      image={
-                       p.product.image
-                      }
-                      name={p.product.name}
-                      price={p.product.price}
-                      quantity={p.quantity}
-                      id={p.id}
-                      key={p.id}
-                      deleteHandler={null}
-                      // color={color}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-          </>
+              ) : (
+                <>
+                  {order && (
+                    <div>
+                      <div className="flex items-center justify-between border-b-[1px] border-gray-300 p-3">
+                        <div>
+                          <h5 className="font-semibold text-lg">
+                            {order.storeName}
+                          </h5>
+                          <h6 className="font-medium text-gray-600">
+                            {order.orderId}
+                          </h6>
+                          <p className="text-gray-600 text-sm">
+                            {dayjs(order.createdAt.toDate()).format(
+                              "DD MMM YYYY"
+                            )}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <h5 className="font-semibold">
+                            {rupiahConverter(order.total)}
+                          </h5>
+                          <h6 className="font-medium text-green-600">
+                            Status: {order.status === "" && "hmm"}
+                          </h6>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-4 p-4">
+                        {order.products.map((p) => (
+                          <CartItem
+                            image={p.product.image}
+                            name={p.product.name}
+                            price={p.product.price}
+                            quantity={p.quantity}
+                            id={p.id}
+                            key={p.id}
+                            deleteHandler={null}
+                            // color={color}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </>
+          )}
         </div>
       </div>
     </>

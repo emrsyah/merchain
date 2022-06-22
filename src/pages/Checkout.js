@@ -14,10 +14,12 @@ import { userCustomer } from "../atoms/userCustomer";
 import { storeNameAtom } from "../atoms/storeName";
 import { addDoc, collection, deleteDoc, doc, serverTimestamp } from "firebase/firestore";
 import { firestoreDb } from "../firebase";
+import { storeColor } from "../atoms/storeColor";
 
 function Checkout() {
   const clientKey = process.env.MIDTRANS_CLIENT_KEY;
   const endpoint = "https://merchain-api-production.up.railway.app/charge";
+  const color = useRecoilValue(storeColor);
   const navigate = useNavigate();
   // useScript("https://app.sandbox.midtrans.com/snap/snap.js", clientKey);
   const [cart, setCart] = useRecoilState(cartState);
@@ -157,7 +159,7 @@ function Checkout() {
       </Helmet>
       <div className="containerStore">
         <div
-          className="flex items-center gap-1 text-purple-600 font-medium cursor-pointer w-fit"
+          className={`flex items-center gap-1 ${color + "-txt"} font-medium cursor-pointer w-fit`}
           onClick={() => navigate(-1)}
         >
           <Icon icon="ci:chevron-left" width={20} />
@@ -255,12 +257,12 @@ function Checkout() {
                 )}
               </div>
               <div className="flex items-center gap-3 mt-3 text-sm">
-                <div className="border-[1.5px] border-purple-600 text-purple-600 font-medium cursor-pointer py-2 px-6 rounded">
+                <div className={`border-[1.5px] ${color + "Nav"} font-medium cursor-pointer py-2 px-6 rounded`}>
                   Batal
                 </div>
                 <button
                   type="submit"
-                  className="border-[1.5px] border-purple-600 bg-purple-600 cursor-pointer hover:bg-purple-700 text-white font-medium py-2 px-6 rounded"
+                  className={`border-[1.5px] ${color + "-btn"} cursor-pointer  text-white font-medium py-2 px-6 rounded`}
                 >
                   Konfirmasi & Pesan
                 </button>
@@ -293,7 +295,7 @@ function Checkout() {
                 </div>
               ))}
             </div>
-            <div className="flex items-center justify-between font-medium border-[1px] border-purple-600 bg-purple-200 text-purple-700 p-2 rounded">
+            <div className={`flex items-center justify-between font-medium border-[1px] ${color + "Nav"} ${color + "Low"} b p-2 rounded`}>
               <h6>Total</h6>
               <h6>{rupiahConverter(total)}</h6>
             </div>

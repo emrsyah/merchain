@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartCount, cartState, cartTotal } from "../atoms/cartAtom";
@@ -11,7 +10,6 @@ import rupiahConverter from "../helpers/rupiahConverter";
 import noCart from "../assets/noCart.svg";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
-import CheckoutModal from "../components/CheckoutModal";
 import { checkoutModal } from "../atoms/checkoutModalAtom";
 
 function Cart() {
@@ -78,7 +76,7 @@ function Cart() {
                     {count}
                   </p>
                 </div>
-                  <button className="font-semibold mt-3 bg-purple-600 hover:bg-purple-700 rounded text-white p-3"
+                  <button className={`font-semibold mt-3 rounded text-white p-3 ${color + "-btn"} `}
                   onClick={checkoutHandler}
                   >Checkout</button>
               </div>

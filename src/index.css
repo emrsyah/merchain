@@ -51,15 +51,34 @@ body {
   .linkItem {
     @apply border-[1px] border-gray-300 py-[6px] px-3 gap-[6px] rounded-full flex items-center transition-all duration-300 ease-out cursor-pointer md:hover:px-[15px];
   }
-  .checkoutInput{
-    @apply w-full py-[6px] outline-none focus:border-purple-600 px-2 text-sm border-[1.2px] rounded-sm border-gray-300
+  .checkoutInput {
+    @apply w-full py-[6px] outline-none focus:border-purple-600 px-2 text-sm border-[1.2px] rounded-sm border-gray-300;
   }
-  .containerStore{
-    @apply max-w-5xl px-4 mx-auto flex flex-col my-12 gap-2 md:gap-4 poppins
+  .containerStore {
+    @apply max-w-5xl px-4 mx-auto flex flex-col my-12 gap-2 md:gap-4 poppins;
   }
-  .orderContainer{
-    @apply border-[1px] p-2 border-gray-300 rounded flex flex-col gap-4
+  .orderContainer {
+    @apply border-[1px] p-2 border-gray-300 rounded flex flex-col gap-4;
   }
+}
+
+.purpleLow {
+  background-color: rgb(233, 213, 255);
+}
+.blueLow {
+  background-color: rgb(218, 235, 255);
+}
+.redLow {
+  background-color: rgb(255, 220, 220);
+}
+.greenLow {
+  background-color: rgb(214, 254, 228);
+}
+.yellowLow {
+  background-color: rgb(255, 246, 180);
+}
+.orangeLow {
+  background-color: rgb(250, 224, 195);
 }
 
 .purple-pg {
@@ -316,7 +335,6 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-box-orient: vertical;
 }
 
-
-.orderP:hover .orderC{
+.orderP:hover .orderC {
   color: #7c3aed;
 }

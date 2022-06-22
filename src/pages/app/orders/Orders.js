@@ -1,64 +1,109 @@
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import React, { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { useOutletContext } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../atoms/userAtom";
 import EmptyTable from "../../../components/EmptyTable";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import Table from "../../../components/Table";
 import VerificationReminder from "../../../components/VerificationReminder";
+import { firestoreDb } from "../../../firebase";
+import mappingToArray from "../../../helpers/mappingToArray";
+import dayjs from "dayjs";
+import rupiahConverter from "../../../helpers/rupiahConverter";
+
 
 function Orders() {
   const user = useRecoilValue(userState);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterInput, setFilterInput] = useState("");
+  const [orders, setOrders] = useState(false);
+  const [store, setStore] = useOutletContext();
+
+  const getOrders = (id) => {
+    // console.log('fetching store')
+    // ?? Unsubscribe itu buat clear memory mislanya componentnya udah unmount
+    const unsubscribe = onSnapshot(
+      query(collection(firestoreDb, "orders"), where("storeId", "==", id)),
+      (snapshot) => {
+        if (snapshot.docs.length) {
+          setOrders(mappingToArray(snapshot.docs));
+        } else {
+          setOrders([]);
+        }
+      }
+    );
+    return unsubscribe;
+  };
 
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      try {
-        const result = await fetch(
-          "https://api.tvmaze.com/search/shows?q=snow"
-        );
-        const resJson = await result.json();
-        setData(resJson);
-      } catch (err) {
-        console.log(err);
-      }
-      setLoading(false);
-    })();
+    // (async () => {
+    //   setLoading(true);
+    //   try {
+    //     const result = await fetch(
+    //       "https://api.tvmaze.com/search/shows?q=snow"
+    //     );
+    //     const resJson = await result.json();
+    //     setData(resJson);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    //   setLoading(false);
+    // })();
+    try {
+      getOrders(store.id);
+    } catch (err) {
+      console.error(err);
+    }
   }, []);
 
-  const dataMemo = useMemo(() => data, [data]);
+  const dataMemo = useMemo(() => orders, [orders]);
 
   const columns = useMemo(
     () => [
       {
-        Header: "No",
-        accessor: "show.id",
-      },
-      {
-        Header: "Tanggal Pesan",
-        accessor: "show.ended",
-      },
-      {
-        Header: "Pembeli",
-        accessor: "show.language",
-      },
-      {
-        Header: "Status",
-        accessor: "show.status",
+        Header: "Id Pesanan",
+        accessor: "orderId",
         Cell: ({ cell: { value } }) => (
-          <p
-            className={`${value} rounded text-[13px] py-1 px-2 w-fit font-semibold interFonts`}
-          >
-            {value}
+          <p className={`text-sm font-medium truncate text-gray-600`}>
+            {value.substring(0, 15)}...
           </p>
         ),
       },
       {
+        Header: "Tanggal Pesan",
+        accessor: "createdAt",
+        Cell: ({ cell: { value } }) => (
+          <p className={``}>
+            {dayjs(value?.toDate()).format('MMM DD')}
+          </p>
+        ),
+      },
+      {
+        Header: "Pembeli",
+        accessor: "customer.firstname",
+      },
+      // {
+      //   Header: "Status",
+      //   accessor: "show.status",
+      //   Cell: ({ cell: { value } }) => (
+      //     <p
+      //       className={`${value} rounded text-[13px] py-1 px-2 w-fit font-semibold interFonts`}
+      //     >
+      //       {value}
+      //     </p>
+      //   ),
+      // },
+      {
         Header: "Total",
-        accessor: "show.runtime",
+        accessor: "total",
+        Cell: ({ cell: { value } }) => (
+          <p className={``}>
+            {rupiahConverter(value)}
+          </p>
+        ),
       },
     ],
     []
@@ -101,17 +146,17 @@ function Orders() {
           </div>
 
           {/* Kalo Loading */}
-          {loading && <div>Loading...</div>}
+          {(orders === false) && <div>Loading...</div>}
 
           {/* Table */}
-          {!loading && (
+          {(!orders === false) && (
             <>
-              {(dataMemo?.length > 0) ? (
+              {dataMemo?.length > 0 ? (
                 <Table
                   columns={columns}
                   data={dataMemo}
                   filterInput={filterInput}
-                  filterColumn="show.id"
+                  filterColumn="customer.firstname"
                 />
               ) : (
                 <EmptyTable columns={columns} />

@@ -15,6 +15,8 @@ import tokopedia from "../assets/tokopedia.svg";
 import sadFace from "../assets/sadFace.svg";
 import ShopItem from "../components/ShopItem";
 import rupiahConverter from "../helpers/rupiahConverter";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
 
 function Storefront() {
   const navigate = useNavigate();
@@ -94,14 +96,24 @@ function Storefront() {
                 alt="store img"
               />
               <div className="col-span-2 ml-auto translate-y-1 md:translate-y-0">
-                <div
-                  className={`flex items-center w-fit gap-3 py-2 text-white cursor-pointer font-medium rounded-md px-3 ${
-                    store.colorTheme + "-btn"
-                  }`}
+                <CopyToClipboard
+                  text={`https://merchain.com/${store.storeName}`}
+                  className="cursor-pointer"
+                  onCopy={() => toast.success("Copied!")}
                 >
-                  <Icon icon="bi:share-fill" />
-                  <h6 className="hidden md:inline  text-sm ">Bagikan Toko</h6>
-                </div>
+                  <span>
+                    <div
+                      className={`flex items-center w-fit gap-3 py-2 text-white cursor-pointer font-medium rounded-md px-3 ${
+                        store.colorTheme + "-btn"
+                      }`}
+                    >
+                      <Icon icon="bi:share-fill" />
+                      <h6 className="hidden md:inline  text-sm">
+                        Bagikan Toko
+                      </h6>
+                    </div>
+                  </span>
+                </CopyToClipboard>
               </div>
             </div>
 

@@ -15,14 +15,16 @@ import sadFace from "../assets/sadFace.svg";
 import capitalizeFirstLetter from "../helpers/capitalizeFirstLetter";
 import TransactionDisclosure from "../components/TransactionDisclosure";
 var isToday = require("dayjs/plugin/isToday");
+var relativeTime = require("dayjs/plugin/relativeTime");
 dayjs.extend(isToday);
+dayjs.extend(relativeTime);
 
 function OrderStatusDetail() {
   const navigate = useNavigate();
   let { orderId } = useParams();
   const [status, setStatus] = useState("loading");
   const [order, setOrder] = useState(null);
-  const [orderStatus, setOrderStatus] = useState("loading...")
+  const [orderStatus, setOrderStatus] = useState("loading...");
 
   const getSpecificOrder = async (orderId, uid) => {
     setStatus("loading");
@@ -44,13 +46,13 @@ function OrderStatusDetail() {
     }
   };
 
-  const getOrderStatus = async () =>{
-    const url = `https://merchain-api-production.up.railway.app/det/${orderId}`
-    const res = await fetch(url)
-    const resJson = await res.json()
-    setOrderStatus(resJson)
-    setStatus('founded')
-  }
+  const getOrderStatus = async () => {
+    const url = `https://merchain-api-production.up.railway.app/det/${orderId}`;
+    const res = await fetch(url);
+    const resJson = await res.json();
+    setOrderStatus(resJson);
+    setStatus("founded");
+  };
 
   useEffect(() => {
     let userNow = null;
@@ -65,7 +67,7 @@ function OrderStatusDetail() {
           getSpecificOrder(orderId, user.uid).then((data) => {
             if (data) {
               setOrder(data);
-              getOrderStatus()
+              getOrderStatus();
             }
           });
         } else {
@@ -86,7 +88,7 @@ function OrderStatusDetail() {
       <NavbarStore />
       <div className="containerStore">
         <button
-          className="px-3 py-1 text-left rounded border-[1px] flex items-center gap-1 pl-1 border-gray-300 w-fit"
+          className="px-3 py-1 text-left font-medium text-[15px] text-gray-600 rounded border-[1px] flex items-center gap-1 pl-1 border-gray-300 w-fit"
           onClick={() => navigate("/order-status")}
         >
           <Icon icon="ci:chevron-left" />
@@ -135,17 +137,24 @@ function OrderStatusDetail() {
                             {rupiahConverter(order.total)}
                           </h5>
                           <h6 className="font-medium text-green-600">
-                            Status: {capitalizeFirstLetter(orderStatus.transaction_status)}
+                            Status:{" "}
+                            {capitalizeFirstLetter(
+                              orderStatus.transaction_status
+                            )}
                           </h6>
+                          <p className="text-gray-600 font-medium">
+                            Batas: {orderStatus.transaction_status === "settlement" ? "Sudah Dibayar" : dayjs(orderStatus.transaction_time.split(" ")[0]).add(1, 'day').fromNow()}
+                          </p>
                         </div>
                       </div>
                       <div className="p-2 mb-2">
-                      <TransactionDisclosure
-                        status={orderStatus.transaction_status}
-                        total= {rupiahConverter(order.total)}
-                        bank = {orderStatus.va_numbers[0].bank}
-                        va_number = {orderStatus.va_numbers[0].va_number}
-                      />
+                        <TransactionDisclosure
+                          status={orderStatus.transaction_status}
+                          total={rupiahConverter(order.total)}
+                          bank={orderStatus.va_numbers[0].bank}
+                          va_number={orderStatus.va_numbers[0].va_number}
+                          deadline={orderStatus.transaction_status === "settlement" ? "Sudah Dibayar" : dayjs(orderStatus.transaction_time.split(" ")[0]).add(1, 'day').fromNow()}
+                        />
                       </div>
                       <div className="flex flex-col gap-4 p-4 border-t-[1px] border-gray-300">
                         {order.products.map((p) => (

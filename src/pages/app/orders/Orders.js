@@ -16,8 +16,6 @@ import rupiahConverter from "../../../helpers/rupiahConverter";
 
 function Orders() {
   const user = useRecoilValue(userState);
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [filterInput, setFilterInput] = useState("");
   const [orders, setOrders] = useState(false);
   const [store, setStore] = useOutletContext();
@@ -39,19 +37,6 @@ function Orders() {
   };
 
   useEffect(() => {
-    // (async () => {
-    //   setLoading(true);
-    //   try {
-    //     const result = await fetch(
-    //       "https://api.tvmaze.com/search/shows?q=snow"
-    //     );
-    //     const resJson = await result.json();
-    //     setData(resJson);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    //   setLoading(false);
-    // })();
     try {
       getOrders(store.id);
     } catch (err) {
@@ -73,6 +58,10 @@ function Orders() {
         ),
       },
       {
+        Header: "Pembeli",
+        accessor: "customer.firstname",
+      },
+      {
         Header: "Tanggal Pesan",
         accessor: "createdAt",
         Cell: ({ cell: { value } }) => (
@@ -80,10 +69,6 @@ function Orders() {
             {dayjs(value?.toDate()).format('MMM DD')}
           </p>
         ),
-      },
-      {
-        Header: "Pembeli",
-        accessor: "customer.firstname",
       },
       // {
       //   Header: "Status",
@@ -124,13 +109,9 @@ function Orders() {
         {!user.verified && <VerificationReminder />}
         <div className="flex justify-between items-center">
           <h1 className="pageName">Orders</h1>
-          {/* <Link to="/app/orders/new" className="addButton">
-            <Icon icon="akar-icons:plus" width="18" />
-            Orderan Baru
-          </Link> */}
         </div>
         <div className="contentContainer">
-          <h5 className="font-semibold">Total Orderan: {data?.length}</h5>
+          <h5 className="font-semibold">Total Orderan: {dataMemo?.length}</h5>
           {/* Search Bar & Filter Nanti */}
           <div className="flex w-full my-2">
             <input

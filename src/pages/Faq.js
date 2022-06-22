@@ -12,23 +12,23 @@ const faqItems = [
   },
   {
     title: "Apakah merchain berbayar?",
-    body: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet velit ducimus, eum repellat impedit labore quod blanditiis quae repudiandae praesentium. Perspiciatis dicta at sapiente?",
+    body: "Fitur-fitur pada aplikasi merchain full gratis semuanya, misi kami dalam membuat aplikasi ini adalah memudahkan para umkm lokal agar bisa memasarkan produknya lebih luas dengan memberikan kemudahan dalam membuat online store kekinian dengan berbagai fitur serta tampilannya.",
   },
   {
     title: "Apakah merchain perlu tenaga teknis",
-    body: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet velit ducimus, eum repellat impedit labore quod blanditiis quae repudiandae praesentium. Perspiciatis dicta at sapiente?",
+    body: "Tidak, untuk membuat online store di merchain anda hanya perlu menambah-nambahkan produk yang anda jual, untuk tampilan dan hal-hal lainnya sudah kami tangani sehingga anda tidak perlu pusing lagi.",
   },
   {
     title: "Bagaimana saya mengatur produk dan orderan?",
-    body: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet velit ducimus, eum repellat impedit labore quod blanditiis quae repudiandae praesentium. Perspiciatis dicta at sapiente?",
+    body: "Anda bisa login dan masuk sebagai admin toko anda, nantinya akan ada navigasi untuk mengarahkan ke page produk dan orderan dimana anda bisa mengatur hal-hal yang anda inginkan",
   },
   {
     title: "Apakah saya bisa mengkostumisasi toko saya",
-    body: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet velit ducimus, eum repellat impedit labore quod blanditiis quae repudiandae praesentium. Perspiciatis dicta at sapiente?",
+    body: "Ya, di merchain anda bisa melakukan berbagai kostumisasi pada toko anda mulai dari menambahkan link ke berbagai website anda, menambah bio, hingga mengatur tema warna toko anda.",
   },
   {
-    title: "Bagaimana cara saya menerima pembayaran",
-    body: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet velit ducimus, eum repellat impedit labore quod blanditiis quae repudiandae praesentium. Perspiciatis dicta at sapiente?",
+    title: "Kemana saya bisa menghubungi apabila mengalami kesulitan",
+    body: "Anda bisa menghubungi developer lewat email merchaindev@gmail.com atau juga bisa lewat link-link yang ada di bagian footer website ini.",
   },
 ];
 

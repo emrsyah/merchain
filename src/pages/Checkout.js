@@ -165,8 +165,8 @@ function Checkout() {
           <Icon icon="ci:chevron-left" width={20} />
           <p>Kembali</p>
         </div>
-        <div className="grid grid-cols-11 gap-4">
-          <div className="col-span-7  p-3 border-gray-300 border-[1px] rounded">
+        <div className="md:grid flex flex-col-reverse md:grid-cols-11 gap-4">
+          <div className="md:col-span-7  p-3 border-gray-300 border-[1px] rounded">
             <h5 className="font-medium text-lg">Informasi Pengiriman</h5>
             <form
               onSubmit={handleSubmit(submitHandler)}
@@ -270,7 +270,7 @@ function Checkout() {
             </form>
           </div>
 
-          <div className="col-span-4 h-fit  p-3 border-gray-300 border-[1px] rounded">
+          <div className="md:col-span-4 h-fit  p-3 border-gray-300 border-[1px] rounded">
             <h5 className="font-medium text-lg">Ringkasan Pesanan</h5>
             <div className="flex flex-col gap-3 my-4">
               {cart.map((c) => (

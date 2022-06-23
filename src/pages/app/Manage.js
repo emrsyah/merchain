@@ -16,6 +16,9 @@ import { toast } from "react-toastify";
 import StatistikAngka from "../../components/StatistikAngka";
 import { SalesChart } from "../../components/SalesChart";
 import TopProduct from "../../components/TopProduct";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { firestoreDb } from "../../firebase";
+import { useState } from "react";
 
 const products = [
   {
@@ -45,11 +48,22 @@ function Manage() {
   const navigate = useNavigate();
   const [store, setStore] = useOutletContext();
   const user = useRecoilValue(userState);
+  const [productsLength, setProductsLength] = useState(null);
 
   useEffect(() => {
     // if check kalo dia di path "/app" doang bukan di  "app/home"
     if (!location.pathname.includes("/home")) navigate("/app/home");
+    getProductsLength();
   }, []);
+
+  const getProductsLength = async () => {
+    const q = query(
+      collection(firestoreDb, "products"),
+      where("storeId", "==", store.id)
+    );
+    const docSnap = await getDocs(q);
+    setProductsLength(docSnap.docs.length);
+  };
 
   return (
     <>
@@ -99,7 +113,10 @@ function Manage() {
 
             {/* Bagian Kanan Atas */}
             <div className="flex items-start gap-4">
-              <button onClick={()=>navigate(`/${store.storeName}`)} className="font-medium items-center text-sm  hover:bg-gray-200 flex gap-2 py-2 px-4 bg-gray-100 rounded-md">
+              <button
+                onClick={() => navigate(`/${store.storeName}`)}
+                className="font-medium items-center text-sm  hover:bg-gray-200 flex gap-2 py-2 px-4 bg-gray-100 rounded-md"
+              >
                 <Icon icon="clarity:eye-line" width="22" />
                 <p className="hidden sm:inline">Kunjungi Toko</p>
               </button>
@@ -146,7 +163,7 @@ function Manage() {
           />
           <StatistikAngka
             title="Total Produk"
-            value="10 Produk"
+            value={`${productsLength ? (productsLength + " Produk") : "Mengambil data..."}`}
             emoji={"emojiProduk"}
           />
         </div>

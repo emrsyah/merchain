@@ -27,6 +27,10 @@ const faqItems = [
     body: "Ya, di merchain anda bisa melakukan berbagai kostumisasi pada toko anda mulai dari menambahkan link ke berbagai website anda, menambah bio, hingga mengatur tema warna toko anda.",
   },
   {
+    title: "Kenapa saya tidak mendapatkan email verifikasi",
+    body: "Anda bisa mengecek bagian spam di email anda apabila tidak menemukan email verifikasi, jika masih belum ada silahkan hubungi developer.",
+  },
+  {
     title: "Kemana saya bisa menghubungi apabila mengalami kesulitan",
     body: "Anda bisa menghubungi developer lewat email merchaindev@gmail.com atau juga bisa lewat link-link yang ada di bagian footer website ini.",
   },

@@ -59,7 +59,7 @@ function MobileAdminModal({store}) {
       <div className="fixed inset-0 bg-black/40" aria-hidden="true" />
 
       <div className="fixed top-0 right-0 flex justify-end p-3 ml-auto w-full">
-        <Dialog.Panel className="bg-white pt-3 pb-6 px-6 rounded-md w-2/3">
+        <Dialog.Panel className="bg-white pt-3 pb-6 px-6 rounded-md w-3/4">
           <Dialog.Title className="flex items-center justify-end text-gray-600">
             <Icon
               icon="heroicons-outline:x"

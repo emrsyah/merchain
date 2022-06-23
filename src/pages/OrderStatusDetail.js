@@ -51,7 +51,7 @@ function OrderStatusDetail() {
     const res = await fetch(url);
     const resJson = await res.json();
     setOrderStatus(resJson);
-    console.log(resJson)
+    console.log(resJson);
     setStatus("founded");
   };
 
@@ -147,7 +147,8 @@ function OrderStatusDetail() {
                           </h6>
                           <p className="text-gray-600 font-medium">
                             Batas:{" "}
-                            {orderStatus.transaction_status === ("settlement" || "capture")
+                            {orderStatus.transaction_status ===
+                            ("settlement" || "capture")
                               ? "Sudah Dibayar"
                               : dayjs(orderStatus.transaction_time)
                                   .add(1, "day")
@@ -156,19 +157,7 @@ function OrderStatusDetail() {
                         </div>
                       </div>
                       <div className="p-2 mb-2">
-                        <TransactionDisclosure
-                          status={orderStatus.transaction_status}
-                          total={rupiahConverter(order.total)}
-                          bank={orderStatus.va_numbers[0].bank}
-                          va_number={orderStatus.va_numbers[0].va_number}
-                          deadline={
-                            orderStatus.transaction_status === ("settlement" || 'capture')
-                              ? "Sudah Dibayar"
-                              : dayjs(orderStatus.transaction_time)
-                                  .add(1, "day")
-                                  .fromNow()
-                          }
-                        />
+                        <TransactionDisclosure informations={orderStatus} />
                       </div>
                       <div className="flex flex-col gap-4 p-4 border-t-[1px] border-gray-300">
                         {order.products.map((p) => (

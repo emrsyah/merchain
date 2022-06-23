@@ -1,24 +1,47 @@
 import { Disclosure } from "@headlessui/react";
 import { Icon } from "@iconify/react";
+import { JSONTree } from "react-json-tree";
 
-export default function TransactionDisclosure({status, total, bank, va_number, deadline}) {
+const theme = {
+  scheme: 'monokai',
+  author: 'wimer hazenberg (http://www.monokai.nl)',
+  base00: '#272822',
+  base01: '#383830',
+  base02: '#49483e',
+  base03: '#75715e',
+  base04: '#a59f85',
+  base05: '#f8f8f2',
+  base06: '#f5f4f1',
+  base07: '#f9f8f5',
+  base08: '#f92672',
+  base09: '#fd971f',
+  base0A: '#f4bf75',
+  base0B: '#a6e22e',
+  base0C: '#a1efe4',
+  base0D: '#66d9ef',
+  base0E: '#ae81ff',
+  base0F: '#cc6633',
+};
+
+export default function TransactionDisclosure({ informations }) {
   return (
-    <Disclosure as="div" className="p-3 border-[1px] rounded-md border-gray-300">
+    <Disclosure
+      as="div"
+      className="p-3 border-[1px] rounded-md border-gray-300"
+    >
       {({ open }) => (
         <>
           <Disclosure.Button className="w-full font-medium flex items-center justify-between">
             <p>Detail Transaksi</p>
             <Icon
               icon="charm:chevron-down"
-              className={`${open ? "transform rotate-180" : ""} transition-all duration-200 ease-out`}
+              className={`${
+                open ? "transform rotate-180" : ""
+              } transition-all duration-200 ease-out`}
             />
           </Disclosure.Button>
-          <Disclosure.Panel className="text-sm text-gray-700 my-1 flex flex-col gap-1">
-            <p>Status: {status}</p>
-            <p>Jumlah: {total}</p>
-            <p>Bank: {bank}</p>
-            <p>No Rek: {va_number}</p>
-            <p>Deadline: {deadline}</p>
+          <Disclosure.Panel className="text-sm text-gray-700 my-1">
+            {informations && <JSONTree theme={theme} data={informations} invertTheme={true} />}
           </Disclosure.Panel>
         </>
       )}

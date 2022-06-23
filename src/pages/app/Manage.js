@@ -157,7 +157,7 @@ function Manage() {
             emoji={"emojiMata"}
           />
           <StatistikAngka
-            title="Transaksi Berlangsung"
+            title="Transaksi Hari Ini"
             value="8 Transaksi"
             emoji={"emojiCart"}
           />

@@ -122,7 +122,7 @@ function EditProduct() {
       </Helmet>
       <NavbarAdmin user={user} />
 
-      <div className="layoutContainer">
+      <div className="layoutContainer min-h-screen">
         <button
           onClick={() => navigate("/app/products")}
           className="py-1 px-3 text-sm my-3 bg-white border-[1px] border-gray-300 hover:bg-gray-50 rounded font-medium flex items-center w-fit gap-1"

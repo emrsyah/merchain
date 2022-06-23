@@ -75,7 +75,7 @@ function Orders() {
         accessor: "status",
         Cell: ({ cell: { value } }) => (
           <p
-            className={`${value} rounded text-sm w-fit font-semibold`}
+            className={`${value} rounded text-[13px] p-1 w-fit font-semibold`}
           >
             {value}
           </p>

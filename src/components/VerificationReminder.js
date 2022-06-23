@@ -8,7 +8,7 @@ function VerificationReminder() {
       sendVerification()
       toast.success("Email verifikasi terkirim")
     } catch(err) {
-      console.log(err)
+      console.error(err)
     }
   }
 

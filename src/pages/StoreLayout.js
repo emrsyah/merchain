@@ -53,7 +53,6 @@ function StoreLayout() {
             setStatus("not verified");
             return;
           }
-          console.log(data)
           setStore(data);
           setStoreColor(data.colorTheme)
           setStoreName({name: data.storeName, id: data.id})

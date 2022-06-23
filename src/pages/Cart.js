@@ -84,7 +84,7 @@ function Cart() {
             </div>
           </>
         ) : (
-          <div className="col-span-5 flex flex-col items-center">
+          <div className="col-span-5 flex flex-col items-center text-center">
             <img src={noCart} className="w-[360px]" alt="noCartImg" />
             <h5 className="font-semibold text-2xl">
               Keranjang Kamu Masih Kosong

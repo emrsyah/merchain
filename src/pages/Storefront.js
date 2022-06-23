@@ -25,7 +25,6 @@ function Storefront() {
   const [store, setStore] = useOutletContext();
 
   const getProducts = async (id) => {
-    console.log(id);
     const q = query(
       collection(firestoreDb, "products"),
       where("storeId", "==", id),

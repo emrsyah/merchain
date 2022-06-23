@@ -10,7 +10,7 @@ function NavbarProfile({img}) {
     try {
       signOut(auth);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

@@ -56,7 +56,7 @@ function Sidebar({ store }) {
           </div>
 
           {/* Sidebar Items Container */}
-          <div className="w-full my-5 gap-2 flex flex-col">
+          <div className="w-full my-5 gap-3 flex flex-col">
             {/* Sidebar Item */}
             {sidebarItems.map((item, i) => (
               <SidebarItem

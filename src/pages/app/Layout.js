@@ -54,7 +54,7 @@ function Layout() {
         });
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       navigate('/login')
     } finally{
       setLoading(false)

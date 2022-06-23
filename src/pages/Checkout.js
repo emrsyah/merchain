@@ -15,6 +15,7 @@ import { storeNameAtom } from "../atoms/storeName";
 import { addDoc, collection, deleteDoc, doc, serverTimestamp } from "firebase/firestore";
 import { firestoreDb } from "../firebase";
 import { storeColor } from "../atoms/storeColor";
+import { useState } from "react";
 
 function Checkout() {
   const clientKey = process.env.MIDTRANS_CLIENT_KEY;
@@ -26,6 +27,7 @@ function Checkout() {
   const total = useRecoilValue(cartTotal);
   const user = useRecoilValue(userCustomer);
   const storeState = useRecoilValue(storeNameAtom);
+  const [loading, setLoading] = useState(false)
 
   const {
     register,
@@ -78,6 +80,7 @@ function Checkout() {
   const submitHandler = async (data) => {
     const id = toast.loading("Tolong tunggu...");
     const orderId = uuidv4();
+    setLoading(true)
     try {
       const cartUbah = cart.map((c) => {
         return {
@@ -139,7 +142,6 @@ function Checkout() {
           await deleteDoc(doc(firestoreDb, "orders", docId))
         },
       });
-      console.log("first ku")
     } catch (err) {
       console.error(err);
       toast.update(id, {
@@ -148,6 +150,8 @@ function Checkout() {
         isLoading: false,
         autoClose: 3000,
       });
+    } finally{
+      setLoading(false)
     }
   };
 
@@ -257,12 +261,13 @@ function Checkout() {
                 )}
               </div>
               <div className="flex items-center gap-3 mt-3 text-sm">
-                <div className={`border-[1.5px] ${color + "Nav"} font-medium cursor-pointer py-2 px-6 rounded`}>
+                <button type="button" disabled={loading} className={`border-[1.5px] ${color + "Nav"} font-medium cursor-pointer py-2 px-6 rounded  ${loading && "opacity-75"} `}>
                   Batal
-                </div>
+                </button>
                 <button
                   type="submit"
-                  className={`border-[1.5px] ${color + "-btn"} cursor-pointer  text-white font-medium py-2 px-6 rounded`}
+                  disabled={loading}
+                  className={`border-[1.5px] ${color + "-btn"} cursor-pointer  text-white font-medium py-2 px-6 rounded ${loading && "opacity-75"} `}
                 >
                   Konfirmasi & Pesan
                 </button>

@@ -16,7 +16,7 @@ function CustomerProfile({ user, color }) {
       signOut(auth);
       toast.info('Berhasil Logout')
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

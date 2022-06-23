@@ -51,12 +51,12 @@ function EditCustomer() {
 
     // Handling error dan exception
     if (!docSnap.exists()) {
-      console.log("Customer doesnt exist")
+      console.error("Customer doesnt exist")
       navigate("/app/customers");
       return;
     }
     if (docSnap.data().storeId !== store.id) {
-      console.log("Customer doesnt exist")
+      console.error("Customer doesnt exist")
       navigate("/app/customers");
       return;
     }

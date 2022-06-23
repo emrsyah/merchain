@@ -11,7 +11,7 @@ function SidebarProfile({ img, name }) {
     try {
       signOut(auth);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

@@ -41,7 +41,7 @@ export default function TransactionDisclosure({ informations }) {
             />
           </Disclosure.Button>
           <Disclosure.Panel className="text-sm text-gray-700 my-1">
-            {informations && <JSONTree theme={theme} data={informations} invertTheme={true} />}
+            {informations ? <JSONTree theme={theme} data={informations} invertTheme={true} /> : (<p>Mengambil data...</p>)}
           </Disclosure.Panel>
         </>
       )}

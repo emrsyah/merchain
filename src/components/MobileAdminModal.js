@@ -45,7 +45,7 @@ function MobileAdminModal({store}) {
     try {
       signOut(auth);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

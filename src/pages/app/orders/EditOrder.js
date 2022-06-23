@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
@@ -9,7 +9,6 @@ import {
   useOutletContext,
   useParams,
 } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../atoms/userAtom";
 import NavbarAdmin from "../../../components/NavbarAdmin";
@@ -30,10 +29,8 @@ function EditOrder() {
     formState: { errors },
   } = useForm();
   const [store, setStore] = useOutletContext();
-  const [loading, setLoading] = useState(false);
   const [firstLoading, setFirstLoading] = useState(false);
   const [order, setOrder] = useState(null);
-  const [isChange, setIsChange] = useState(false);
   const [midOrder, setMidOrder] = useState(null);
 
   const getOrderStatus = async (orderId) => {
@@ -41,7 +38,7 @@ function EditOrder() {
     const res = await fetch(url);
     const resJson = await res.json();
     // setOrderStatus(resJson);
-    console.log(resJson);
+    // console.log(resJson);
     setMidOrder(resJson);
     // setStatus("founded");
   };
@@ -71,37 +68,10 @@ function EditOrder() {
       navigate("/app/orders");
       return;
     }
-    console.log(docSnap.data());
     setOrder(docSnap.data());
     getOrderStatus(docSnap.data().orderId);
   };
 
-  const changeHandler = () => {
-    if (isChange === true) return;
-    setIsChange(true);
-  };
-
-  const submitHandler = async (data) => {
-    setLoading(true);
-    try {
-      await updateDoc(doc(firestoreDb, "orders", id), {
-        storeId: store.id,
-        nama: data.nama,
-        email: data.email,
-        nomor: data.telepon,
-        domisili: data.domisili,
-        jumlahOrder: data.jumlah,
-      });
-      toast.success("Data Berhasil Disimpan");
-      // navigate("/app/Orders");
-    } catch (err) {
-      console.error(err);
-      toast.error("Terjadi Kesalahan");
-    } finally {
-      setIsChange(false);
-      setLoading(false);
-    }
-  };
 
   return (
     <>

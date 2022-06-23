@@ -54,7 +54,7 @@ export function SalesChart() {
     datasets: [
       {
         label: "Penjualan",
-        data: [0, 0, 0, 0, 12000, 42000, 8000],
+        data: [30000, 36000, 24000, 42000, 38000, 62000, 36000],
         borderColor: "rgb(147, 51, 234)",
         backgroundColor: "rgba(147, 51, 234, 0.4)",
       },

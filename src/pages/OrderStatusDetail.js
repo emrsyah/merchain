@@ -51,7 +51,7 @@ function OrderStatusDetail() {
     const res = await fetch(url);
     const resJson = await res.json();
     setOrderStatus(resJson);
-    console.log(resJson);
+    // console.log(resJson);
     setStatus("founded");
   };
 
@@ -152,7 +152,7 @@ function OrderStatusDetail() {
                             ("settlement" || "capture")
                               ? "Sudah Dibayar"
                               : orderStatus.transaction_status ===  ("expire" || "failure") ? "Expired" : dayjs(orderStatus.transaction_time)
-                                  .add(1, "day")
+                                  .add(1, orderStatus.payment_type === "bank_transfer" ? "day" : 'hour')
                                   .fromNow()}
                           </p>
                         </div>

@@ -5,7 +5,7 @@ export default async function sendVerification() {
   try {
     await sendEmailVerification(auth.currentUser);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return err
   }
 }

@@ -151,7 +151,7 @@ function OrderStatusDetail() {
                             {orderStatus.transaction_status ===
                             ("settlement" || "capture")
                               ? "Sudah Dibayar"
-                              : dayjs(orderStatus.transaction_time)
+                              : orderStatus.transaction_status ===  ("expire" || "failure") ? "Expired" : dayjs(orderStatus.transaction_time)
                                   .add(1, "day")
                                   .fromNow()}
                           </p>

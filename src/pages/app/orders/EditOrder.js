@@ -138,10 +138,10 @@ function EditOrder() {
                     {rupiahConverter(order.total)}
                   </h6>
                   {order.status !== "settlement" &&
-                    order.status !== "capture" && <h6 className="text-sm text-gray-600 font-medium">Deadline {dayjs(order.createdAt.toDate()).add(1, 'day').format("DD MMM")}</h6>}
+                    order.status !== "capture" && <h6 className="text-sm text-gray-600 font-medium">Expire di {dayjs(order.createdAt.toDate()).add(1, 'day').format("DD MMM HH:mm")}</h6>}
                 </div>
               </div>
-              <div className="flex items-center mt-4 gap-5">
+              <div className="flex items-center mt-4 gap-5 flex-wrap">
                 <div className="border-r-[1px] border-gray-300 pr-3">
                   <h6 className="text-sm text-gray-500">Nama</h6>
                   <p className="text-sm">
@@ -157,9 +157,13 @@ function EditOrder() {
                   <p className="text-sm">{order.customer.phone}</p>
                 </div>
                 <div className="border-r-[1px] border-gray-300 pr-3">
+                  <h6 className="text-sm text-gray-500">Alamat</h6>
+                  <p className="text-sm">{order.customer.alamat}</p>
+                </div>
+                <div className="border-r-[1px] border-gray-300 pr-3">
                   <h6 className="text-sm text-gray-500">Pembayaran</h6>
                   <p className="text-sm">
-                    {midOrder?.payment_type?.split("_").join(" ")}
+                    {!midOrder ? "Tunggu..." : midOrder?.payment_type?.split("_").join(" ")}
                   </p>
                 </div>
               </div>

@@ -4,6 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import SidebarItem from "./SidebarItem";
 // import SidebarProfile from "./SidebarProfile";
 import logo from "../assets/merchainLogo.svg";
+import { useSetRecoilState } from "recoil";
+import { navbarAdmin } from "../atoms/navbarAdmin";
 
 const sidebarItems = [
   {
@@ -35,6 +37,7 @@ const sidebarItems = [
 
 function Sidebar({ store }) {
   const locationNow = useLocation();
+  const setIsOpen = useSetRecoilState(navbarAdmin)
 
   return (
     <>
@@ -73,7 +76,7 @@ function Sidebar({ store }) {
         <Link to="/app/home">
           <img src={logo} alt="" />
         </Link>
-        <Icon icon="charm:menu-hamburger" width="32" className="opacity-80" />
+        <Icon icon="charm:menu-hamburger" width="32" className="opacity-80" onClick={()=>setIsOpen(true)} />
       </nav>
     </>
   );

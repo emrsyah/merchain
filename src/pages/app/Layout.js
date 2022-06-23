@@ -9,6 +9,7 @@ import Sidebar from "../../components/Sidebar";
 import { auth, firestoreDb } from "../../firebase";
 import lottieJson from '../../assets/97110-purple-spinner.json'
 import logo from '../../assets/merchainIcon.svg'
+import MobileAdminModal from "../../components/MobileAdminModal";
 
 function Layout() {
   const navigate = useNavigate();
@@ -80,6 +81,8 @@ function Layout() {
     );
   } else {
     return (
+      <>
+      <MobileAdminModal />      
       <div className="flex flex-col  md:grid md:grid-cols-11 bg-[#F4F4F5]">
         <nav className="md:col-span-2 bg-white">
           <Sidebar store={store} />
@@ -88,6 +91,7 @@ function Layout() {
           <Outlet context={[store, setStore]} />
         </main>
       </div>
+      </>
     );
   }
 }

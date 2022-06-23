@@ -1,4 +1,4 @@
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import React, { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useOutletContext } from "react-router-dom";
@@ -24,7 +24,7 @@ function Orders() {
     // console.log('fetching store')
     // ?? Unsubscribe itu buat clear memory mislanya componentnya udah unmount
     const unsubscribe = onSnapshot(
-      query(collection(firestoreDb, "orders"), where("storeId", "==", id)),
+      query(collection(firestoreDb, "orders"), where("storeId", "==", id), orderBy("createdAt", "desc")),
       (snapshot) => {
         if (snapshot.docs.length) {
           setOrders(mappingToArray(snapshot.docs));
@@ -66,7 +66,7 @@ function Orders() {
         accessor: "createdAt",
         Cell: ({ cell: { value } }) => (
           <p className={``}>
-            {dayjs(value?.toDate()).format('MMM DD')}
+            {dayjs(value?.toDate()).format('MMM DD - HH:mm')}
           </p>
         ),
       },

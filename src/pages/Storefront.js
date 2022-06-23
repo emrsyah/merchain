@@ -7,7 +7,6 @@ import NotFound from "./NotFound";
 import lottieJson from "../assets/97110-purple-spinner.json";
 import logo from "../assets/merchainIcon.svg";
 import { Helmet } from "react-helmet-async";
-import cover from "../assets/coverImg2.jpg";
 import { Icon } from "@iconify/react";
 import dayjs from "dayjs";
 import shopee from "../assets/shopee.svg";

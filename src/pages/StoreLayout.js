@@ -32,7 +32,7 @@ function StoreLayout() {
 
   const getStoreVerifiedStatus = async (id) => {
     const res = await fetch(
-      `https://merchain-api-production.up.railway.app/status/${id}`
+      `https://cors-anywhere.herokuapp.com/https://merchain-api-production.up.railway.app/status/${id}`
     );
     const resJson = await res.json();
     const verifed = resJson.emailVerified;

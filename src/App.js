@@ -16,7 +16,6 @@ import Products from "./pages/app/products/Products";
 import Customers from "./pages/app/customers/Customers";
 import Setting from "./pages/app/Setting";
 import NewProduct from "./pages/app/products/NewProduct";
-import NewOrder from "./pages/app/orders/NewOrder";
 import NewCustomer from "./pages/app/customers/NewCustomer";
 import EditCustomer from "./pages/app/customers/EditCustomer";
 import EditProduct from "./pages/app/products/EditProduct";

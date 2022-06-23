@@ -32,8 +32,10 @@ export default function CheckoutModal() {
       );
       const user = userCred.user;
       let userNow = {
+        uid: user.uid,
         email: user.email,
         nomor: user.phoneNumber ? user.phoneNumber : "",
+        image: user.photoURL ? user.photoURL : null
       };
       setUser(userNow);
       toast.success("Berhasil Login");
@@ -47,8 +49,10 @@ export default function CheckoutModal() {
       );
       const user = userCred.user;
       let userNow = {
+        uid: user.uid,
         email: user.email,
         nomor: user.phoneNumber ? user.phoneNumber : "",
+        image: user.photoURL ? user.photoURL : null
       };
       setUser(userNow);
       toast.success("Berhasil Membuat Akun");
@@ -61,8 +65,10 @@ export default function CheckoutModal() {
     const userCred = await signInWithPopup(auth, googleProvider);
     const user = userCred.user;
     let userNow = {
+      uid: user.uid,
       email: user.email,
       nomor: user.phoneNumber ? user.phoneNumber : "",
+      image: user.photoURL ? user.photoURL : null
     };
     setUser(userNow);
     toast.success("Berhasil Login");

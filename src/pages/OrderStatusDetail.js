@@ -64,6 +64,7 @@ function OrderStatusDetail() {
             uid: user.uid,
             email: user.email,
             nomor: user.phoneNumber ? user.phoneNumber : "",
+            image: user.photoURL ? user.photoURL : null
           };
           getSpecificOrder(orderId, user.uid).then((data) => {
             if (data) {
@@ -169,7 +170,6 @@ function OrderStatusDetail() {
                             id={p.id}
                             key={p.id}
                             deleteHandler={null}
-                            // color={color}
                           />
                         ))}
                       </div>

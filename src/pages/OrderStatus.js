@@ -59,6 +59,7 @@ function OrderStatus() {
             uid: user.uid,
             email: user.email,
             nomor: user.phoneNumber ? user.phoneNumber : "",
+            image: user.photoURL ? user.photoURL : null
           };
         } else {
           navigate("/");

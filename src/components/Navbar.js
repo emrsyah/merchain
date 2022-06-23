@@ -5,10 +5,12 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/merchainLogo.svg";
 import { auth, firestoreDb } from "../firebase";
+import { useSetRecoilState } from "recoil";
+import { navbarUser } from "../atoms/navbarUser";
 
 function Navbar() {
   const [userAvailable, setUserAvailable] = useState(false);
-
+  const setIsOpen = useSetRecoilState(navbarUser);
 
   // TODO Buat si fetch user pake useMemo/useCallback biar gak mubajir si readnya.
   useEffect(() => {
@@ -21,10 +23,9 @@ function Navbar() {
       }
     });
   }, []);
-  
 
   return (
-    <nav className="flex items-center justify-between bg-white z-[999] py-5 px-6 lg:px-16 border-b-[1px] border-b-gray-200">
+    <nav className="flex items-center justify-between bg-white z-[49] py-5 px-6 lg:px-16 border-b-[1px] border-b-gray-200">
       <Link to="/">
         <img src={logo} alt="merchain logo" />
       </Link>
@@ -60,8 +61,18 @@ function Navbar() {
         )}
       </div>
 
-      <div className="md:hidden flex">
-        <Icon icon="charm:menu-hamburger" width="32" className="opacity-80" />
+      <div className="md:hidden flex items-center gap-5">
+        {userAvailable && (
+          <Link
+            to="/app/home"
+            className="py-2 hover:bg-purple-700 text-[15px] cursor-pointer transition-all duration-200 ease-out font-semibold items-center gap-3 text-white tracking-wider px-5 bg-purple-600 rounded-full"
+          >
+            <p>Dashboard</p>
+          </Link>
+        )}
+        <button onClick={() => setIsOpen(true)}>
+          <Icon icon="charm:menu-hamburger" width="32" className="opacity-80" />
+        </button>
       </div>
     </nav>
   );

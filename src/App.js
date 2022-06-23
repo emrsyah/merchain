@@ -29,6 +29,7 @@ import CheckoutModal from "./components/CheckoutModal";
 import OrderStatus from "./pages/OrderStatus";
 import OrderStatusDetail from "./pages/OrderStatusDetail";
 import EditOrder from "./pages/app/orders/EditOrder";
+import MobileModal from "./components/MobileModal";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <ToastContainer />
         <BrowserRouter>
         <CheckoutModal />
+        <MobileModal />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="faq" element={<Faq />} />

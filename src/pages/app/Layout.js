@@ -82,7 +82,7 @@ function Layout() {
   } else {
     return (
       <>
-      <MobileAdminModal />      
+      <MobileAdminModal store={store} />      
       <div className="flex flex-col  md:grid md:grid-cols-11 bg-[#F4F4F5]">
         <nav className="md:col-span-2 bg-white">
           <Sidebar store={store} />

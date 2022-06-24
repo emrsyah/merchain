@@ -12,7 +12,18 @@ import rupiahConverter from "../helpers/rupiahConverter";
 import { toast } from "react-toastify";
 import { userCustomer } from "../atoms/userCustomer";
 import { storeNameAtom } from "../atoms/storeName";
-import { addDoc, collection, deleteDoc, doc, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  increment,
+  query,
+  serverTimestamp,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { firestoreDb } from "../firebase";
 import { storeColor } from "../atoms/storeColor";
 import { useState } from "react";
@@ -27,7 +38,7 @@ function Checkout() {
   const total = useRecoilValue(cartTotal);
   const user = useRecoilValue(userCustomer);
   const storeState = useRecoilValue(storeNameAtom);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -72,15 +83,27 @@ function Checkout() {
       products: cart,
       status: "",
       customer: customerData,
-      createdAt: serverTimestamp()
+      createdAt: serverTimestamp(),
     });
-    return docRef.id
+    return docRef.id;
+  };
+
+  const addCustomerFirebase = async (email, jumlah) => {
+    const customerRef = collection(firestoreDb, "customers");
+    const q = query(customerRef, where("storeId", "==", storeState.id), where("email", "==", email ));
+    const snapshot = await getDocs(q)
+    if(snapshot.docs[0]){
+      const uptCustomerRef = doc(firestoreDb, "customers", snapshot.docs[0].id)
+      await updateDoc(uptCustomerRef, {
+        jumlahOrder: increment(jumlah)
+      })
+    }
   };
 
   const submitHandler = async (data) => {
     const id = toast.loading("Tolong tunggu...");
     const orderId = uuidv4();
-    setLoading(true)
+    setLoading(true);
     try {
       const cartUbah = cart.map((c) => {
         return {
@@ -116,36 +139,39 @@ function Checkout() {
         isLoading: false,
         autoClose: 3000,
       });
-      const docId = addOrderFirebase(orderId, {...customerData, alamat: data.alamat})
+      const docId = addOrderFirebase(orderId, {
+        ...customerData,
+        alamat: data.alamat,
+      });
       window.snap.pay(resJson.token, {
         onSuccess: function (result) {
           /* You may add your own implementation here */
-          setCart([])
+          setCart([]);
           alert("payment success!");
           console.log("payment success!");
-          navigate(`/order-status/order-id-${orderId}`)
+          navigate(`/order-status/order-id-${orderId}`);
           // console.log(result);
         },
         onPending: function (result) {
           /* You may add your own implementation here */
-          setCart([])
+          setCart([]);
           alert("wating your payment!");
           console.log("wating your payment!");
-          navigate(`/order-status/order-id-${orderId}`)
+          navigate(`/order-status/order-id-${orderId}`);
           // console.log(result);
         },
         onError: function (result) {
           /* You may add your own implementation here */
-          setCart([])
+          setCart([]);
           console.log("payment failed!");
           alert("payment failed!");
-          navigate(`/order-status/order-id-${orderId}`)
+          navigate(`/order-status/order-id-${orderId}`);
           // console.log(result);
         },
         onClose: async function () {
           /* You may add your own implementation here */
           alert("you closed the popup without finishing the payment");
-          await deleteDoc(doc(firestoreDb, "orders", docId))
+          await deleteDoc(doc(firestoreDb, "orders", docId));
         },
       });
     } catch (err) {
@@ -156,11 +182,10 @@ function Checkout() {
         isLoading: false,
         autoClose: 3000,
       });
-    } finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
-
 
   return (
     <>
@@ -169,7 +194,9 @@ function Checkout() {
       </Helmet>
       <div className="containerStore">
         <div
-          className={`flex items-center gap-1 ${color + "-txt"} font-medium cursor-pointer w-fit`}
+          className={`flex items-center gap-1 ${
+            color + "-txt"
+          } font-medium cursor-pointer w-fit`}
           onClick={() => navigate(-1)}
         >
           <Icon icon="ci:chevron-left" width={20} />
@@ -267,13 +294,25 @@ function Checkout() {
                 )}
               </div>
               <div className="flex items-center gap-3 mt-3 text-sm">
-                <button type="button" disabled={loading} className={`border-[1.5px] ${color + "Nav"} font-medium cursor-pointer py-2 px-6 rounded  ${loading && "opacity-75"} `}>
+                <button
+                  type="button"
+                  disabled={loading}
+                  className={`border-[1.5px] ${
+                    color + "Nav"
+                  } font-medium cursor-pointer py-2 px-6 rounded  ${
+                    loading && "opacity-75"
+                  } `}
+                >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className={`border-[1.5px] ${color + "-btn"} cursor-pointer  text-white font-medium py-2 px-6 rounded ${loading && "opacity-75"} `}
+                  className={`border-[1.5px] ${
+                    color + "-btn"
+                  } cursor-pointer  text-white font-medium py-2 px-6 rounded ${
+                    loading && "opacity-75"
+                  } `}
                 >
                   Konfirmasi & Pesan
                 </button>
@@ -306,7 +345,11 @@ function Checkout() {
                 </div>
               ))}
             </div>
-            <div className={`flex items-center justify-between font-medium border-[1px] ${color + "Nav"} ${color + "Low"} b p-2 rounded`}>
+            <div
+              className={`flex items-center justify-between font-medium border-[1px] ${
+                color + "Nav"
+              } ${color + "Low"} b p-2 rounded`}
+            >
               <h6>Total</h6>
               <h6>{rupiahConverter(total)}</h6>
             </div>

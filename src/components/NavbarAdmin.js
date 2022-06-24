@@ -1,4 +1,3 @@
-import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
 import NavbarProfile from "./NavbarProfile";
 import Notification from "./Notification";

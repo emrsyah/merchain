@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
-import useScript from "../hooks/useScript";
 import { v4 as uuidv4 } from "uuid";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartCount, cartState, cartTotal } from "../atoms/cartAtom";
@@ -160,7 +159,7 @@ function Checkout() {
           setCart([]);
           alert("payment success!");
           console.log("payment success!");
-          navigate(`/order-status/order-id-${orderId}`);
+          navigate(`/order-status/order-id-${orderId}`, { replace: true });
           // console.log(result);
         },
         onPending: function (result) {
@@ -168,7 +167,7 @@ function Checkout() {
           setCart([]);
           alert("wating your payment!");
           console.log("wating your payment!");
-          navigate(`/order-status/order-id-${orderId}`);
+          navigate(`/order-status/order-id-${orderId}`, { replace: true });
           // console.log(result);
         },
         onError: function (result) {
@@ -176,7 +175,7 @@ function Checkout() {
           setCart([]);
           console.log("payment failed!");
           alert("payment failed!");
-          navigate(`/order-status/order-id-${orderId}`);
+          navigate(`/order-status/order-id-${orderId}`, { replace: true });
           // console.log(result);
         },
         onClose: async function () {

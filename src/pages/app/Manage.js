@@ -60,9 +60,9 @@ function Manage() {
     const q = query(
       collection(firestoreDb, "products"),
       where("storeId", "==", store.id)
-    );
-    const docSnap = await getDocs(q);
-    setProductsLength(docSnap.docs.length);
+      );
+      const docSnap = await getDocs(q);
+      setProductsLength(docSnap.docs.length ? docSnap.docs.length : "Belum ada ");
   };
 
   return (

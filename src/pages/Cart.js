@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { cartCount, cartState, cartTotal } from "../atoms/cartAtom";
 import { storeColor } from "../atoms/storeColor";
 import CartItem from "../components/CartItem";
@@ -15,7 +15,7 @@ import { Icon } from "@iconify/react";
 
 function Cart() {
   const [cart, setCart] = useRecoilState(cartState);
-  const [isOpen, setIsOpen] = useRecoilState(checkoutModal);
+  const setIsOpen = useSetRecoilState(checkoutModal);
   const color = useRecoilValue(storeColor);
   const total = useRecoilValue(cartTotal);
   const count = useRecoilValue(cartCount);
@@ -42,15 +42,17 @@ function Cart() {
       </Helmet>
       <NavbarStore />
       <div className="max-w-5xl px-4 mx-auto  my-8 poppins">
-        <button
-          className={`flex items-center font-medium cursor-pointer mb-4  ${
-            color + "Nav"
-          } `}
-          onClick={() => navigate(-1)}
-        >
-          <Icon icon="charm:chevron-left" width={20} />
-          Kembali Ke Toko
-        </button>
+        {cart.length > 0 && (
+          <button
+            className={`flex items-center font-medium cursor-pointer mb-4  ${
+              color + "Nav"
+            } `}
+            onClick={() => navigate(-1)}
+          >
+            <Icon icon="charm:chevron-left" width={20} />
+            Kembali Ke Toko
+          </button>
+        )}
         {cart.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-5 gap-2 md:gap-6 my-2">
             <div className="col-span-3">

@@ -6,6 +6,7 @@ import SidebarItem from "./SidebarItem";
 import logo from "../assets/merchainLogo.svg";
 import { useSetRecoilState } from "recoil";
 import { navbarAdmin } from "../atoms/navbarAdmin";
+import Notification from "./Notification";
 
 const sidebarItems = [
   {
@@ -37,7 +38,7 @@ const sidebarItems = [
 
 function Sidebar({ store }) {
   const locationNow = useLocation();
-  const setIsOpen = useSetRecoilState(navbarAdmin)
+  const setIsOpen = useSetRecoilState(navbarAdmin);
 
   return (
     <>
@@ -49,7 +50,11 @@ function Sidebar({ store }) {
           {/* <SidebarProfile img={store.profileImg} name={store.storeName} /> */}
 
           <div className="flex items-center gap-2 w-full rounded">
-            <img src={store.profileImg} className="w-12 h-12 rounded-full p-[2px] border-2 border-purple-600 object-cover" alt="" />
+            <img
+              src={store.profileImg}
+              className="w-12 h-12 rounded-full p-[2px] border-2 border-purple-600 object-cover"
+              alt=""
+            />
             <p className="font-medium text-left lg:text-[15px]">
               {store.storeName}
             </p>
@@ -76,7 +81,15 @@ function Sidebar({ store }) {
         <Link to="/app/home">
           <img src={logo} alt="" />
         </Link>
-        <Icon icon="charm:menu-hamburger" width="32" className="opacity-80" onClick={()=>setIsOpen(true)} />
+        <div className="flex items-center gap-8">
+          {/* <Notification /> */}
+          <Icon
+            icon="charm:menu-hamburger"
+            width="32"
+            className="opacity-80"
+            onClick={() => setIsOpen(true)}
+          />
+        </div>
       </nav>
     </>
   );

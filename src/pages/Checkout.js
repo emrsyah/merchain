@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import useScript from "../hooks/useScript";
 import { v4 as uuidv4 } from "uuid";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { cartState, cartTotal } from "../atoms/cartAtom";
+import { cartCount, cartState, cartTotal } from "../atoms/cartAtom";
 import rupiahConverter from "../helpers/rupiahConverter";
 import { toast } from "react-toastify";
 import { userCustomer } from "../atoms/userCustomer";
@@ -36,6 +36,7 @@ function Checkout() {
   // useScript("https://app.sandbox.midtrans.com/snap/snap.js", clientKey);
   const [cart, setCart] = useRecoilState(cartState);
   const total = useRecoilValue(cartTotal);
+  const count = useRecoilValue(cartCount);
   const user = useRecoilValue(userCustomer);
   const storeState = useRecoilValue(storeNameAtom);
   const [loading, setLoading] = useState(false);
@@ -88,16 +89,25 @@ function Checkout() {
     return docRef.id;
   };
 
-  const addCustomerFirebase = async (email, jumlah) => {
+  const addCustomerFirebase = async (jumlah, customer) => {
     const customerRef = collection(firestoreDb, "customers");
-    const q = query(customerRef, where("storeId", "==", storeState.id), where("email", "==", email ));
+    const q = query(customerRef, where("storeId", "==", storeState.id), where("email", "==", customer.email ));
     const snapshot = await getDocs(q)
     if(snapshot.docs[0]){
       const uptCustomerRef = doc(firestoreDb, "customers", snapshot.docs[0].id)
       await updateDoc(uptCustomerRef, {
-        jumlahOrder: increment(jumlah)
+        jumlahOrder: increment(parseInt(jumlah))
       })
+      return
     }
+    await addDoc(collection(firestoreDb, 'customers'),{
+      storeId: storeState.id,
+      nama: `${customer.firstname} ${customer.lastname}`,
+      email: customer.email,
+      nomor: customer.phone,
+      domisili: customer.alamat,
+      jumlahOrder: parseInt(jumlah),
+    })
   };
 
   const submitHandler = async (data) => {
@@ -143,6 +153,7 @@ function Checkout() {
         ...customerData,
         alamat: data.alamat,
       });
+      addCustomerFirebase(count ,{...customerData, alamat: data.alamat})
       window.snap.pay(resJson.token, {
         onSuccess: function (result) {
           /* You may add your own implementation here */

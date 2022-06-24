@@ -122,19 +122,22 @@ function Checkout() {
           /* You may add your own implementation here */
           alert("payment success!");
           console.log("payment success!");
-          console.log(result);
+          navigate(`/order-status/${orderId}`)
+          // console.log(result);
         },
         onPending: function (result) {
           /* You may add your own implementation here */
           alert("wating your payment!");
           console.log("wating your payment!");
-          console.log(result);
+          // console.log(result);
+          navigate(`/order-status/${orderId}`)
         },
         onError: function (result) {
           /* You may add your own implementation here */
           alert("payment failed!");
           console.log("payment failed!");
-          console.log(result);
+          // console.log(result);
+          navigate(`/order-status/${orderId}`)
         },
         onClose: async function () {
           /* You may add your own implementation here */

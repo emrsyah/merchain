@@ -242,7 +242,7 @@ function Storefront() {
                 ))}
               </>
             ) : (
-              <div className="flex flex-col items-center text-center gap-2 col-span-3 justify-center">
+              <div className="flex flex-col items-center text-center gap-2 col-span-3 2xl:col-span-4 justify-center">
                 <img src={sadFace} alt="no data img" className="w-24" />
                 <div>
                   <h6 className="font-medium">Belum Ada Produk</h6>

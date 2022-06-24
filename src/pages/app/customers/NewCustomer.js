@@ -30,7 +30,7 @@ function NewCustomer() {
         email: data.email,
         nomor: data.telepon,
         domisili: data.domisili,
-        jumlahOrder: data.jumlah,
+        jumlahOrder: parseInt(data.jumlah),
         createdAt: serverTimestamp(),
       });
       toast.success("Data Berhasil Ditambahkan");

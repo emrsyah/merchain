@@ -77,7 +77,7 @@ function EditCustomer() {
         email: data.email,
         nomor: data.telepon,
         domisili: data.domisili,
-        jumlahOrder: data.jumlah,
+        jumlahOrder: parseInt(data.jumlah),
       });
       toast.success("Data Berhasil Disimpan");
       // navigate("/app/customers");

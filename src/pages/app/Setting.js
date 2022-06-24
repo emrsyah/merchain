@@ -238,7 +238,7 @@ function Setting() {
                   Nama Toko
                 </label>
                 <div className="addInput mb-0 p-0 pl-3 items-center">
-                  <p>merchain.com/</p>
+                  <p>merchains.vercel.app/</p>
                   <input
                     type="text"
                     id="nama"

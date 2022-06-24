@@ -93,13 +93,13 @@ function Manage() {
                   {store.storeName} Store
                 </h5>
                 <CopyToClipboard
-                  text={`https://merchain.com/${store.storeName}`}
+                  text={`https://merchains.vercel.app/${store.storeName}`}
                   className="cursor-pointer"
                   onCopy={() => toast.success("Copied!")}
                 >
                   <span>
                     <p className="opacity-75 flex gap-2 items-center">
-                      merchain.com/{store.storeName}
+                      merchains.vercel.app/{store.storeName}
                       <Icon
                         icon="fluent:copy-24-regular"
                         width="20"
@@ -163,7 +163,9 @@ function Manage() {
           />
           <StatistikAngka
             title="Total Produk"
-            value={`${productsLength ? (productsLength + " Produk") : "Mengambil data..."}`}
+            value={`${
+              productsLength ? productsLength + " Produk" : "Mengambil data..."
+            }`}
             emoji={"emojiProduk"}
           />
         </div>

@@ -106,7 +106,7 @@ function Signup() {
         <form className="flex flex-col mt-6 gap-3" onSubmit={signupHandler}>
           {/* Input nama toko */}
           <div className="inputStyle">
-            <p>merchain.com/</p>
+            <p>merchains.vercel.app/</p>
             <input
               type="text"
               disabled={loading}

@@ -25,7 +25,7 @@ function Home() {
             Tingkatkan penjualan, analisa peforma, dan lainnya dengan mudah.
           </p>
           <div className="flex items-center border-2 border-purple-600 rounded-full pr-3 pl-5 py-2 mt-7 md:mt-14">
-            <p className="lg:text-xl font-medium">merchain.com/</p>
+            <p className="lg:text-xl font-medium">merchains.vercel.app/</p>
             <form className="flex" action="/signup">
               <input
                 type="text"

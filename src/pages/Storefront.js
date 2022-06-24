@@ -96,7 +96,7 @@ function Storefront() {
               />
               <div className="col-span-2 ml-auto translate-y-1 md:translate-y-0">
                 <CopyToClipboard
-                  text={`https://merchain.com/${store.storeName}`}
+                  text={`https://merchains.vercel.app/${store.storeName}`}
                   className="cursor-pointer"
                   onCopy={() => toast.success("Copied!")}
                 >
@@ -123,7 +123,7 @@ function Storefront() {
             <div className="flex sm:flex-row items-start sm:items-center flex-col gap-1 sm:gap-5 text-sm text-gray-500">
               <div className="flex items-center gap-1">
                 <Icon icon="akar-icons:link-chain" width={18} />
-                <p>merchain.com/{store.storeName}</p>
+                <p>merchains.vercel.app/{store.storeName}</p>
               </div>
               <div className="flex items-center gap-1">
                 <Icon icon="ic:outline-access-time" width={18} />

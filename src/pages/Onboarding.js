@@ -99,7 +99,7 @@ function Onboarding() {
         <div>
           <p className="mb-1 font-semibold">Nama</p>
           <div className="inputStyle">
-            <p>merchain.com/</p>
+            <p>merchains.vercel.app/</p>
             <input
               type="text"
               required

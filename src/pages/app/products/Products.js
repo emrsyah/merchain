@@ -77,7 +77,7 @@ function Products() {
         accessor: "desc",
         Cell: ({ cell: { value } }) => (
           <p
-            className={`lg:max-w-[300px] truncate md:max-w-[180px] max-w-[120px]`}
+            className={`lg:max-w-[300px] truncate md:max-w-[160px] max-w-[90px]`}
           >
             {value}
           </p>

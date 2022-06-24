@@ -72,7 +72,7 @@ function Sidebar({ store }) {
       </nav>
 
       {/* Navbar For Mobile */}
-      <nav className="flex md:hidden bg-white p-5 border-b-[1px] border-gray-300 items-center justify-between shadow fixed top-0 w-screen overflow-hidden">
+      <nav className="flex md:hidden z-50 bg-white p-5 border-b-[1px] border-gray-300 items-center justify-between shadow fixed top-0 w-screen overflow-hidden">
         <Link to="/app/home">
           <img src={logo} alt="" />
         </Link>

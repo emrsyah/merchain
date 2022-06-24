@@ -70,9 +70,9 @@ function Checkout() {
       navigate("/");
     }
     if (!cart) {
-      navigate("/checkout");
+      navigate("/");
     }
-  }, []);
+  }, [cart]);
 
   const addOrderFirebase = async (orderId, customerData) => {
     const docRef = await addDoc(collection(firestoreDb, "orders"), {

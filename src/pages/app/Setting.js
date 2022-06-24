@@ -153,7 +153,7 @@ function Setting() {
               onChange={changeHandler}
             >
               {/* Cover Input */}
-              <div className="relative">
+              <div className="relative z-0">
                 {!changedCover ? (
                   <>
                     {store?.coverImg ? (

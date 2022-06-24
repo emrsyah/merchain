@@ -1,4 +1,10 @@
-import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import React, { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useOutletContext } from "react-router-dom";
@@ -13,7 +19,6 @@ import mappingToArray from "../../../helpers/mappingToArray";
 import dayjs from "dayjs";
 import rupiahConverter from "../../../helpers/rupiahConverter";
 
-
 function Orders() {
   const user = useRecoilValue(userState);
   const [filterInput, setFilterInput] = useState("");
@@ -24,7 +29,11 @@ function Orders() {
     // console.log('fetching store')
     // ?? Unsubscribe itu buat clear memory mislanya componentnya udah unmount
     const unsubscribe = onSnapshot(
-      query(collection(firestoreDb, "orders"), where("storeId", "==", id), orderBy("createdAt", "desc")),
+      query(
+        collection(firestoreDb, "orders"),
+        where("storeId", "==", id),
+        orderBy("createdAt", "desc")
+      ),
       (snapshot) => {
         if (snapshot.docs.length) {
           setOrders(mappingToArray(snapshot.docs));
@@ -52,9 +61,14 @@ function Orders() {
         Header: "Id Pesanan",
         accessor: "orderId",
         Cell: ({ cell: { value } }) => (
-          <p className={`text-sm font-medium truncate text-gray-600`}>
-            {value.substring(0, 15)}...
-          </p>
+          <>
+            <p className={`text-sm sm:hidden font-medium truncate text-gray-600`}>
+              {value.substring(9, 14)}...
+            </p>
+            <p className={`text-sm hidden sm:inline font-medium truncate text-gray-600`}>
+              {value.substring(9, 20)}...
+            </p>
+          </>
         ),
       },
       {
@@ -66,7 +80,10 @@ function Orders() {
         accessor: "createdAt",
         Cell: ({ cell: { value } }) => (
           <p className={``}>
-            {dayjs(value?.toDate()).format('MMM DD - HH:mm')}
+            <span className="sm:inline hidden">
+              {dayjs(value?.toDate()).format("HH:mm - ")}
+            </span>
+            {dayjs(value?.toDate()).format("MMM DD")}
           </p>
         ),
       },
@@ -74,9 +91,7 @@ function Orders() {
         Header: "Status",
         accessor: "status",
         Cell: ({ cell: { value } }) => (
-          <p
-            className={`${value} rounded text-[13px] p-1 w-fit font-semibold`}
-          >
+          <p className={`${value} rounded text-[13px] p-1 w-fit font-semibold`}>
             {value}
           </p>
         ),
@@ -85,9 +100,7 @@ function Orders() {
         Header: "Total",
         accessor: "total",
         Cell: ({ cell: { value } }) => (
-          <p className={``}>
-            {rupiahConverter(value)}
-          </p>
+          <p className={``}>{rupiahConverter(value)}</p>
         ),
       },
     ],
@@ -127,10 +140,10 @@ function Orders() {
           </div>
 
           {/* Kalo Loading */}
-          {(orders === false) && <div>Loading...</div>}
+          {orders === false && <div>Loading...</div>}
 
           {/* Table */}
-          {(!orders === false) && (
+          {!orders === false && (
             <>
               {dataMemo?.length > 0 ? (
                 <Table

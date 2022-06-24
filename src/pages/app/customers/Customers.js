@@ -62,10 +62,20 @@ function Customers() {
       {
         Header: "Email",
         accessor: "email",
+        Cell: ({cell: {value}}) => (
+          <p className="truncate max-w-[80px] md:max-w-none">
+            {value}
+          </p>
+        )
       },
       {
         Header: "No. Telp",
         accessor: "nomor",
+        Cell: ({cell: {value}}) => (
+          <p className="truncate max-w-[80px] md:max-w-none">
+            {value}
+          </p>
+        )
       },
       {
         Header: "Order",

@@ -11,13 +11,14 @@ import noCart from "../assets/noCart.svg";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { checkoutModal } from "../atoms/checkoutModalAtom";
+import { Icon } from "@iconify/react";
 
 function Cart() {
   const [cart, setCart] = useRecoilState(cartState);
   const [isOpen, setIsOpen] = useRecoilState(checkoutModal);
   const color = useRecoilValue(storeColor);
   const total = useRecoilValue(cartTotal);
-  const count = useRecoilValue(cartCount)
+  const count = useRecoilValue(cartCount);
   const navigate = useNavigate();
 
   const deleteHandler = (id) => {
@@ -25,14 +26,14 @@ function Cart() {
     setCart(newCart);
   };
 
-  const checkoutHandler = () =>{
+  const checkoutHandler = () => {
     const user = auth.currentUser;
-    if(!user){
-      setIsOpen(true)
-      return
+    if (!user) {
+      setIsOpen(true);
+      return;
     }
-    navigate("/checkout")
-  }
+    navigate("/checkout");
+  };
 
   return (
     <>
@@ -40,10 +41,18 @@ function Cart() {
         <title>Keranjang Belanja - Merchain</title>
       </Helmet>
       <NavbarStore />
-      <button></button>
-      <div className="max-w-5xl px-4 mx-auto grid grid-cols-1 md:grid-cols-5 my-6 gap-2 md:gap-6 poppins">
+      <div className="max-w-5xl px-4 mx-auto  my-8 poppins">
+        <button
+          className={`flex items-center font-medium cursor-pointer mb-4  ${
+            color + "Nav"
+          } `}
+          onClick={() => navigate(-1)}
+        >
+          <Icon icon="charm:chevron-left" width={20} />
+          Kembali Ke Toko
+        </button>
         {cart.length > 0 ? (
-          <>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-2 md:gap-6 my-2">
             <div className="col-span-3">
               <h5 className="text-xl font-semibold">Belanjaan</h5>
               <div className="border-[1.2px] border-gray-200 mt-[10px] px-3 py-4 rounded-md flex flex-col gap-4">
@@ -72,17 +81,22 @@ function Cart() {
                   </p>
                 </div>
                 <div className="flex justify-between items-center">
-                  <p className="text-gray-600 font-medium">Jumlah Item Dibeli</p>
-                  <p className={`font-semibold ${color + "-txt"} `}>
-                    {count}
+                  <p className="text-gray-600 font-medium">
+                    Jumlah Item Dibeli
                   </p>
+                  <p className={`font-semibold ${color + "-txt"} `}>{count}</p>
                 </div>
-                  <button className={`font-semibold mt-3 rounded text-white p-3 ${color + "-btn"} `}
+                <button
+                  className={`font-semibold mt-3 rounded text-white p-3 ${
+                    color + "-btn"
+                  } `}
                   onClick={checkoutHandler}
-                  >Checkout</button>
+                >
+                  Checkout
+                </button>
               </div>
             </div>
-          </>
+          </div>
         ) : (
           <div className="col-span-5 flex flex-col items-center text-center">
             <img src={noCart} className="w-[360px]" alt="noCartImg" />

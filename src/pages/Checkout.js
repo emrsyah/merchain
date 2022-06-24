@@ -120,21 +120,21 @@ function Checkout() {
       window.snap.pay(resJson.token, {
         onSuccess: function (result) {
           /* You may add your own implementation here */
-          navigate(`/order-status/${orderId}`)
+          navigate(`/order-status/order-id-${orderId}`)
           alert("payment success!");
           console.log("payment success!");
           // console.log(result);
         },
         onPending: function (result) {
           /* You may add your own implementation here */
-          navigate(`/order-status/${orderId}`)
+          navigate(`/order-status/order-id-${orderId}`)
           alert("wating your payment!");
           console.log("wating your payment!");
           // console.log(result);
         },
         onError: function (result) {
           /* You may add your own implementation here */
-          navigate(`/order-status/${orderId}`)
+          navigate(`/order-status/order-id-${orderId}`)
           alert("payment failed!");
           console.log("payment failed!");
           // console.log(result);

@@ -6,6 +6,13 @@ Untuk membuat online store di merchain user bisa dengan mudah melakukan dan meng
 
 Merchain mengambil hal-hal rumit yang perlu dilakukan dalam membuat online store tetapi tetap memberikan berbagai kebebasan pada penggunannya lewat berbagai pengaturan untuk mengubah hal-hal mengenai toko mereka mulai dari mengubah nama, membahkan bio, mengaitkan dengan link external, dan juga mengubah tema warna toko sesuka mereka.
 
+Berikut beberapa fitur penjual
+- Dashboard (Grafik penjualan, statisik website)
+- Atur Pesanan (Tambah, Hapus)
+- Atur Produk (Tambah, Hapus, Edit)
+- Atur Kustomer (Tambah, Hapus, Edit)
+- Kustomisasi Toko (Nama, Link, Tema Toko, Foto, Cover)
+
 ## Pembeli - Storefront Toko ##
 Untuk mengunjungi toko yang telah dibuat caranya tinggal pergi ke merchains.vercel.app/{namatoko}, disana akan ada berbagai produk yang sudah ditambahkan penjual lewat dashboard admin. Dengan adanya sistem cart memudahkan pembeli untuk menambahkan hal yang mereka beli. Merchain juga sudah terhubung dengan third party services untuk pembayarannya yaitu dengan Midtrans.
 

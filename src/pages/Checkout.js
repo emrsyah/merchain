@@ -157,7 +157,7 @@ function Checkout() {
         onSuccess: function (result) {
           /* You may add your own implementation here */
           setCart([]);
-          alert("payment success!");
+          // alert("payment success!");
           console.log("payment success!");
           navigate(`/order-status/order-id-${orderId}`, { replace: true });
           // console.log(result);
@@ -165,7 +165,7 @@ function Checkout() {
         onPending: function (result) {
           /* You may add your own implementation here */
           setCart([]);
-          alert("wating your payment!");
+          // alert("wating your payment!");
           console.log("wating your payment!");
           navigate(`/order-status/order-id-${orderId}`, { replace: true });
           // console.log(result);

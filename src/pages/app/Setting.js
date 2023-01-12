@@ -52,6 +52,7 @@ function Setting() {
     }
     return false;
   };
+  
   const changeCoverHandler = (e) => {
     // console.log(changedImg)
     if (e.target.files && e.target.files.length > 0) {

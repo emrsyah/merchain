@@ -16,8 +16,8 @@ function StoreLayout() {
   const [status, setStatus] = useState("loading");
   const { storeName, productId } = useParams();
   const [store, setStore] = useState(null);
-  const setStoreColor = useSetRecoilState(storeColor)
-  const setStoreName = useSetRecoilState(storeNameAtom)
+  const setStoreColor = useSetRecoilState(storeColor);
+  const setStoreName = useSetRecoilState(storeNameAtom);
 
   const getStore = async (name) => {
     const q = query(
@@ -47,17 +47,18 @@ function StoreLayout() {
           setStatus("not found");
           return;
         }
-        const isVerified = getStoreVerifiedStatus(data.userId);
-        isVerified.then((verified) => {
-          if (!verified) {
-            setStatus("not verified");
-            return;
-          }
-          setStore(data);
-          setStoreColor(data.colorTheme)
-          setStoreName({name: data.storeName, id: data.id})
-          setStatus("finished");
-        });
+        // const isVerified = getStoreVerifiedStatus(data.userId);
+        const isVerified = true;
+        // isVerified.then((verified) => {
+        if (!isVerified) {
+          setStatus("not verified");
+          return;
+        }
+        setStore(data);
+        setStoreColor(data.colorTheme);
+        setStoreName({ name: data.storeName, id: data.id });
+        setStatus("finished");
+        // });
         // getProducts(data.id);
       });
     } catch (err) {

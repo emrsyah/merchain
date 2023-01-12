@@ -37,6 +37,8 @@ function Orders() {
       (snapshot) => {
         if (snapshot.docs.length) {
           setOrders(mappingToArray(snapshot.docs));
+          const arrr = (mappingToArray(snapshot.docs))
+          console.log(arrr[3])
         } else {
           setOrders([]);
         }
